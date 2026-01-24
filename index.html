@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Sekai 練習屋</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  #displayLevel {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(135deg, #FF6B9D, #FFB3D9);
+  }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans TC", sans-serif;
+    background: #fff;
+    color: #333;
+    overflow-x: hidden;
+  }
+
+  /* ===== 頂部導航 ===== */
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 900;
+    color: #00D9E5;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .login-btn {
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #FF6B9D, #FFB3D9);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+  }
+
+  .login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #FF6B9D;
+  }
+
+  .user-name {
+    font-weight: 700;
+    color: #FF6B9D;
+    font-size: 14px;
+  }
+
+  /* ===== 漢堡選單按鈕 ===== */
+  .menu-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #FF6B9D;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.2);
+  }
+
+  .menu-btn:hover {
+    background: linear-gradient(135deg, #FF6B9D, #FFB3D9);
+    transform: scale(1.05);
+  }
+
+  .menu-btn span {
+    width: 22px;
+    height: 3px;
+    background: #FF6B9D;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .menu-btn:hover span {
+    background: white;
+  }
+
+  .menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+
+  .menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  /* ===== 側邊欄 ===== */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow-y: auto;
+  }
+
+  .sidebar.active {
+    right: 0;
+  }
+
+  .sidebar-header {
+    padding: 30px;
+    background: linear-gradient(135deg, #FF6B9D, #FFB3D9);
+    color: white;
+  }
+
+  .sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ✨ 旋轉光環效果 */
+.sidebar-user::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #FF6B9D 0deg,
+    #FFB3D9 120deg,
+    #B3E5FF 240deg,
+    #FF6B9D 360deg
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: rotate 3s linear infinite;
+  z-index: 0;
+}
+
+.sidebar-user:hover::before {
+  opacity: 0.6;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.sidebar-user-info h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  font-weight: 900;
+}
+
+.sidebar-rank {
+  font-size: 13px;
+  opacity: 0.95;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 12px;
+  display: inline-block;
+  backdrop-filter: blur(10px);
+}
+.sidebar-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+}
+
+.sidebar-avatar:hover {
+  transform: scale(1.05);
+}
+
+  .sidebar-stats {
+  display: flex;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 20px 25px; /* 增加左右間距 */
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  gap: 30px; /* 增加兩個統計之間的間距 */
+}
+
+.sidebar-stat {
+  text-align: center;
+  flex: 1;
+  position: relative;
+}
+
+.sidebar-stat:first-child::after {
+  content: '';
+  position: absolute;
+  right: -15px; /* 分隔線位置 */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.sidebar-stat-number {
+  font-size: 32px; /* 數字更大 */
+  font-weight: 900;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #FFF 0%, #FFE5F0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sidebar-stat-label {
+  font-size: 12px;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+  .sidebar-menu {
+    padding: 20px 0;
+  }
+
+  .sidebar-menu-item {
+  padding: 18px 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 4px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-menu-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 107, 157, 0.15), transparent);
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+.sidebar-menu-item:hover::before {
+  width: 100%;
+}
+
+.sidebar-menu-item:hover {
+  background: transparent;
+  border-left-color: #FF6B9D;
+  transform: translateX(5px);
+}
+
+.sidebar-menu-item.active {
+  background: linear-gradient(90deg, rgba(255, 107, 157, 0.2), transparent);
+  border-left-color: #FF6B9D;
+  font-weight: 700;
+}
+
+.sidebar-menu-icon {
+  font-size: 22px;
+  width: 30px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-menu-item:hover .sidebar-menu-icon {
+  transform: scale(1.2);
+}
+
+.sidebar-menu-text {
+  font-size: 16px;
+  color: #333;
+  position: relative;
+  z-index: 1;
+  font-weight: 600;
+}
+  .sidebar-login {
+    padding: 30px;
+    text-align: center;
+  }
+
+  .sidebar-login p {
+    color: #999;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  /* ===== 遮罩 ===== */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1500;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+  }
+
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ===== 主視覺 ===== */
+  .hero {
+    margin-top: 80px;
+    height: 85vh;
+    background: linear-gradient(180deg, #FFF4E6 0%, #FFE5F0 40%, #E5F4FF 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+
+  .bg-circle.c1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #FFB3D9 0%, transparent 70%);
+    top: -100px;
+    left: -100px;
+    animation: floatSlow 20s ease-in-out infinite;
+  }
+
+  .bg-circle.c2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #B3E5FF 0%, transparent 70%);
+    bottom: -50px;
+    right: -50px;
+    animation: floatSlow 25s ease-in-out infinite reverse;
+  }
+
+  .bg-circle.c3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #FFEB99 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: floatSlow 18s ease-in-out infinite;
+  }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(50px, -50px); }
+  }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    padding: 0 20px;
+  }
+
+  .hero-logo {
+    font-size: 72px;
+    font-weight: 900;
+    color: #FF6B9D;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 3px 3px 0 #FFE5F0;
+  }
+
+  .hero-subtitle {
+    font-size: 28px;
+    color: #666;
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+
+  .hero-button {
+    display: inline-block;
+    padding: 18px 60px;
+    background: linear-gradient(135deg, #FF6B9D 0%, #FFB3D9 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+    transition: all 0.3s;
+  }
+
+  .hero-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
+  }
+
+  /* ===== 區塊通用樣式 ===== */
+  .section {
+    padding: 100px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  .section-title {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 15px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 2px;
+  }
+
+  .section-title.pink { color: #FF6B9D; }
+  .section-title.blue { color: #00A8E8; }
+  .section-title.yellow { color: #FFB800; }
+
+  .section-subtitle {
+    font-size: 16px;
+    color: #999;
+    font-weight: 500;
+  }
+
+  /* ===== 活動卡片 ===== */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-image {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #FFE5F0, #E5F4FF);
+  }
+
+  .card-body {
+    padding: 30px;
+  }
+
+  .card-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .card-text {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.8;
+  }
+
+  /* ===== 特色區塊 ===== */
+  .feature-section {
+    background: linear-gradient(180deg, #FFF9F0 0%, #FFF 100%);
+  }
+
+  /* ===== 關於區塊 ===== */
+  .about-section {
+    background: linear-gradient(180deg, #F0F9FF 0%, #FFF 100%);
+    text-align: center;
+  }
+
+  .about-image-wrap {
+    margin-bottom: 40px;
+  }
+
+  .about-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid white;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .about-text {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 2;
+    color: #666;
+  }
+
+  /* ===== 團隊區塊 ===== */
+  .staff-section {
+    background: linear-gradient(180deg, #FFF 0%, #FFF4E6 100%);
+  }
+
+  .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+  }
+
+  .staff-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s;
+  }
+
+  .staff-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .staff-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 5px solid #FFE5F0;
+  }
+
+  .staff-name {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: #333;
+  }
+
+  .staff-role {
+    font-size: 15px;
+    color: #FF6B9D;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .staff-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.8;
+  }
+
+  /* ===== 個人資訊頁面 ===== */
+  .profile-page {
+    display: none;
+    padding-top: 120px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #F0F9FF 0%, #FFF 100%);
+  }
+
+  .profile-page.active {
+    display: block;
+  }
+
+  .profile-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  .profile-header {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .profile-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+  }
+
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid #FF6B9D;
+  }
+
+  .profile-info h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .profile-rank {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #FF6B9D, #FFB3D9);
+    color: white;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .profile-rank.special {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+  }
+
+  .profile-rank.master {
+    background: linear-gradient(135deg, #9B59B6, #E91E63);
+  }
+
+  .profile-rank.god {
+    background: linear-gradient(135deg, #00D9E5, #4A90E2);
+  }
+
+  .profile-rank.infinity {
+    background: linear-gradient(135deg, #000, #444);
+    animation: infinityGlow 2s ease-in-out infinite;
+  }
+
+  @keyframes infinityGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 157, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(255, 107, 157, 0.8); }
+  }
+
+  .profile-badge {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .profile-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  /* ===== 稱號裝備槽 ===== */
+  .equipped-titles {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+  }
+
+  .title-slot {
+    padding: 12px 25px;  /* 增加內距 */
+    background: linear-gradient(135deg, #FF6B9D, #FFB3D9);
+    color: white;
+    border-radius: 25px;  /* 更圓潤 */
+    font-weight: 700;
+    font-size: 15px;  /* 字體稍大 */
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 160px;  /* 寬度一致 */
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);  /* 加陰影 */
+  }
+
+  .title-slot:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+  }
+
+  .title-slot.empty {
+    background: #f0f0f0;
+    color: #999;
+    border: 2px dashed #ccc;
+  }
+
+  .title-slot.special {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+  }
+
+  /* ===== 稱號選擇彈窗 ===== */
+  .title-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 3000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title-modal.active {
+    display: flex;
+  }
+
+  .title-modal-content {
+  background: white;
+  border-radius: 25px;
+  padding: 0;  /* 改成 0,待會分區域設定 */
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;  /* 改成 hidden */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+  .title-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 40px;  /* 增加內距 */
+  background: linear-gradient(135deg, #FF6B9D, #FFB3D9);  /* 加漸層 */
+  color: white;  /* 標題改白色 */
+  border-radius: 25px 25px 0 0;  /* 只有上方圓角 */
+}
+
+.title-modal-header h3 {
+  font-size: 26px;
+  color: white;  /* 確保是白色 */
+  font-weight: 900;
+  margin: 0;
+}
+.title-modal-body {
+  padding: 40px;
+  max-height: calc(80vh - 100px);
+  overflow-y: auto;
+}
+
+.title-list {
+  display: grid;
+  gap: 15px;
+}
+  .title-modal-close {
+  font-size: 32px;
+  cursor: pointer;
+  color: white;  /* 改白色 */
+  transition: all 0.3s;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.title-modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);  /* 旋轉效果 */
+}
+
+
+  .title-item {
+  padding: 18px 25px;
+  background: linear-gradient(135deg, #FFE5F0, #E5F4FF);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.title-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 107, 157, 0.2);
+  border-color: #FF6B9D;
+}
+
+.title-item.equipped {
+  background: linear-gradient(135deg, #FF6B9D, #FFB3D9);
+  color: white;
+  border-color: #FF6B9D;
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+.title-item.equipped:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 107, 157, 0.6);
+}
+.profile-stats {
+  display: flex;
+  flex-direction: column; /* ✨ 改成垂直 */
+  gap: 15px; /* ✨ 減少間距 */
+  margin-top: 20px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;  /* 增加間距 */
+  padding: 18px 25px;  /* 增加內距 */
+  background: linear-gradient(135deg, #FFE5F0, #E5F4FF);
+  border-radius: 15px;
+  transition: all 0.3s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.stat-item:hover {
+  transform: translateX(5px);  /* 懸停效果 */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: 900;
+  color: #FF6B9D;
+  min-width: 50px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+}
+
+  .profile-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+  }
+
+  .profile-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;  /* 增加內距 */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;  /* 加入動畫 */
+  }
+
+  .profile-card:hover {
+    transform: translateY(-5px);  /* 懸停效果 */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .profile-card h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #FFE5F0;
+  }
+
+  .achievement-item {
+    padding: 15px;
+    background: linear-gradient(135deg, #FFF9F0, #FFE5F0);
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  .achievement-name {
+    font-weight: 700;
+    color: #FF6B9D;
+    margin-bottom: 5px;
+  }
+
+  .achievement-desc {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .pb-item {
+    padding: 15px;
+    background: #F9F9F9;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  .pb-song {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .pb-difficulty {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #FF6B9D;
+    color: white;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 10px;
+  }
+
+  .pb-score {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .footer-text {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  /* ===== 響應式 ===== */
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+      right: -100%;
+    }
+
+    .hero-logo {
+      font-size: 48px;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+    }
+
+    .section-title {
+      font-size: 36px;
+    }
+
+    .cards,
+    .staff-grid,
+    .profile-sections {
+      grid-template-columns: 1fr;
+    }
+
+    .section {
+      padding: 60px 20px;
+    }
+
+    .profile-header {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  /* ===== 滾動動畫 ===== */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== 隱藏主頁面 ===== */
+  .main-content.hidden {
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <!-- 稱號選擇彈窗 -->
+  <div class="title-modal" id="titleModal">
+    <div class="title-modal-content">
+  <div class="title-modal-header">
+    <h3>✨ 選擇稱號</h3>
+    <span class="title-modal-close" onclick="closeTitleModal()">×</span>
+  </div>
+  <div class="title-modal-body">
+    <div class="title-list" id="titleList">
+      <!-- 動態生成 -->
+    </div>
+  </div>
+</div>
+  </div>
+  <!-- 遮罩 -->
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- 側邊欄 -->
+  <div class="sidebar" id="sidebar">
+    <!-- 未登入狀態 -->
+    <div class="sidebar-login" id="sidebarLogin">
+      <p>請先登入以查看個人資訊</p>
+      <button class="login-btn" onclick="loginWithDiscord()">使用 Discord 登入</button>
+    </div>
+
+    <!-- 已登入狀態 -->
+    <div id="sidebarContent" style="display: none;">
+      <div class="sidebar-header">
+        <div class="sidebar-user">
+          <img id="sidebarAvatar" class="sidebar-avatar" src="" alt="頭像">
+          <div class="sidebar-user-info">
+            <h3 id="sidebarName">使用者名稱</h3>
+            <div class="sidebar-rank" id="sidebarRank">プロセカ初心者</div>
+          </div>
+        </div>
+        <div class="sidebar-stats">
+        <div class="sidebar-stat">
+            <div class="sidebar-stat-number" id="sidebarStatAch">0</div>
+            <div class="sidebar-stat-label">成就</div>
+          </div>
+          <div class="sidebar-stat">
+            <div class="sidebar-stat-number" id="sidebarStatMsg">0</div>
+            <div class="sidebar-stat-label">發言</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="sidebar-menu-item" onclick="navigateTo('home')">
+          <span class="sidebar-menu-icon">🏠</span>
+          <span class="sidebar-menu-text">首頁</span>
+        </div>
+        <div class="sidebar-menu-item" onclick="navigateTo('activities')">
+          <span class="sidebar-menu-icon">🎮</span>
+          <span class="sidebar-menu-text">活動</span>
+        </div>
+        <div class="sidebar-menu-item" onclick="navigateTo('about')">
+          <span class="sidebar-menu-icon">ℹ️</span>
+          <span class="sidebar-menu-text">關於</span>
+        </div>
+        <div class="sidebar-menu-item" onclick="navigateTo('staff')">
+          <span class="sidebar-menu-icon">👥</span>
+          <span class="sidebar-menu-text">團隊</span>
+        </div>
+        <div class="sidebar-menu-item" onclick="navigateTo('profile')">
+          <span class="sidebar-menu-icon">👤</span>
+          <span class="sidebar-menu-text">個人資訊</span>
+        </div>
+        <div class="sidebar-menu-item" onclick="logout()">
+          <span class="sidebar-menu-icon">🚪</span>
+          <span class="sidebar-menu-text">登出</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 頂部導航 -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo" onclick="navigateTo('home')">練習屋</div>
+      <div class="header-right">
+        <!-- 未登入時顯示登入按鈕 -->
+        <div id="authBtn">
+          <button class="login-btn" onclick="loginWithDiscord()">登入</button>
+        </div>
+        <!-- 已登入時顯示使用者資訊 -->
+        <div id="userInfo" style="display: none;">
+          <div class="user-info">
+            <img id="userAvatar" class="user-avatar" src="" alt="頭像">
+            <span id="userName" class="user-name"></span>
+          </div>
+        </div>
+        <!-- 漢堡選單 -->
+        <div class="menu-btn" id="menuBtn" onclick="toggleSidebar()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主頁面內容 -->
+  <div class="main-content" id="mainContent">
+    <!-- 主視覺 -->
+    <section class="hero" id="hero">
+      <div class="hero-bg-shapes">
+        <div class="bg-circle c1"></div>
+        <div class="bg-circle c2"></div>
+        <div class="bg-circle c3"></div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-logo">プロジェクトセカイ<br>練習屋</h1>
+        <p class="hero-subtitle">音樂連結你我 · 創作無限可能</p>
+        <a href="#activities" class="hero-button">探索活動</a>
+      </div>
+    </section>
+
+    <!-- 活動區 -->
+    <section class="section feature-section" id="activities">
+      <div class="section-header fade-up">
+        <h2 class="section-title pink">群內活動</h2>
+        <p class="section-subtitle">ACTIVITIES</p>
+      </div>
+      <div class="cards">
+        <a href="2026springchampionshippt.html" class="card fade-up">
+          <img src="images/themepicture.png" alt="賽事" class="card-image" onerror="this.style.background='linear-gradient(135deg, #FFE5F0, #FFB3D9)'">
+          <div class="card-body">
+            <h3 class="card-title">2026 SPRING CHAMPIONSHIP</h3>
+            <p class="card-text">最激烈的賽事,挑戰你的實力,爭奪冠軍榮耀!參加比賽,展現你的音遊技術!</p>
+          </div>
+        </a>
+        <div class="card fade-up">
+          <img src="images/image.png" alt="段位挑戰" class="card-image" onerror="this.style.background='linear-gradient(135deg, #E5F4FF, #B3E5FF)'">
+          <div class="card-body">
+            <h3 class="card-title">段位挑戰系統</h3>
+            <p class="card-text">全新的段位挑戰系統上線!一起練習,感受音樂的樂趣與成長的快樂!</p>
+          </div>
+        </div>
+        <div class="card fade-up">
+          <div class="card-image" style="background: linear-gradient(135deg, #FFF9E5, #FFEB99);"></div>
+          <div class="card-body">
+            <h3 class="card-title">譜面創作工坊</h3>
+            <p class="card-text">學習譜面製作技巧,分享你的創意,與社群一同成長!</p>
+          </div>
+        </div>
+        <div class="card fade-up">
+          <div class="card-image" style="background: linear-gradient(135deg, #E5FFE5, #B3FFB3);"></div>
+          <div class="card-body">
+            <h3 class="card-title">每週挑戰賽</h3>
+            <p class="card-text">每週更新的挑戰曲目,測試你的極限,攀登排行榜頂端!</p>
+          </div>
+        </div>
+        <div class="card fade-up">
+          <img src="images/event-comingsoon.png" alt="活動預告" class="card-image" onerror="this.style.background='linear-gradient(135deg, #FFE5F0, #FFCCF0)'">
+          <div class="card-body">
+            <h3 class="card-title">特別活動 Coming Soon</h3>
+            <p class="card-text">即將推出全新合作活動,敬請期待!更多驚喜等你來發現!</p>
+          </div>
+        </div>
+        <div class="card fade-up">
+          <img src="images/group-icon.png" alt="社群" class="card-image" onerror="this.style.background='linear-gradient(135deg, #E5E5FF, #CCCCFF)'">
+          <div class="card-body">
+            <h3 class="card-title">社群交流</h3>
+            <p class="card-text">加入我們的Discord社群,與志同道合的玩家一起討論、練習、進步!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 關於 -->
+    <section class="section about-section" id="about">
+      <div class="section-header fade-up">
+        <h2 class="section-title blue">關於我們</h2>
+        <p class="section-subtitle">ABOUT US</p>
+      </div>
+      <div class="fade-up">
+        <div class="about-image-wrap">
+          <img src="images/IMG_4323.jpeg" alt="群組" class="about-image" onerror="this.style.display='none'">
+        </div>
+        <p class="about-text">「練習屋」是由一群音遊愛好者組成的創作與練習社群,致力於提供玩家更好的譜面體驗、創作工具分享與比賽舉辦資訊。我們相信,每一次練習,都是邁向更高舞台的開始。讓我們一起用音樂連結彼此,創造無限可能!</p>
+      </div>
+    </section>
+
+    <!-- 團隊 -->
+    <section class="section staff-section" id="staff">
+      <div class="section-header fade-up">
+        <h2 class="section-title yellow">2025年練習屋委員介紹</h2>
+        <p class="section-subtitle">STAFF</p>
+      </div>
+      <div class="staff-grid">
+        <div class="staff-card fade-up">
+          <img src="images/GprbP5kbEAMiD2y-1.jpeg" alt="La." class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">La.</h3>
+          <p class="staff-role">群主/創辦人</p>
+          <p class="staff-desc">各位好 我是此群之創辦人,負責活動策劃、伺服器管理與網頁設計,確保各位於此群的豆腐能夠安心使用群內資源。</p>
+        </div>
+        <div class="staff-card fade-up">
+          <img src="images/member2.jpg" alt="雪白" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">雪白</h3>
+          <p class="staff-role">管理員</p>
+          <p class="staff-desc">專精於譜面節奏與難度設計,帶來最佳手感體驗。致力於創造流暢且富有挑戰性的遊戲體驗。</p>
+        </div>
+        <div class="staff-card fade-up">
+          <img src="images/member3.jpg" alt="萌忻" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFF9E5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">萌忻</h3>
+          <p class="staff-role">手續委員</p>
+          <p class="staff-desc">開服玩家,已遊玩1500+天。負責初始段位確認、課題曲挑戰區裁判。台服33以下除數學學園全FC,紫31、彩30以下全AP。</p>
+        </div>
+        <div class="staff-card fade-up">
+          <img src="images/fafbac686d8dcc0f92449e9db40fd5ba.jpeg" alt="檸檬貓" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5FFE5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">檸檬貓</h3>
+          <p class="staff-role">活動與功能委員</p>
+          <p class="staff-desc">16歲香港人,打了音游二年。最高FC: Apd33 Mas35 FC。主要負責活動策劃與功能管理,歡迎找我討論活動相關問題!</p>
+        </div>
+        <div class="staff-card fade-up">
+          <img src="images/member5.jpg" alt="小藍" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">小藍</h3>
+          <p class="staff-role">秩序委員長</p>
+          <p class="staff-desc">設計比賽Banner與Logo,營造專業氛圍。用視覺設計為活動增添專業質感。</p>
+        </div>
+        <div class="staff-card fade-up">
+          <img src="images/member6.jpg" alt="小祥" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">小祥</h3>
+          <p class="staff-role">秩序委員</p>
+          <p class="staff-desc">整理公告與比賽資訊,維持整體秩序。確保社群資訊清晰有序,讓大家都能快速找到需要的資訊。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer-text">© 2025 Project Sekai 練習屋 | 用音樂連結世界</p>
+    </footer>
+  </div>
+
+  <!-- 個人資訊頁面 -->
+  <div class="profile-page" id="profilePage">
+    <div class="profile-container">
+      <div class="profile-header">
+        <div class="profile-left">
+          <img id="profileAvatar" class="profile-avatar" src="" alt="頭像">
+          <div class="profile-info">
+            <h2 id="profileName">使用者名稱</h2>
+            <!-- 三個稱號槽位 -->
+            <div class="equipped-titles" id="equippedTitles">
+              <div class="title-slot empty" onclick="openTitleModal(0)" data-slot="0">
+               點擊裝備稱號
+              </div>
+              <div class="title-slot empty" onclick="openTitleModal(1)" data-slot="1">
+                點擊裝備稱號
+             </div>
+              <div class="title-slot empty" onclick="openTitleModal(2)" data-slot="2">
+                點擊裝備稱號
+              </div>
+            </div>
+            <div class="profile-stats">
+              <div class="stat-item">
+                <div class="stat-number" id="statAchievements">0</div>
+                <div class="stat-label">成就數</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number" id="statPoints">0</div>
+                <div class="stat-label">總點數</div>
+              </div>
+              <div class="stat-item">
+              <div class="stat-number" id="statLevel">1</div>
+              <div class="stat-label">等級</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-badge" id="profileBadge">
+          🎵
+        </div>
+      </div>
+
+      <div class="profile-sections">
+        <div class="profile-card">
+          <h3>🏆 我的成就</h3>
+          <div id="achievementsList">
+            <p style="color: #999; text-align: center;">尚無成就記錄</p>
+          </div>
+        </div>
+
+        <div class="profile-card">
+  <h3>⚡ 等級資訊</h3>
+  <div id="levelInfo">
+    <div style="text-align: center; padding: 20px;">
+      <div style="font-size: 72px; font-weight: 900; color: #FF6B9D; margin-bottom: 15px; text-shadow: 3px 3px 0 #FFE5F0;" id="displayLevel">1</div>
+      <div style="font-size: 16px; color: #666; margin-bottom: 20px;">目前等級</div>
+      <div style="background: linear-gradient(135deg, #FFE5F0, #E5F4FF); border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
+        <div style="font-size: 14px; color: #999; margin-bottom: 10px;">發言次數</div>
+        <div style="font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #00A8E8, #4A90E2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 10px 0;" id="messageCount">0</div>
+        <div style="margin-top: 15px; font-size: 14px; color: #666;">
+          <span id="nextLevelInfo">再發 5 次言即可升級</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  
+// 正式環境：需要公開 Bot 的 API
+const API_URL = 'https://labotcode-production.up.railway.app';
+
+// ===== 使用者資料 =====
+let currentUser = null;
+let userTitles = [];
+let equippedTitles = [null, null, null];
+let currentEditingSlot = null;
+
+// 稱號資料庫
+const TITLE_DATABASE = {
+  'beginner': { name: 'プロセカ初心者', class: '' },
+  'bronze': { name: 'プロセカ青銅者', class: '' },
+  'silver': { name: 'プロセカ白銀者', class: '' },
+  'gold': { name: 'プロセカ黃金者', class: '' },
+  'platinum': { name: 'プロセカ白金者', class: '' },
+  'diamond': { name: 'プロセカ鑽石者', class: '' },
+  'master': { name: 'プロセカ大師', class: 'master' },
+  'peak': { name: 'プロセカ巔峰者', class: 'master' },
+  'demigod': { name: 'プロセカ 亞神', class: 'god' },
+  'god': { name: 'プロセカ 神', class: 'god' },
+  'revelation': { name: 'プロセカ 天啓', class: 'god' },
+  'creator': { name: 'プロセカ 創神者', class: 'god' },
+  'infinity': { name: 'プロセカ ∞', class: 'infinity' },
+  'admin_2025': { name: '2025 管管', class: 'special' },
+  'staff_2025': { name: '2025 幹部', class: 'special' },
+  'contributor': { name: '特殊貢獻者', class: 'special' }
+};
+
+// ===== 等級計算（移到外面）=====
+// ===== 遊戲化等級系統（平衡版）=====
+function calculateLevel(messageCount) {
+  if (!messageCount) return 1;
+  
+  // 等級所需經驗值（漸進成長，更平衡）
+  const levels = [
+    0,      // Lv.1
+    5,      // Lv.2   (+5)
+    12,     // Lv.3   (+7)
+    21,     // Lv.4   (+9)
+    32,     // Lv.5   (+11)
+    45,     // Lv.6   (+13)
+    60,     // Lv.7   (+15)
+    77,     // Lv.8   (+17)
+    96,     // Lv.9   (+19)
+    117,    // Lv.10  (+21)
+    140,    // Lv.11  (+23)
+    165,    // Lv.12  (+25)
+    192,    // Lv.13  (+27)
+    221,    // Lv.14  (+29)
+    252,    // Lv.15  (+31)
+    285,    // Lv.16  (+33)
+    320,    // Lv.17  (+35)
+    357,    // Lv.18  (+37)
+    396,    // Lv.19  (+39)
+    437,    // Lv.20  (+41)
+    480,    // Lv.21  (+43)
+    525,    // Lv.22  (+45)
+    572,    // Lv.23  (+47)
+    621,    // Lv.24  (+49)
+    672,    // Lv.25  (+51)
+    725,    // Lv.26  (+53)
+    780,    // Lv.27  (+55)
+    837,    // Lv.28  (+57)
+    896,    // Lv.29  (+59)
+    957,    // Lv.30  (+61) ← 灰色最高，開始藍色
+    1020,   // Lv.31  (+63)
+    1085,   // Lv.32  (+65)
+    1152,   // Lv.33  (+67)
+    1221,   // Lv.34  (+69)
+    1292,   // Lv.35  (+71)
+    1365,   // Lv.36  (+73)
+    1440,   // Lv.37  (+75)
+    1517,   // Lv.38  (+77)
+    1596,   // Lv.39  (+79)
+    1677,   // Lv.40  (+81)
+    1760,   // Lv.41  (+83)
+    1845,   // Lv.42  (+85)
+    1932,   // Lv.43  (+87)
+    2021,   // Lv.44  (+89)
+    2112,   // Lv.45  (+91)
+    2205,   // Lv.46  (+93)
+    2300,   // Lv.47  (+95)
+    2397,   // Lv.48  (+97)
+    2496,   // Lv.49  (+99)
+    2597,   // Lv.50  (+101) ← 藍色最高，開始紫色
+    2700,   // Lv.51  (+103)
+    2805,   // Lv.52  (+105)
+    2912,   // Lv.53  (+107)
+    3021,   // Lv.54  (+109)
+    3132,   // Lv.55  (+111)
+    3245,   // Lv.56  (+113)
+    3360,   // Lv.57  (+115)
+    3477,   // Lv.58  (+117)
+    3596,   // Lv.59  (+119)
+    3717,   // Lv.60  (+121)
+    3840,   // Lv.61  (+123)
+    3965,   // Lv.62  (+125)
+    4092,   // Lv.63  (+127)
+    4221,   // Lv.64  (+129)
+    4352,   // Lv.65  (+131)
+    4485,   // Lv.66  (+133)
+    4620,   // Lv.67  (+135)
+    4757,   // Lv.68  (+137)
+    4896,   // Lv.69  (+139)
+    5037,   // Lv.70  (+141) ← 紫色最高，開始金色
+    5180,   // Lv.71  (+143)
+    5325,   // Lv.72  (+145)
+    5472,   // Lv.73  (+147)
+    5621,   // Lv.74  (+149)
+    5772,   // Lv.75  (+151)
+    5925,   // Lv.76  (+153)
+    6080,   // Lv.77  (+155)
+    6237,   // Lv.78  (+157)
+    6396,   // Lv.79  (+159)
+    6557,   // Lv.80  (+161)
+    6720,   // Lv.81  (+163)
+    6885,   // Lv.82  (+165)
+    7052,   // Lv.83  (+167)
+    7221,   // Lv.84  (+169)
+    7392,   // Lv.85  (+171)
+    7565,   // Lv.86  (+173)
+    7740,   // Lv.87  (+175)
+    7917,   // Lv.88  (+177)
+    8096,   // Lv.89  (+179)
+    8277,   // Lv.90  (+181) ← 金色最高，開始橙紅
+    8460,   // Lv.91  (+183)
+    8645,   // Lv.92  (+185)
+    8832,   // Lv.93  (+187)
+    9021,   // Lv.94  (+189)
+    9212,   // Lv.95  (+191)
+    9405,   // Lv.96  (+193)
+    9600,   // Lv.97  (+195)
+    9797,   // Lv.98  (+197)
+    9996,   // Lv.99  (+199)
+    10197,  // Lv.100 (+201) ← 橙紅最高，開始彩虹
+  ];
+  
+  for (let i = levels.length - 1; i >= 0; i--) {
+    if (messageCount >= levels[i]) {
+      return i + 1;
+    }
+  }
+  return 1;
+}
+
+function getNextLevelInfo(messageCount) {
+  const levels = [
+    0, 5, 12, 21, 32, 45, 60, 77, 96, 117,
+    140, 165, 192, 221, 252, 285, 320, 357, 396, 437,
+    480, 525, 572, 621, 672, 725, 780, 837, 896, 957,
+    1020, 1085, 1152, 1221, 1292, 1365, 1440, 1517, 1596, 1677,
+    1760, 1845, 1932, 2021, 2112, 2205, 2300, 2397, 2496, 2597,
+    2700, 2805, 2912, 3021, 3132, 3245, 3360, 3477, 3596, 3717,
+    3840, 3965, 4092, 4221, 4352, 4485, 4620, 4757, 4896, 5037,
+    5180, 5325, 5472, 5621, 5772, 5925, 6080, 6237, 6396, 6557,
+    6720, 6885, 7052, 7221, 7392, 7565, 7740, 7917, 8096, 8277,
+    8460, 8645, 8832, 9021, 9212, 9405, 9600, 9797, 9996, 10197
+  ];
+  
+  const currentLevel = calculateLevel(messageCount || 0);
+  
+  if (currentLevel >= levels.length) {
+    return `已達最高等級！`;
+  }
+  
+  const nextLevelExp = levels[currentLevel];
+  const remaining = nextLevelExp - (messageCount || 0);
+  
+  return `再發 ${remaining} 次言即可升到 Lv.${currentLevel + 1}`;
+}
+
+function getLevelColor(level) {
+  if (level < 30) return '#999999';  // 灰色 (Lv.1-29)
+  else if (level < 50) return '#4A90E2';  // 藍色 (Lv.30-49)
+  else if (level < 70) return '#9B59B6';  // 紫色 (Lv.50-69)
+  else if (level < 90) return 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)';  // 金色 (Lv.70-89)
+  else if (level < 100) return 'linear-gradient(135deg, #FF8C00 0%, #FF4500 100%)';  // 橙紅 (Lv.90-99)
+  else return 'linear-gradient(135deg, #FFF59D 0%, #FCC1C1 33%, #F9D4FF 66%, #70FFF8 100%)';  // 彩虹 (Lv.100+)
+}
+
+// ===== 頁面載入時檢查登入狀態 =====
+async function checkLoginStatus() {
+  try {
+    const response = await fetch(`${API_URL}/api/auth/status`, {
+      credentials: 'include'
+    });
+    const data = await response.json();
+    
+    if (data.loggedIn) {
+      currentUser = data.user;
+      await loadUserTitles(currentUser.id);
+      updateUI();
+    }
+  } catch (error) {
+    console.error('檢查登入狀態失敗:', error);
+  }
+}
+
+// ===== 讀取使用者稱號 =====
+async function loadUserTitles(userId) {
+  try {
+    const response = await fetch(`${API_URL}/api/user/${userId}/titles`, {
+      credentials: 'include'
+    });
+    const data = await response.json();
+    
+    console.log('使用者資料:', data);
+    
+    if (data.specialTitles) {
+      userTitles = data.specialTitles || [];
+      equippedTitles = data.equippedTitles || [null, null, null];
+      
+      // ✨ 更新 messageCount 和 level
+      if (data.messageCount !== undefined) {
+        currentUser.messageCount = data.messageCount;
+        currentUser.level = calculateLevel(data.messageCount);
+        console.log('發言次數:', data.messageCount, '等級:', currentUser.level);
+      }
+    }
+  } catch (error) {
+    console.error('載入資料失敗:', error);
+  }
+}
+
+// ===== 側邊欄控制 =====
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const menuBtn = document.getElementById('menuBtn');
+  
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+  menuBtn.classList.toggle('active');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('active');
+  document.getElementById('overlay').classList.remove('active');
+  document.getElementById('menuBtn').classList.remove('active');
+}
+
+// ===== 導航功能 =====
+function navigateTo(page) {
+  closeSidebar();
+
+  if (page === 'home') {
+    document.getElementById('mainContent').classList.remove('hidden');
+    document.getElementById('profilePage').classList.remove('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else if (page === 'profile') {
+    if (!currentUser) {
+      alert('請先登入!');
+      return;
+    }
+    showProfile();
+  } else {
+    document.getElementById('mainContent').classList.remove('hidden');
+    document.getElementById('profilePage').classList.remove('active');
+    const section = document.getElementById(page);
+    if (section) {
+      const headerOffset = 80;
+      const elementPosition = section.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  }
+}
+
+// ===== 登入系統 =====
+function loginWithDiscord() {
+  window.location.href = `${API_URL}/api/auth/discord`;
+}
+
+async function logout() {
+  if (confirm('確定要登出嗎?')) {
+    try {
+      await fetch(`${API_URL}/api/auth/logout`, {
+        credentials: 'include'
+      });
+      currentUser = null;
+      updateUI();
+      closeSidebar();
+      navigateTo('home');
+    } catch (error) {
+      console.error('登出失敗:', error);
+    }
+  }
+}
+
+// ===== 更新介面 =====
+function updateUI() {
+  if (currentUser) {
+    const messageCount = currentUser.messageCount || 0;
+    const level = calculateLevel(messageCount);
+    const rank = currentUser.rank || 'プロセカ初心者';
+    
+    // 頂部
+    document.getElementById('authBtn').style.display = 'none';
+    document.getElementById('userInfo').style.display = 'block';
+    document.getElementById('userAvatar').src = currentUser.avatar;
+    document.getElementById('userName').textContent = currentUser.username;
+
+    // 側邊欄
+    document.getElementById('sidebarLogin').style.display = 'none';
+    document.getElementById('sidebarContent').style.display = 'block';
+    document.getElementById('sidebarAvatar').src = currentUser.avatar;
+    document.getElementById('sidebarName').textContent = currentUser.username;
+    document.getElementById('sidebarRank').textContent = `${rank} | Lv.${level}`; // ✨ 顯示段位和等級
+    document.getElementById('sidebarStatAch').textContent = currentUser.achievements?.length || 0;
+    document.getElementById('sidebarStatMsg').textContent = currentUser.messageCount || 0;
+  } else {
+    document.getElementById('authBtn').style.display = 'block';
+    document.getElementById('userInfo').style.display = 'none';
+    document.getElementById('sidebarLogin').style.display = 'block';
+    document.getElementById('sidebarContent').style.display = 'none';
+  }
+}
+
+// ===== 顯示個人資訊頁 =====
+function showProfile() {
+  if (!currentUser) return;
+
+  document.getElementById('mainContent').classList.add('hidden');
+  document.getElementById('profilePage').classList.add('active');
+
+  document.getElementById('profileAvatar').src = currentUser.avatar;
+  document.getElementById('profileName').textContent = currentUser.username;
+  
+  // 計算等級
+  const messageCount = currentUser.messageCount || 0;
+  const level = calculateLevel(messageCount);
+  const levelColor = getLevelColor(level);
+  
+  // 更新統計數據
+  document.getElementById('statAchievements').textContent = currentUser.achievements?.length || 0;
+  document.getElementById('statPoints').textContent = currentUser.totalPoints || 0;
+  document.getElementById('statLevel').textContent = level;
+  
+  // 更新等級顯示區塊
+  const displayLevelElement = document.getElementById('displayLevel');
+  displayLevelElement.textContent = level;
+  
+  // ✨ 套用顏色
+  if (levelColor.startsWith('linear-gradient')) {
+    displayLevelElement.style.background = levelColor;
+    displayLevelElement.style.webkitBackgroundClip = 'text';
+    displayLevelElement.style.webkitTextFillColor = 'transparent';
+    displayLevelElement.style.backgroundClip = 'text';
+  } else {
+    displayLevelElement.style.color = levelColor;
+    displayLevelElement.style.background = 'none';
+    displayLevelElement.style.webkitTextFillColor = levelColor;
+  }
+  
+  document.getElementById('messageCount').textContent = messageCount;
+  document.getElementById('nextLevelInfo').textContent = getNextLevelInfo(messageCount);
+  
+  // 成就列表
+  const achList = document.getElementById('achievementsList');
+  if (currentUser.achievements && currentUser.achievements.length > 0) {
+    achList.innerHTML = currentUser.achievements.map(ach => `
+      <div class="achievement-item">
+        <div class="achievement-name">${ach.name} (+${ach.points}pt)</div>
+        <div class="achievement-desc">${ach.description}</div>
+      </div>
+    `).join('');
+  }
+  
+  // 更新稱號槽
+  updateEquippedTitles();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== 稱號設定系統 =====
+function getRankConfig(rank) {
+  const configs = {
+    'プロセカ初心者': { class: '', badge: '🎵' },
+    'プロセカ青銅者': { class: '', badge: '🥉' },
+    'プロセカ白銀者': { class: '', badge: '🥈' },
+    'プロセカ黃金者': { class: '', badge: '🥇' },
+    'プロセカ白金者': { class: '', badge: '💎' },
+    'プロセカ鑽石者': { class: '', badge: '💠' },
+    'プロセカ大師': { class: 'master', badge: '👑' },
+    'プロセカ巔峰者': { class: 'master', badge: '⭐' },
+    'プロセカ 亞神': { class: 'god', badge: '✨' },
+    'プロセカ 神': { class: 'god', badge: '🌟' },
+    'プロセカ 天啓': { class: 'god', badge: '☀️' },
+    'プロセカ 創神者': { class: 'god', badge: '🔥' },
+    'プロセカ ∞': { class: 'infinity', badge: '∞' },
+    '2025 管管': { class: 'special', badge: '👨‍💼' },
+    '2025 幹部': { class: 'special', badge: '⚡' },
+    '特殊貢獻者': { class: 'special', badge: '🎖️' }
+  };
+  
+  if (rank.includes('管管')) return { class: 'special', badge: '👨‍💼' };
+  if (rank.includes('幹部')) return { class: 'special', badge: '⚡' };
+  
+  return configs[rank] || { class: '', badge: '🎵' };
+}
+
+// ===== 更新已裝備稱號顯示 =====
+function updateEquippedTitles() {
+  const container = document.getElementById('equippedTitles');
+  if (!container) return;
+
+  container.innerHTML = '';
+  
+  for (let i = 0; i < 3; i++) {
+    const titleId = equippedTitles[i];
+    const slot = document.createElement('div');
+    slot.className = 'title-slot';
+    slot.dataset.slot = i;
+    
+    if (titleId && TITLE_DATABASE[titleId]) {
+      const titleInfo = TITLE_DATABASE[titleId];
+      slot.textContent = titleInfo.name;
+      if (titleInfo.class) {
+        slot.classList.add(titleInfo.class);
+      }
+      slot.onclick = () => unequipTitle(i);
+    } else {
+      slot.classList.add('empty');
+      slot.textContent = '點擊裝備稱號';
+      slot.onclick = () => openTitleModal(i);
+    }
+    
+    container.appendChild(slot);
+  }
+}
+
+// ===== 打開稱號選擇彈窗 =====
+function openTitleModal(slot) {
+  if (!currentUser) {
+    alert('請先登入');
+    return;
+  }
+  
+  currentEditingSlot = slot;
+  const modal = document.getElementById('titleModal');
+  const titleList = document.getElementById('titleList');
+  
+  titleList.innerHTML = '';
+  
+  if (userTitles.length === 0) {
+    titleList.innerHTML = '<p style="text-align: center; color: #999;">你還沒有解鎖任何稱號</p>';
+  } else {
+    userTitles.forEach(titleId => {
+      const titleInfo = TITLE_DATABASE[titleId];
+      if (!titleInfo) return;
+      
+      const item = document.createElement('div');
+      item.className = 'title-item';
+      item.textContent = titleInfo.name;
+      
+      if (equippedTitles.includes(titleId)) {
+        item.classList.add('equipped');
+        item.textContent += ' (已裝備)';
+      }
+      
+      item.onclick = () => equipTitle(titleId, slot);
+      titleList.appendChild(item);
+    });
+  }
+  
+  modal.classList.add('active');
+}
+
+// ===== 關閉彈窗 =====
+function closeTitleModal() {
+  document.getElementById('titleModal').classList.remove('active');
+  currentEditingSlot = null;
+}
+
+// ===== 裝備稱號 =====
+async function equipTitle(titleId, slot) {
+  try {
+    const response = await fetch(`${API_URL}/api/titles?userId=${currentUser.id}&action=equip`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ titleId, slot })
+    });
+    
+    const data = await response.json();
+    if (data.success) {
+      equippedTitles = data.equippedTitles;
+      updateEquippedTitles();
+      closeTitleModal();
+      alert('稱號裝備成功!');
+    } else {
+      alert(data.message || '裝備失敗');
+    }
+  } catch (error) {
+    console.error('裝備稱號失敗:', error);
+    alert('裝備失敗');
+  }
+}
+
+// ===== 卸下稱號 =====
+async function unequipTitle(slot) {
+  if (!confirm('確定要卸下這個稱號嗎?')) return;
+  
+  try {
+    const response = await fetch(`${API_URL}/api/titles?userId=${currentUser.id}&action=unequip`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ slot })
+    });
+    
+    const data = await response.json();
+    if (data.success) {
+      equippedTitles = data.equippedTitles;
+      updateEquippedTitles();
+      alert('稱號已卸下');
+    }
+  } catch (error) {
+    console.error('卸下稱號失敗:', error);
+  }
+}
+
+// ===== 滾動動畫 =====
+const observerOptions = {
+  threshold: 0.15,
+  rootMargin: '0px 0px -80px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.fade-up').forEach(el => {
+  observer.observe(el);
+});
+
+// 點擊彈窗外部關閉
+document.getElementById('titleModal')?.addEventListener('click', (e) => {
+  if (e.target.id === 'titleModal') {
+    closeTitleModal();
+  }
+});
+
+// ===== 初始化 =====
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('login') === 'success') {
+  window.history.replaceState({}, document.title, window.location.pathname);
+  checkLoginStatus();
+} else if (urlParams.get('login') === 'failed') {
+  alert('登入失敗,請重試');
+  window.history.replaceState({}, document.title, window.location.pathname);
+} else {
+  checkLoginStatus();
+}
+
+updateUI();
+</script>
+
+</body>
+</html>

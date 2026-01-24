@@ -1,0 +1,24 @@
+{
+  "name": "pjskpracticehouse-net",
+  "version": "1.0.0",
+  "description": "Project Sekai Practice House",
+  "main": "index.html",
+  "scripts": {
+   "build": "echo done",
+    "deploy": "vercel --prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.2.1",
+    "express-session": "^1.18.2"
+  },
+  "devDependencies": {
+    "vercel": "^50.1.3"
+  }
+}
