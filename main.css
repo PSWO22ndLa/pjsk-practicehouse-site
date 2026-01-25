@@ -11,7 +11,8 @@
   }
   body {
     font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans TC", sans-serif;
-    background: #fff;
+    background: linear-gradient(135deg, #FFF5F7 0%, #E3F2FD 100%);
+    background-attachment: fixed;
     color: #333;
     overflow-x: hidden;
   }
