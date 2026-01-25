@@ -926,10 +926,16 @@
   }
 
   .profile-badge img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: 
+    brightness(1.2)
+    contrast(1.3)
+    saturate(1.1)
+    drop-shadow(0 0 20px rgba(255, 107, 157, 0.4));
+  opacity: 0.25;
+}
   /* ===== 稱號裝備槽 ===== */
   .equipped-titles {
     display: flex;
