@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Sekai 練習屋</title>
+<title>Project Sekai 練�?�?/title>
 <style>
   * {
     margin: 0;
@@ -23,7 +23,7 @@
     overflow-x: hidden;
   }
 
-  /* ===== 頂部導航 ===== */
+  /* ===== ?�部導航 ===== */
   .header {
     position: fixed;
     top: 0;
@@ -92,7 +92,7 @@
     font-size: 14px;
   }
 
-  /* ===== 漢堡選單按鈕 ===== */
+  /* ===== 漢堡?�單?��? ===== */
   .menu-btn {
     width: 50px;
     height: 50px;
@@ -138,7 +138,7 @@
     transform: rotate(-45deg) translate(7px, -7px);
   }
 
-  /* ===== 側邊欄 ===== */
+  /* ===== ?��?�?===== */
   .sidebar {
     position: fixed;
     top: 0;
@@ -171,7 +171,7 @@
   z-index: 1;
 }
 
-/* ✨ 旋轉光環效果 */
+/* ???��??�環?��? */
 .sidebar-user::before {
   content: '';
   position: absolute;
@@ -238,13 +238,13 @@
   display: flex;
   justify-content: space-around;
   background: rgba(255, 255, 255, 0.25);
-  padding: 20px 25px; /* 增加左右間距 */
+  padding: 20px 25px; /* 增�?左右?��? */
   border-radius: 15px;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1;
-  gap: 30px; /* 增加兩個統計之間的間距 */
+  gap: 30px; /* 增�??�個統計�??��??��? */
 }
 
 .sidebar-stat {
@@ -256,7 +256,7 @@
 .sidebar-stat:first-child::after {
   content: '';
   position: absolute;
-  right: -15px; /* 分隔線位置 */
+  right: -15px; /* ?��?線�?�?*/
   top: 50%;
   transform: translateY(-50%);
   width: 2px;
@@ -265,7 +265,7 @@
 }
 
 .sidebar-stat-number {
-  font-size: 32px; /* 數字更大 */
+  font-size: 32px; /* ?��??�大 */
   font-weight: 900;
   margin-bottom: 8px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
@@ -358,7 +358,7 @@
     font-size: 14px;
   }
 
-  /* ===== 遮罩 ===== */
+  /* ===== ?�罩 ===== */
   .overlay {
     position: fixed;
     top: 0;
@@ -377,7 +377,7 @@
     visibility: visible;
   }
 
-  /* ===== 主視覺 ===== */
+  /* ===== 主�?�?===== */
   .hero {
     margin-top: 80px;
     height: 85vh;
@@ -477,7 +477,7 @@
     box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
   }
 
-  /* ===== 區塊通用樣式 ===== */
+  /* ===== ?�塊通用�?? ===== */
   .section {
     padding: 100px 40px;
     max-width: 1400px;
@@ -519,7 +519,7 @@
     font-weight: 500;
   }
 
-  /* ===== 活動卡片 ===== */
+  /* ===== 活�??��? ===== */
   .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -566,12 +566,12 @@
     line-height: 1.8;
   }
 
-  /* ===== 特色區塊 ===== */
+  /* ===== ?�色?��?===== */
   .feature-section {
     background: linear-gradient(180deg, #FFF9F0 0%, #FFF 100%);
   }
 
-  /* ===== 關於區塊 ===== */
+  /* ===== ?�於?��?===== */
   .about-section {
     background: linear-gradient(180deg, #F0F9FF 0%, #FFF 100%);
     text-align: center;
@@ -598,7 +598,7 @@
     color: #666;
   }
 
-  /* ===== 團隊區塊 ===== */
+  /* ===== ?��??��?===== */
   .staff-section {
     background: linear-gradient(180deg, #FFF 0%, #FFF4E6 100%);
   }
@@ -652,7 +652,7 @@
     line-height: 1.8;
   }
 
-  /* ===== 個人資訊頁面 ===== */
+  /* ===== ?�人資�??�面 ===== */
   .profile-page {
     display: none;
     padding-top: 120px;
@@ -755,7 +755,7 @@
     height: 100%;
     object-fit: contain;
   }
-  /* ===== 稱號裝備槽 ===== */
+  /* ===== 稱�?裝�?�?===== */
   .equipped-titles {
     display: flex;
     gap: 10px;
@@ -764,17 +764,17 @@
   }
 
   .title-slot {
-    padding: 12px 25px;  /* 增加內距 */
+    padding: 12px 25px;  /* 增�??��? */
     background: linear-gradient(135deg, #FF6B9D, #FFB3D9);
     color: white;
-    border-radius: 25px;  /* 更圓潤 */
+    border-radius: 25px;  /* ?��?�?*/
     font-weight: 700;
-    font-size: 15px;  /* 字體稍大 */
+    font-size: 15px;  /* 字�?稍大 */
     cursor: pointer;
     transition: all 0.3s;
-    min-width: 160px;  /* 寬度一致 */
+    min-width: 160px;  /* 寬度一??*/
     text-align: center;
-    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);  /* 加陰影 */
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);  /* ?�陰�?*/
   }
 
   .title-slot:hover {
@@ -792,7 +792,7 @@
     background: linear-gradient(135deg, #FFD700, #FFA500);
   }
 
-  /* ===== 稱號選擇彈窗 ===== */
+  /* ===== 稱�??��?彈�? ===== */
   .title-modal {
     display: none;
     position: fixed;
@@ -813,11 +813,11 @@
   .title-modal-content {
   background: white;
   border-radius: 25px;
-  padding: 0;  /* 改成 0,待會分區域設定 */
+  padding: 0;  /* ?��? 0,待�??��??�設�?*/
   max-width: 600px;
   width: 90%;
   max-height: 80vh;
-  overflow: hidden;  /* 改成 hidden */
+  overflow: hidden;  /* ?��? hidden */
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: modalSlideIn 0.3s ease-out;
 }
@@ -837,15 +837,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 40px;  /* 增加內距 */
-  background: linear-gradient(135deg, #FF6B9D, #FFB3D9);  /* 加漸層 */
-  color: white;  /* 標題改白色 */
-  border-radius: 25px 25px 0 0;  /* 只有上方圓角 */
+  padding: 30px 40px;  /* 增�??��? */
+  background: linear-gradient(135deg, #FF6B9D, #FFB3D9);  /* ?�漸�?*/
+  color: white;  /* 標�??�白??*/
+  border-radius: 25px 25px 0 0;  /* ?��?上方?��? */
 }
 
 .title-modal-header h3 {
   font-size: 26px;
-  color: white;  /* 確保是白色 */
+  color: white;  /* 確�??�白??*/
   font-weight: 900;
   margin: 0;
 }
@@ -862,7 +862,7 @@
   .title-modal-close {
   font-size: 32px;
   cursor: pointer;
-  color: white;  /* 改白色 */
+  color: white;  /* ?�白??*/
   transition: all 0.3s;
   width: 40px;
   height: 40px;
@@ -875,7 +875,7 @@
 
 .title-modal-close:hover {
   background: rgba(255, 255, 255, 0.3);
-  transform: rotate(90deg);  /* 旋轉效果 */
+  transform: rotate(90deg);  /* ?��??��? */
 }
 
 
@@ -911,16 +911,16 @@
 }
 .profile-stats {
   display: flex;
-  flex-direction: column; /* ✨ 改成垂直 */
-  gap: 15px; /* ✨ 減少間距 */
+  flex-direction: column; /* ???��??�直 */
+  gap: 15px; /* ??減�??��? */
   margin-top: 20px;
 }
 
 .stat-item {
   display: flex;
   align-items: center;
-  gap: 20px;  /* 增加間距 */
-  padding: 18px 25px;  /* 增加內距 */
+  gap: 20px;  /* 增�??��? */
+  padding: 18px 25px;  /* 增�??��? */
   background: linear-gradient(135deg, #FFE5F0, #E5F4FF);
   border-radius: 15px;
   transition: all 0.3s;
@@ -928,7 +928,7 @@
 }
 
 .stat-item:hover {
-  transform: translateX(5px);  /* 懸停效果 */
+  transform: translateX(5px);  /* ?��??��? */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -953,13 +953,13 @@
   .profile-card {
     background: white;
     border-radius: 20px;
-    padding: 40px;  /* 增加內距 */
+    padding: 40px;  /* 增�??��? */
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s;  /* 加入動畫 */
+    transition: all 0.3s;  /* ?�入?�畫 */
   }
 
   .profile-card:hover {
-    transform: translateY(-5px);  /* 懸停效果 */
+    transform: translateY(-5px);  /* ?��??��? */
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
   }
 
@@ -1032,7 +1032,7 @@
     opacity: 0.8;
   }
 
-  /* ===== 響應式 ===== */
+  /* ===== ?��?�?===== */
   @media (max-width: 768px) {
     .sidebar {
       width: 100%;
@@ -1067,7 +1067,7 @@
     }
   }
 
-  /* ===== 滾動動畫 ===== */
+  /* ===== 滾�??�畫 ===== */
   .fade-up {
     opacity: 0;
     transform: translateY(40px);
@@ -1079,105 +1079,106 @@
     transform: translateY(0);
   }
 
-  /* ===== 隱藏主頁面 ===== */
+  /* ===== ?��?主�???===== */
   .main-content.hidden {
     display: none;
   }
 </style>
 </head>
 <body>
-  <!-- 稱號選擇彈窗 -->
+  <!-- 稱�??��?彈�? -->
   <div class="title-modal" id="titleModal">
     <div class="title-modal-content">
   <div class="title-modal-header">
-    <h3>✨ 選擇稱號</h3>
-    <span class="title-modal-close" onclick="closeTitleModal()">×</span>
+    <h3>???��?稱�?</h3>
+    <span class="title-modal-close" onclick="closeTitleModal()">?</span>
   </div>
   <div class="title-modal-body">
     <div class="title-list" id="titleList">
-      <!-- 動態生成 -->
+      <!-- ?��??��? -->
     </div>
   </div>
 </div>
   </div>
-  <!-- 遮罩 -->
+  <!-- ?�罩 -->
   <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
-  <!-- 側邊欄 -->
+  <!-- ?��?�?-->
   <div class="sidebar" id="sidebar">
-    <!-- 未登入狀態 -->
+    <!-- ?�登?��???-->
     <div class="sidebar-login" id="sidebarLogin">
-      <p>請先登入以查看個人資訊</p>
-      <button class="login-btn" onclick="loginWithDiscord()">使用 Discord 登入</button>
+      <p>請�??�入以查?�個人資�?</p>
+      <button class="login-btn" onclick="loginWithDiscord()">使用 Discord ?�入</button>
     </div>
 
-    <!-- 已登入狀態 -->
+    <!-- 已登?��???-->
     <div id="sidebarContent" style="display: none;">
       <div class="sidebar-header">
         <div class="sidebar-user">
-          <img id="sidebarAvatar" class="sidebar-avatar" src="" alt="頭像">
+          <img id="sidebarAvatar" class="sidebar-avatar" src="" alt="?��?">
           <div class="sidebar-user-info">
-            <h3 id="sidebarName">使用者名稱</h3>
-            <div class="sidebar-rank" id="sidebarRank">プロセカ初心者</div>
+            <h3 id="sidebarName">使用?��?�?/h3>
+            <div class="sidebar-rank" id="sidebarRank">?�ロ?�カ?��???/div>
           </div>
         </div>
         <div class="sidebar-stats">
         <div class="sidebar-stat">
             <div class="sidebar-stat-number" id="sidebarStatAch">0</div>
-            <div class="sidebar-stat-label">成就</div>
+            <div class="sidebar-stat-label">?�就</div>
           </div>
           <div class="sidebar-stat">
-          <div class="sidebar-stat-number" id="sidebarStatMsg">0</div>
-          <div class="sidebar-stat-label">發言</div>
+            <div class="sidebar-stat-number" id="sidebarStatMsg">0</div>
+            <div class="sidebar-stat-label">?��?</div>
           </div>
         </div>
       </div>
+
       <div class="sidebar-menu">
         <div class="sidebar-menu-item" onclick="navigateTo('home')">
-          <span class="sidebar-menu-icon">🏠</span>
-          <span class="sidebar-menu-text">首頁</span>
+          <span class="sidebar-menu-icon">??</span>
+          <span class="sidebar-menu-text">首�?</span>
         </div>
         <div class="sidebar-menu-item" onclick="navigateTo('activities')">
-          <span class="sidebar-menu-icon">🎮</span>
-          <span class="sidebar-menu-text">活動</span>
+          <span class="sidebar-menu-icon">?��</span>
+          <span class="sidebar-menu-text">活�?</span>
         </div>
         <div class="sidebar-menu-item" onclick="navigateTo('about')">
-          <span class="sidebar-menu-icon">ℹ️</span>
-          <span class="sidebar-menu-text">關於</span>
+          <span class="sidebar-menu-icon">?��?</span>
+          <span class="sidebar-menu-text">?�於</span>
         </div>
         <div class="sidebar-menu-item" onclick="navigateTo('staff')">
-          <span class="sidebar-menu-icon">👥</span>
-          <span class="sidebar-menu-text">團隊</span>
+          <span class="sidebar-menu-icon">?��</span>
+          <span class="sidebar-menu-text">?��?</span>
         </div>
         <div class="sidebar-menu-item" onclick="navigateTo('profile')">
-          <span class="sidebar-menu-icon">👤</span>
-          <span class="sidebar-menu-text">個人資訊</span>
+          <span class="sidebar-menu-icon">?��</span>
+          <span class="sidebar-menu-text">?�人資�?</span>
         </div>
         <div class="sidebar-menu-item" onclick="logout()">
-          <span class="sidebar-menu-icon">🚪</span>
-          <span class="sidebar-menu-text">登出</span>
+          <span class="sidebar-menu-icon">?��</span>
+          <span class="sidebar-menu-text">?�出</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 頂部導航 -->
+  <!-- ?�部導航 -->
   <header class="header">
     <div class="header-inner">
-      <div class="logo" onclick="navigateTo('home')">練習屋</div>
+      <div class="logo" onclick="navigateTo('home')">練�?�?/div>
       <div class="header-right">
-        <!-- 未登入時顯示登入按鈕 -->
+        <!-- ?�登?��?顯示?�入?��? -->
         <div id="authBtn">
-          <button class="login-btn" onclick="loginWithDiscord()">登入</button>
+          <button class="login-btn" onclick="loginWithDiscord()">?�入</button>
         </div>
-        <!-- 已登入時顯示使用者資訊 -->
+        <!-- 已登?��?顯示使用?��?�?-->
         <div id="userInfo" style="display: none;">
           <div class="user-info">
-            <img id="userAvatar" class="user-avatar" src="" alt="頭像">
+            <img id="userAvatar" class="user-avatar" src="" alt="?��?">
             <span id="userName" class="user-name"></span>
           </div>
         </div>
-        <!-- 漢堡選單 -->
+        <!-- 漢堡?�單 -->
         <div class="menu-btn" id="menuBtn" onclick="toggleSidebar()">
           <span></span>
           <span></span>
@@ -1187,9 +1188,9 @@
     </div>
   </header>
 
-  <!-- 主頁面內容 -->
+  <!-- 主�??�內�?-->
   <div class="main-content" id="mainContent">
-    <!-- 主視覺 -->
+    <!-- 主�?�?-->
     <section class="hero" id="hero">
       <div class="hero-bg-shapes">
         <div class="bg-circle c1"></div>
@@ -1197,190 +1198,190 @@
         <div class="bg-circle c3"></div>
       </div>
       <div class="hero-content">
-        <h1 class="hero-logo">プロジェクトセカイ<br>練習屋</h1>
-        <p class="hero-subtitle">音樂連結你我 · 創作無限可能</p>
-        <a href="#activities" class="hero-button">探索活動</a>
+        <h1 class="hero-logo">?�ロ?�ェ?��??�カ??br>練�?�?/h1>
+        <p class="hero-subtitle">?��????你�? · ?��??��??�能</p>
+        <a href="#activities" class="hero-button">?�索活�?</a>
       </div>
     </section>
 
-    <!-- 活動區 -->
+    <!-- 活�??� -->
     <section class="section feature-section" id="activities">
       <div class="section-header fade-up">
-        <h2 class="section-title pink">群內活動</h2>
+        <h2 class="section-title pink">群內活�?</h2>
         <p class="section-subtitle">ACTIVITIES</p>
       </div>
       <div class="cards">
         <a href="2026springchampionshippt.html" class="card fade-up">
-          <img src="public/images/themepicture.png" alt="賽事" class="card-image" onerror="this.style.background='linear-gradient(135deg, #FFE5F0, #FFB3D9)'">
+          <img src="public/image/themepicture.png" alt="賽�?" class="card-image" onerror="this.style.background='linear-gradient(135deg, #FFE5F0, #FFB3D9)'">
           <div class="card-body">
             <h3 class="card-title">2026 SPRING CHAMPIONSHIP</h3>
-            <p class="card-text">最激烈的賽事,挑戰你的實力,爭奪冠軍榮耀!參加比賽,展現你的音遊技術!</p>
+            <p class="card-text">?�激?��?賽�?,?�戰你�?實�?,?�奪?��?榮耀!?��?比賽,展現你�??��??��?</p>
           </div>
         </a>
         <div class="card fade-up">
-          <img src="public/images/image.png" alt="段位挑戰" class="card-image" onerror="this.style.background='linear-gradient(135deg, #E5F4FF, #B3E5FF)'">
+          <img src="public/image/image.png" alt="段�??�戰" class="card-image" onerror="this.style.background='linear-gradient(135deg, #E5F4FF, #B3E5FF)'">
           <div class="card-body">
-            <h3 class="card-title">段位挑戰系統</h3>
-            <p class="card-text">全新的段位挑戰系統上線!一起練習,感受音樂的樂趣與成長的快樂!</p>
+            <h3 class="card-title">段�??�戰系統</h3>
+            <p class="card-text">?�新?�段位�??�系統�?�?一起練�??��??��??��?�???�長?�快�?</p>
           </div>
         </div>
         <div class="card fade-up">
           <div class="card-image" style="background: linear-gradient(135deg, #FFF9E5, #FFEB99);"></div>
           <div class="card-body">
-            <h3 class="card-title">譜面創作工坊</h3>
-            <p class="card-text">學習譜面製作技巧,分享你的創意,與社群一同成長!</p>
+            <h3 class="card-title">譜面?��?工�?</h3>
+            <p class="card-text">學�?譜面製�??��??�享你�??��?,?�社群�??��???</p>
           </div>
         </div>
         <div class="card fade-up">
           <div class="card-image" style="background: linear-gradient(135deg, #E5FFE5, #B3FFB3);"></div>
           <div class="card-body">
-            <h3 class="card-title">每週挑戰賽</h3>
-            <p class="card-text">每週更新的挑戰曲目,測試你的極限,攀登排行榜頂端!</p>
+            <h3 class="card-title">每週�??�賽</h3>
+            <p class="card-text">每週更?��??�戰?�目,測試你�?極�?,?�?��?行�??�端!</p>
           </div>
         </div>
         <div class="card fade-up">
-          <img src="public/images/event-comingsoon.png" alt="活動預告" class="card-image" onerror="this.style.background='linear-gradient(135deg, #FFE5F0, #FFCCF0)'">
+          <img src="public/image/event-comingsoon.png" alt="活�??��?" class="card-image" onerror="this.style.background='linear-gradient(135deg, #FFE5F0, #FFCCF0)'">
           <div class="card-body">
-            <h3 class="card-title">特別活動 Coming Soon</h3>
-            <p class="card-text">即將推出全新合作活動,敬請期待!更多驚喜等你來發現!</p>
+            <h3 class="card-title">?�別活�? Coming Soon</h3>
+            <p class="card-text">?��??�出?�新?��?活�?,?��??��?!?��?驚�?等�?來發??</p>
           </div>
         </div>
         <div class="card fade-up">
-          <img src="public/images/group-icon.png" alt="社群" class="card-image" onerror="this.style.background='linear-gradient(135deg, #E5E5FF, #CCCCFF)'">
+          <img src="public/image/group-icon.png" alt="社群" class="card-image" onerror="this.style.background='linear-gradient(135deg, #E5E5FF, #CCCCFF)'">
           <div class="card-body">
-            <h3 class="card-title">社群交流</h3>
-            <p class="card-text">加入我們的Discord社群,與志同道合的玩家一起討論、練習、進步!</p>
+            <h3 class="card-title">社群交�?</h3>
+            <p class="card-text">?�入?�們�?Discord社群,?��??��??��??�家一起�?論、練習、進步!</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 關於 -->
+    <!-- ?�於 -->
     <section class="section about-section" id="about">
       <div class="section-header fade-up">
-        <h2 class="section-title blue">關於我們</h2>
+        <h2 class="section-title blue">?�於?��?/h2>
         <p class="section-subtitle">ABOUT US</p>
       </div>
       <div class="fade-up">
         <div class="about-image-wrap">
-          <img src="public/images/IMG_4323.jpeg" alt="群組" class="about-image" onerror="this.style.display='none'">
+          <img src="public/image/IMG_4323.jpeg" alt="群�?" class="about-image" onerror="this.style.display='none'">
         </div>
-        <p class="about-text">「練習屋」是由一群音遊愛好者組成的創作與練習社群,致力於提供玩家更好的譜面體驗、創作工具分享與比賽舉辦資訊。我們相信,每一次練習,都是邁向更高舞台的開始。讓我們一起用音樂連結彼此,創造無限可能!</p>
+        <p class="about-text">?�練習�??�是?��?群音?��?好者�??��??��??�練習社�??��??��?供玩家更好�?譜面體�??�創作工?��?享�?比賽?�辦資�??��??�相�?每�?次練�??�是?��??��??�台?��?始。�??�們�?起用?��????彼此,?�造無?�可??</p>
       </div>
     </section>
 
-    <!-- 團隊 -->
+    <!-- ?��? -->
     <section class="section staff-section" id="staff">
       <div class="section-header fade-up">
-        <h2 class="section-title yellow">2025年練習屋委員介紹</h2>
+        <h2 class="section-title yellow">2025年練習�?委員介紹</h2>
         <p class="section-subtitle">STAFF</p>
       </div>
       <div class="staff-grid">
         <div class="staff-card fade-up">
-          <img src="public/images/GprbP5kbEAMiD2y-1.jpeg" alt="La." class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <img src="public/image/GprbP5kbEAMiD2y-1.jpeg" alt="La." class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
           <h3 class="staff-name">La.</h3>
-          <p class="staff-role">群主/創辦人</p>
-          <p class="staff-desc">各位好 我是此群之創辦人,負責活動策劃、伺服器管理與網頁設計,確保各位於此群的豆腐能夠安心使用群內資源。</p>
+          <p class="staff-role">群主/?�辦�?/p>
+          <p class="staff-desc">?��?�??�是此群之創辦人,負責活�?策�??�伺?�器管�??�網?�設�?確�??��??�此群�?豆�??��?安�?使用群內資�???/p>
         </div>
         <div class="staff-card fade-up">
-          <img src="public/images/member2.jpg" alt="雪白" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">雪白</h3>
-          <p class="staff-role">管理員</p>
-          <p class="staff-desc">專精於譜面節奏與難度設計,帶來最佳手感體驗。致力於創造流暢且富有挑戰性的遊戲體驗。</p>
+          <img src="public/image/member2.jpg" alt="?�白" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">?�白</h3>
+          <p class="staff-role">管�???/p>
+          <p class="staff-desc">專精?��??��?奏�???��設�?,帶�??�佳�??��?驗。致?�於?�造�??��?富�??�戰?��??�戲體�???/p>
         </div>
         <div class="staff-card fade-up">
-          <img src="public/images/IMG_20251111_134644.webp" alt="萌忻" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFF9E5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">萌忻</h3>
-          <p class="staff-role">手續委員</p>
-          <p class="staff-desc">開服玩家,已遊玩1500+天。負責初始段位確認、課題曲挑戰區裁判。台服33以下除數學學園全FC,紫31、彩30以下全AP。</p>
+          <img src="public/image/member3.jpg" alt="?�忻" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFF9E5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">?�忻</h3>
+          <p class="staff-role">?��?委員</p>
+          <p class="staff-desc">?��??�家,已�???500+天。�?責�?始段位確認、課題曲?�戰?�裁判?�台??3以�??�數學學?�全FC,�?1?�彩30以�??�AP??/p>
         </div>
         <div class="staff-card fade-up">
-          <img src="public/images/fafbac686d8dcc0f92449e9db40fd5ba.jpeg" alt="檸檬貓" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5FFE5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">檸檬貓</h3>
-          <p class="staff-role">活動與功能委員</p>
-          <p class="staff-desc">16歲香港人,打了音游二年。最高FC: Apd33 Mas35 FC。主要負責活動策劃與功能管理,歡迎找我討論活動相關問題!</p>
+          <img src="public/image/fafbac686d8dcc0f92449e9db40fd5ba.jpeg" alt="檸檬�? class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5FFE5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">檸檬�?/h3>
+          <p class="staff-role">活�??��??��???/p>
+          <p class="staff-desc">16歲�?港人,?��??�游二年?��?高FC: Apd33 Mas35 FC?�主要�?責活?��??��??�能管�?,歡�??��?討�?活�??��??��?!</p>
         </div>
         <div class="staff-card fade-up">
-          <img src="public/images/member5.jpg" alt="小藍" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">小藍</h3>
-          <p class="staff-role">秩序委員長</p>
-          <p class="staff-desc">設計比賽Banner與Logo,營造專業氛圍。用視覺設計為活動增添專業質感。</p>
+          <img src="public/image/member5.jpg" alt="小�?" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <h3 class="staff-name">小�?</h3>
+          <p class="staff-role">秩�?委員??/p>
+          <p class="staff-desc">設�?比賽Banner?�Logo,?�造�?業�??�。用視覺設�??�活?��?添�?業質?��?/p>
         </div>
         <div class="staff-card fade-up">
-          <img src="public/images/member6.jpg" alt="小祥" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
+          <img src="public/image/member6.jpg" alt="小祥" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
           <h3 class="staff-name">小祥</h3>
-          <p class="staff-role">秩序委員</p>
-          <p class="staff-desc">整理公告與比賽資訊,維持整體秩序。確保社群資訊清晰有序,讓大家都能快速找到需要的資訊。</p>
+          <p class="staff-role">秩�?委員</p>
+          <p class="staff-desc">?��??��??��?賽�?�?維�??��?秩�??�確保社群�?訊�??��?�?讓大家都?�快?�找?��?要�?資�???/p>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-      <p class="footer-text">© 2025 Project Sekai 練習屋 | 用音樂連結世界</p>
+      <p class="footer-text">© 2025 Project Sekai 練�?�?| ?�音樂�??世�?</p>
     </footer>
   </div>
 
-  <!-- 個人資訊頁面 -->
+  <!-- ?�人資�??�面 -->
   <div class="profile-page" id="profilePage">
     <div class="profile-container">
       <div class="profile-header">
         <div class="profile-left">
-          <img id="profileAvatar" class="profile-avatar" src="" alt="頭像">
+          <img id="profileAvatar" class="profile-avatar" src="" alt="?��?">
           <div class="profile-info">
-            <h2 id="profileName">使用者名稱</h2>
-            <!-- 三個稱號槽位 -->
+            <h2 id="profileName">使用?��?�?/h2>
+            <!-- 三個稱?�槽�?-->
             <div class="equipped-titles" id="equippedTitles">
               <div class="title-slot empty" onclick="openTitleModal(0)" data-slot="0">
-               點擊裝備稱號
+               點�?裝�?稱�?
               </div>
               <div class="title-slot empty" onclick="openTitleModal(1)" data-slot="1">
-                點擊裝備稱號
+                點�?裝�?稱�?
              </div>
               <div class="title-slot empty" onclick="openTitleModal(2)" data-slot="2">
-                點擊裝備稱號
+                點�?裝�?稱�?
               </div>
             </div>
             <div class="profile-stats">
               <div class="stat-item">
                 <div class="stat-number" id="statAchievements">0</div>
-                <div class="stat-label">成就數</div>
+                <div class="stat-label">?�就??/div>
               </div>
               <div class="stat-item">
                 <div class="stat-number" id="statPoints">0</div>
-                <div class="stat-label">總點數</div>
+                <div class="stat-label">總�???/div>
               </div>
               <div class="stat-item">
               <div class="stat-number" id="statLevel">1</div>
-              <div class="stat-label">等級</div>
+              <div class="stat-label">等�?</div>
               </div>
             </div>
           </div>
         </div>
         <div class="profile-badge" id="profileBadge">
-          🎵
+          ?��
         </div>
       </div>
 
       <div class="profile-sections">
         <div class="profile-card">
-          <h3>🏆 我的成就</h3>
+          <h3>?? ?��??�就</h3>
           <div id="achievementsList">
-            <p style="color: #999; text-align: center;">尚無成就記錄</p>
+            <p style="color: #999; text-align: center;">尚無?�就記�?</p>
           </div>
         </div>
 
         <div class="profile-card">
-  <h3>⚡ 等級資訊</h3>
+  <h3>??等�?資�?</h3>
   <div id="levelInfo">
     <div style="text-align: center; padding: 20px;">
       <div style="font-size: 72px; font-weight: 900; color: #FF6B9D; margin-bottom: 15px; text-shadow: 3px 3px 0 #FFE5F0;" id="displayLevel">1</div>
-      <div style="font-size: 16px; color: #666; margin-bottom: 20px;">目前等級</div>
+      <div style="font-size: 16px; color: #666; margin-bottom: 20px;">?��?等�?</div>
       <div style="background: linear-gradient(135deg, #FFE5F0, #E5F4FF); border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
-        <div style="font-size: 14px; color: #999; margin-bottom: 10px;">發言次數</div>
+        <div style="font-size: 14px; color: #999; margin-bottom: 10px;">?��?次數</div>
         <div style="font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #00A8E8, #4A90E2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 10px 0;" id="messageCount">0</div>
         <div style="margin-top: 15px; font-size: 14px; color: #666;">
-          <span id="nextLevelInfo">再發 5 次言即可升級</span>
+          <span id="nextLevelInfo">?�發 5 次�??�可?��?</span>
         </div>
       </div>
     </div>
@@ -1393,41 +1394,41 @@
 
 <script>
   
-// 正式環境：需要公開 Bot 的 API
+// �???��?：�?要公??Bot ??API
 const API_URL = 'https://labotcode-production.up.railway.app';
 
-// ===== 使用者資料 =====
+// ===== 使用?��???=====
 let currentUser = null;
 let userTitles = [];
 let equippedTitles = [null, null, null];
 let currentEditingSlot = null;
 
-// 稱號資料庫
+// 稱�?資�?�?
 const TITLE_DATABASE = {
-  'beginner': { name: 'プロセカ初心者', class: '' },
-  'bronze': { name: 'プロセカ青銅者', class: '' },
-  'silver': { name: 'プロセカ白銀者', class: '' },
-  'gold': { name: 'プロセカ黃金者', class: '' },
-  'platinum': { name: 'プロセカ白金者', class: '' },
-  'diamond': { name: 'プロセカ鑽石者', class: '' },
-  'master': { name: 'プロセカ大師', class: 'master' },
-  'peak': { name: 'プロセカ巔峰者', class: 'master' },
-  'demigod': { name: 'プロセカ 亞神', class: 'god' },
-  'god': { name: 'プロセカ 神', class: 'god' },
-  'revelation': { name: 'プロセカ 天啓', class: 'god' },
-  'creator': { name: 'プロセカ 創神者', class: 'god' },
-  'infinity': { name: 'プロセカ ∞', class: 'infinity' },
+  'beginner': { name: '?�ロ?�カ?��???, class: '' },
+  'bronze': { name: '?�ロ?�カ?��???, class: '' },
+  'silver': { name: '?�ロ?�カ?��???, class: '' },
+  'gold': { name: '?�ロ?�カ黃�???, class: '' },
+  'platinum': { name: '?�ロ?�カ?��???, class: '' },
+  'diamond': { name: '?�ロ?�カ?�石??, class: '' },
+  'master': { name: '?�ロ?�カ大師', class: 'master' },
+  'peak': { name: '?�ロ?�カ巔峰??, class: 'master' },
+  'demigod': { name: '?�ロ?�カ 亞�?', class: 'god' },
+  'god': { name: '?�ロ?�カ �?, class: 'god' },
+  'revelation': { name: '?�ロ?�カ 天�?', class: 'god' },
+  'creator': { name: '?�ロ?�カ ?��???, class: 'god' },
+  'infinity': { name: '?�ロ?�カ ??, class: 'infinity' },
   'admin_2025': { name: '2025 管管', class: 'special' },
   'staff_2025': { name: '2025 幹部', class: 'special' },
-  'contributor': { name: '特殊貢獻者', class: 'special' }
+  'contributor': { name: '?��?貢獻??, class: 'special' }
 };
 
-// ===== 等級計算（移到外面）=====
-// ===== 遊戲化等級系統（平衡版）=====
+// ===== 等�?計�?（移?��??��?=====
+// ===== ?�戲?��?級系統�?平衡?��?=====
 function calculateLevel(messageCount) {
   if (!messageCount) return 1;
   
-  // 等級所需經驗值（漸進成長，更平衡）
+  // 等�??�?�經�??��?漸進�??��??�平衡�?
   const levels = [
     0,      // Lv.1
     5,      // Lv.2   (+5)
@@ -1458,7 +1459,7 @@ function calculateLevel(messageCount) {
     780,    // Lv.27  (+55)
     837,    // Lv.28  (+57)
     896,    // Lv.29  (+59)
-    957,    // Lv.30  (+61) ← 灰色最高，開始藍色
+    957,    // Lv.30  (+61) ???�色?�高�??��??�色
     1020,   // Lv.31  (+63)
     1085,   // Lv.32  (+65)
     1152,   // Lv.33  (+67)
@@ -1478,7 +1479,7 @@ function calculateLevel(messageCount) {
     2300,   // Lv.47  (+95)
     2397,   // Lv.48  (+97)
     2496,   // Lv.49  (+99)
-    2597,   // Lv.50  (+101) ← 藍色最高，開始紫色
+    2597,   // Lv.50  (+101) ???�色?�高�??��?紫色
     2700,   // Lv.51  (+103)
     2805,   // Lv.52  (+105)
     2912,   // Lv.53  (+107)
@@ -1498,7 +1499,7 @@ function calculateLevel(messageCount) {
     4620,   // Lv.67  (+135)
     4757,   // Lv.68  (+137)
     4896,   // Lv.69  (+139)
-    5037,   // Lv.70  (+141) ← 紫色最高，開始金色
+    5037,   // Lv.70  (+141) ??紫色?�高�??��??�色
     5180,   // Lv.71  (+143)
     5325,   // Lv.72  (+145)
     5472,   // Lv.73  (+147)
@@ -1518,7 +1519,7 @@ function calculateLevel(messageCount) {
     7740,   // Lv.87  (+175)
     7917,   // Lv.88  (+177)
     8096,   // Lv.89  (+179)
-    8277,   // Lv.90  (+181) ← 金色最高，開始橙紅
+    8277,   // Lv.90  (+181) ???�色?�高�??��?橙�?
     8460,   // Lv.91  (+183)
     8645,   // Lv.92  (+185)
     8832,   // Lv.93  (+187)
@@ -1528,7 +1529,7 @@ function calculateLevel(messageCount) {
     9600,   // Lv.97  (+195)
     9797,   // Lv.98  (+197)
     9996,   // Lv.99  (+199)
-    10197,  // Lv.100 (+201) ← 橙紅最高，開始彩虹
+    10197,  // Lv.100 (+201) ??橙�??�高�??��?彩虹
   ];
   
   for (let i = levels.length - 1; i >= 0; i--) {
@@ -1556,25 +1557,25 @@ function getNextLevelInfo(messageCount) {
   const currentLevel = calculateLevel(messageCount || 0);
   
   if (currentLevel >= levels.length) {
-    return `已達最高等級！`;
+    return `已�??�高�?級�?`;
   }
   
   const nextLevelExp = levels[currentLevel];
   const remaining = nextLevelExp - (messageCount || 0);
   
-  return `再發 ${remaining} 次言即可升到 Lv.${currentLevel + 1}`;
+  return `?�發 ${remaining} 次�??�可?�到 Lv.${currentLevel + 1}`;
 }
 
 function getLevelColor(level) {
-  if (level < 30) return '#999999';  // 灰色 (Lv.1-29)
-  else if (level < 50) return '#4A90E2';  // 藍色 (Lv.30-49)
+  if (level < 30) return '#999999';  // ?�色 (Lv.1-29)
+  else if (level < 50) return '#4A90E2';  // ?�色 (Lv.30-49)
   else if (level < 70) return '#9B59B6';  // 紫色 (Lv.50-69)
-  else if (level < 90) return 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)';  // 金色 (Lv.70-89)
-  else if (level < 100) return 'linear-gradient(135deg, #FF8C00 0%, #FF4500 100%)';  // 橙紅 (Lv.90-99)
+  else if (level < 90) return 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)';  // ?�色 (Lv.70-89)
+  else if (level < 100) return 'linear-gradient(135deg, #FF8C00 0%, #FF4500 100%)';  // 橙�? (Lv.90-99)
   else return 'linear-gradient(135deg, #FFF59D 0%, #FCC1C1 33%, #F9D4FF 66%, #70FFF8 100%)';  // 彩虹 (Lv.100+)
 }
 
-// ===== 頁面載入時檢查登入狀態 =====
+// ===== ?�面載入?�檢?�登?��???=====
 async function checkLoginStatus() {
   try {
     const response = await fetch(`${API_URL}/api/auth/status`, {
@@ -1588,11 +1589,11 @@ async function checkLoginStatus() {
       updateUI();
     }
   } catch (error) {
-    console.error('檢查登入狀態失敗:', error);
+    console.error('檢查?�入?�?�失??', error);
   }
 }
 
-// ===== 讀取使用者稱號 =====
+// ===== 讀?�使?�者稱??=====
 async function loadUserTitles(userId) {
   try {
     const response = await fetch(`${API_URL}/api/user/${userId}/titles`, {
@@ -1600,25 +1601,25 @@ async function loadUserTitles(userId) {
     });
     const data = await response.json();
     
-    console.log('使用者資料:', data);
+    console.log('使用?��???', data);
     
     if (data.specialTitles) {
       userTitles = data.specialTitles || [];
       equippedTitles = data.equippedTitles || [null, null, null];
       
-      // ✨ 更新 messageCount 和 level
+      // ???�新 messageCount ??level
       if (data.messageCount !== undefined) {
         currentUser.messageCount = data.messageCount;
         currentUser.level = calculateLevel(data.messageCount);
-        console.log('發言次數:', data.messageCount, '等級:', currentUser.level);
+        console.log('?��?次數:', data.messageCount, '等�?:', currentUser.level);
       }
     }
   } catch (error) {
-    console.error('載入資料失敗:', error);
+    console.error('載入資�?失�?:', error);
   }
 }
 
-// ===== 側邊欄控制 =====
+// ===== ?��?欄控??=====
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
@@ -1635,7 +1636,7 @@ function closeSidebar() {
   document.getElementById('menuBtn').classList.remove('active');
 }
 
-// ===== 導航功能 =====
+// ===== 導航?�能 =====
 function navigateTo(page) {
   closeSidebar();
 
@@ -1645,7 +1646,7 @@ function navigateTo(page) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else if (page === 'profile') {
     if (!currentUser) {
-      alert('請先登入!');
+      alert('請�??�入!');
       return;
     }
     showProfile();
@@ -1662,13 +1663,13 @@ function navigateTo(page) {
   }
 }
 
-// ===== 登入系統 =====
+// ===== ?�入系統 =====
 function loginWithDiscord() {
   window.location.href = `${API_URL}/api/auth/discord`;
 }
 
 async function logout() {
-  if (confirm('確定要登出嗎?')) {
+  if (confirm('確�?要登?��??')) {
     try {
       await fetch(`${API_URL}/api/auth/logout`, {
         credentials: 'include'
@@ -1678,30 +1679,30 @@ async function logout() {
       closeSidebar();
       navigateTo('home');
     } catch (error) {
-      console.error('登出失敗:', error);
+      console.error('?�出失�?:', error);
     }
   }
 }
 
-// ===== 更新介面 =====
+// ===== ?�新介面 =====
 function updateUI() {
   if (currentUser) {
     const messageCount = currentUser.messageCount || 0;
     const level = calculateLevel(messageCount);
-    const rank = currentUser.rank || 'プロセカ初心者';
+    const rank = currentUser.rank || '?�ロ?�カ?��???;
     
-    // 頂部
+    // ?�部
     document.getElementById('authBtn').style.display = 'none';
     document.getElementById('userInfo').style.display = 'block';
     document.getElementById('userAvatar').src = currentUser.avatar;
     document.getElementById('userName').textContent = currentUser.username;
 
-    // 側邊欄
+    // ?��?�?
     document.getElementById('sidebarLogin').style.display = 'none';
     document.getElementById('sidebarContent').style.display = 'block';
     document.getElementById('sidebarAvatar').src = currentUser.avatar;
     document.getElementById('sidebarName').textContent = currentUser.username;
-    document.getElementById('sidebarRank').textContent = `${rank} | Lv.${level}`; // ✨ 顯示段位和等級
+    document.getElementById('sidebarRank').textContent = `${rank} | Lv.${level}`; // ??顯示段�??��?�?
     document.getElementById('sidebarStatAch').textContent = currentUser.achievements?.length || 0;
     document.getElementById('sidebarStatMsg').textContent = currentUser.messageCount || 0;
   } else {
@@ -1712,7 +1713,7 @@ function updateUI() {
   }
 }
 
-// ===== 顯示個人資訊頁 =====
+// ===== 顯示?�人資�???=====
 function showProfile() {
   if (!currentUser) return;
 
@@ -1722,21 +1723,21 @@ function showProfile() {
   document.getElementById('profileAvatar').src = currentUser.avatar;
   document.getElementById('profileName').textContent = currentUser.username;
   
-  // 計算等級
+  // 計�?等�?
   const messageCount = currentUser.messageCount || 0;
   const level = calculateLevel(messageCount);
   const levelColor = getLevelColor(level);
   
-  // 更新統計數據
+  // ?�新統�??��?
   document.getElementById('statAchievements').textContent = currentUser.achievements?.length || 0;
   document.getElementById('statPoints').textContent = currentUser.totalPoints || 0;
   document.getElementById('statLevel').textContent = level;
   
-  // 更新等級顯示區塊
+  // ?�新等�?顯示?��?
   const displayLevelElement = document.getElementById('displayLevel');
   displayLevelElement.textContent = level;
   
-  // ✨ 套用顏色
+  // ??套用顏色
   if (levelColor.startsWith('linear-gradient')) {
     displayLevelElement.style.background = levelColor;
     displayLevelElement.style.webkitBackgroundClip = 'text';
@@ -1751,7 +1752,7 @@ function showProfile() {
   document.getElementById('messageCount').textContent = messageCount;
   document.getElementById('nextLevelInfo').textContent = getNextLevelInfo(messageCount);
   
-  // 成就列表
+  // ?�就?�表
   const achList = document.getElementById('achievementsList');
   if (currentUser.achievements && currentUser.achievements.length > 0) {
     achList.innerHTML = currentUser.achievements.map(ach => `
@@ -1762,40 +1763,40 @@ function showProfile() {
     `).join('');
   }
   
-  // 更新稱號槽
+  // ?�新稱�?�?
   updateEquippedTitles();
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ===== 稱號設定系統 =====
+// ===== 稱�?設�?系統 =====
 function getRankConfig(rank) {
   const configs = {
-    'プロセカ初心者': { class: '', badge: '🎵' },
-    'プロセカ青銅者': { class: '', badge: '🥉' },
-    'プロセカ白銀者': { class: '', badge: '🥈' },
-    'プロセカ黃金者': { class: '', badge: '🥇' },
-    'プロセカ白金者': { class: '', badge: '💎' },
-    'プロセカ鑽石者': { class: '', badge: '💠' },
-    'プロセカ大師': { class: 'master', badge: '👑' },
-    'プロセカ巔峰者': { class: 'master', badge: '⭐' },
-    'プロセカ 亞神': { class: 'god', badge: '✨' },
-    'プロセカ 神': { class: 'god', badge: '🌟' },
-    'プロセカ 天啓': { class: 'god', badge: '☀️' },
-    'プロセカ 創神者': { class: 'god', badge: '🔥' },
-    'プロセカ ∞': { class: 'infinity', badge: '∞' },
-    '2025 管管': { class: 'special', badge: '👨‍💼' },
-    '2025 幹部': { class: 'special', badge: '⚡' },
-    '特殊貢獻者': { class: 'special', badge: '🎖️' }
+    '?�ロ?�カ?��???: { class: '', badge: '?��' },
+    '?�ロ?�カ?��???: { class: '', badge: '??' },
+    '?�ロ?�カ?��???: { class: '', badge: '??' },
+    '?�ロ?�カ黃�???: { class: '', badge: '??' },
+    '?�ロ?�カ?��???: { class: '', badge: '??' },
+    '?�ロ?�カ?�石??: { class: '', badge: '??' },
+    '?�ロ?�カ大師': { class: 'master', badge: '??' },
+    '?�ロ?�カ巔峰??: { class: 'master', badge: '�? },
+    '?�ロ?�カ 亞�?': { class: 'god', badge: '?? },
+    '?�ロ?�カ �?: { class: 'god', badge: '??' },
+    '?�ロ?�カ 天�?': { class: 'god', badge: '?��? },
+    '?�ロ?�カ ?��???: { class: 'god', badge: '?��' },
+    '?�ロ?�カ ??: { class: 'infinity', badge: '?? },
+    '2025 管管': { class: 'special', badge: '?��?��?? },
+    '2025 幹部': { class: 'special', badge: '?? },
+    '?��?貢獻??: { class: 'special', badge: '??�? }
   };
   
-  if (rank.includes('管管')) return { class: 'special', badge: '👨‍💼' };
-  if (rank.includes('幹部')) return { class: 'special', badge: '⚡' };
+  if (rank.includes('管管')) return { class: 'special', badge: '?��?��?? };
+  if (rank.includes('幹部')) return { class: 'special', badge: '?? };
   
-  return configs[rank] || { class: '', badge: '🎵' };
+  return configs[rank] || { class: '', badge: '?��' };
 }
 
-// ===== 更新已裝備稱號顯示 =====
+// ===== ?�新已�??�稱?�顯�?=====
 function updateEquippedTitles() {
   const container = document.getElementById('equippedTitles');
   if (!container) return;
@@ -1817,7 +1818,7 @@ function updateEquippedTitles() {
       slot.onclick = () => unequipTitle(i);
     } else {
       slot.classList.add('empty');
-      slot.textContent = '點擊裝備稱號';
+      slot.textContent = '點�?裝�?稱�?';
       slot.onclick = () => openTitleModal(i);
     }
     
@@ -1825,10 +1826,10 @@ function updateEquippedTitles() {
   }
 }
 
-// ===== 打開稱號選擇彈窗 =====
+// ===== ?��?稱�??��?彈�? =====
 function openTitleModal(slot) {
   if (!currentUser) {
-    alert('請先登入');
+    alert('請�??�入');
     return;
   }
   
@@ -1839,7 +1840,7 @@ function openTitleModal(slot) {
   titleList.innerHTML = '';
   
   if (userTitles.length === 0) {
-    titleList.innerHTML = '<p style="text-align: center; color: #999;">你還沒有解鎖任何稱號</p>';
+    titleList.innerHTML = '<p style="text-align: center; color: #999;">你�?沒�?�??任�?稱�?</p>';
   } else {
     userTitles.forEach(titleId => {
       const titleInfo = TITLE_DATABASE[titleId];
@@ -1851,7 +1852,7 @@ function openTitleModal(slot) {
       
       if (equippedTitles.includes(titleId)) {
         item.classList.add('equipped');
-        item.textContent += ' (已裝備)';
+        item.textContent += ' (已�???';
       }
       
       item.onclick = () => equipTitle(titleId, slot);
@@ -1862,13 +1863,13 @@ function openTitleModal(slot) {
   modal.classList.add('active');
 }
 
-// ===== 關閉彈窗 =====
+// ===== ?��?彈�? =====
 function closeTitleModal() {
   document.getElementById('titleModal').classList.remove('active');
   currentEditingSlot = null;
 }
 
-// ===== 裝備稱號 =====
+// ===== 裝�?稱�? =====
 async function equipTitle(titleId, slot) {
   try {
     const response = await fetch(`${API_URL}/api/titles?userId=${currentUser.id}&action=equip`, {
@@ -1883,19 +1884,19 @@ async function equipTitle(titleId, slot) {
       equippedTitles = data.equippedTitles;
       updateEquippedTitles();
       closeTitleModal();
-      alert('稱號裝備成功!');
+      alert('稱�?裝�??��?!');
     } else {
-      alert(data.message || '裝備失敗');
+      alert(data.message || '裝�?失�?');
     }
   } catch (error) {
-    console.error('裝備稱號失敗:', error);
-    alert('裝備失敗');
+    console.error('裝�?稱�?失�?:', error);
+    alert('裝�?失�?');
   }
 }
 
-// ===== 卸下稱號 =====
+// ===== ?��?稱�? =====
 async function unequipTitle(slot) {
-  if (!confirm('確定要卸下這個稱號嗎?')) return;
+  if (!confirm('確�?要卸下這個稱?��??')) return;
   
   try {
     const response = await fetch(`${API_URL}/api/titles?userId=${currentUser.id}&action=unequip`, {
@@ -1909,14 +1910,14 @@ async function unequipTitle(slot) {
     if (data.success) {
       equippedTitles = data.equippedTitles;
       updateEquippedTitles();
-      alert('稱號已卸下');
+      alert('稱�?已卸�?);
     }
   } catch (error) {
-    console.error('卸下稱號失敗:', error);
+    console.error('?��?稱�?失�?:', error);
   }
 }
 
-// ===== 滾動動畫 =====
+// ===== 滾�??�畫 =====
 const observerOptions = {
   threshold: 0.15,
   rootMargin: '0px 0px -80px 0px'
@@ -1934,20 +1935,20 @@ document.querySelectorAll('.fade-up').forEach(el => {
   observer.observe(el);
 });
 
-// 點擊彈窗外部關閉
+// 點�?彈�?外部?��?
 document.getElementById('titleModal')?.addEventListener('click', (e) => {
   if (e.target.id === 'titleModal') {
     closeTitleModal();
   }
 });
 
-// ===== 初始化 =====
+// ===== ?��???=====
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get('login') === 'success') {
   window.history.replaceState({}, document.title, window.location.pathname);
   checkLoginStatus();
 } else if (urlParams.get('login') === 'failed') {
-  alert('登入失敗,請重試');
+  alert('?�入失�?,請�?�?);
   window.history.replaceState({}, document.title, window.location.pathname);
 } else {
   checkLoginStatus();
