@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // 交換 access token
+    // 1. 交換 access token
     const tokenResponse = await axios.post(
       'https://discord.com/api/oauth2/token',
       new URLSearchParams({
@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
 
     const { access_token } = tokenResponse.data;
 
-    // 獲取使用者資訊
+    // 2. 獲取 Discord 使用者資訊
     const userResponse = await axios.get('https://discord.com/api/users/@me', {
       headers: {
         Authorization: `Bearer ${access_token}`
@@ -36,7 +36,36 @@ module.exports = async (req, res) => {
 
     const discordUser = userResponse.data;
 
-    // 建立使用者資料
+    // 3. 從 Railway API 獲取遊戲資料
+    let gameData = {
+      rank: 'プロセカ初心者',
+      totalPoints: 0,
+      achievements: [],
+      pb: [],
+      messageCount: 0
+    };
+
+    try {
+      const railwayResponse = await axios.get(
+        `https://labotcode-production.up.railway.app/api/user/${discordUser.id}/titles`
+      );
+      
+      if (railwayResponse.data) {
+        gameData = {
+          rank: railwayResponse.data.rank || 'プロセカ初心者',
+          totalPoints: railwayResponse.data.totalPoints || 0,
+          achievements: railwayResponse.data.achievements || [],
+          pb: railwayResponse.data.pb || [],
+          messageCount: railwayResponse.data.messageCount || 0,
+          specialTitles: railwayResponse.data.specialTitles || [],
+          equippedTitles: railwayResponse.data.equippedTitles || [null, null, null]
+        };
+      }
+    } catch (railwayError) {
+      console.log('Railway API 呼叫失敗,使用預設值:', railwayError.message);
+    }
+
+    // 4. 組合完整使用者資料
     const userData = {
       id: discordUser.id,
       username: discordUser.username,
@@ -44,13 +73,10 @@ module.exports = async (req, res) => {
       avatar: discordUser.avatar 
         ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
         : `https://cdn.discordapp.com/embed/avatars/${parseInt(discordUser.discriminator) % 5}.png`,
-      rank: 'プロセカ初心者',
-      totalPoints: 0,
-      achievements: [],
-      pb: []
+      ...gameData
     };
 
-    // ✅ 用 URL 傳遞資料,由前端存入 localStorage
+    // 5. 傳回前端
     const userDataEncoded = encodeURIComponent(JSON.stringify(userData));
     res.redirect(`https://pjsk-practicehouse-site.vercel.app/?login=success&userData=${userDataEncoded}`);
     
