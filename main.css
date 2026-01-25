@@ -440,13 +440,13 @@
   .hero-logo {
   font-size: 72px;
   font-weight: 900;
-  background: linear-gradient(135deg, #FF6B9D 0%, #FFB3D9 50%, #B3E5FF 100%);
+  background: linear-gradient(135deg, #FF1B6D 0%, #FF6B9D 50%, #00A8E8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 20px;
   line-height: 1.2;
-  filter: drop-shadow(2px 2px 4px rgba(255, 107, 157, 0.3));
+  filter: drop-shadow(3px 3px 6px rgba(255, 27, 109, 0.4));
   animation: titleFloat 3s ease-in-out infinite;
 }
 
