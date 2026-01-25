@@ -669,7 +669,11 @@ function navigateTo(page) {
 
 // ===== 登入系統 =====
 function loginWithDiscord() {
-  window.location.href = `${API_URL}/api/auth/discord`;
+  const clientId = '1407405904000979045';
+  const redirectUri = 'https://pjsk-practicehouse-site.vercel.app/api/auth/callback';
+  const scope = 'identify';
+  
+  window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}`;
 }
 
 function logout() {
