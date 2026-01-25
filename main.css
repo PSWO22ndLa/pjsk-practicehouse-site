@@ -433,7 +433,25 @@
     transform: translate(-50%, -50%);
     animation: floatSlow 18s ease-in-out infinite;
   }
+  .bg-circle.c4 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #FFD9E8 0%, transparent 70%);
+  top: 20%;
+  right: 10%;
+  animation: floatSlow 22s ease-in-out infinite;
+  opacity: 0.3;
+}
 
+.bg-circle.c5 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, #D4F1F4 0%, transparent 70%);
+  bottom: 20%;
+  left: 15%;
+  animation: floatSlow 18s ease-in-out infinite reverse;
+  opacity: 0.3;
+}
   @keyframes floatSlow {
     0%, 100% { transform: translate(0, 0); }
     50% { transform: translate(50px, -50px); }
@@ -1229,4 +1247,8 @@
   /* ===== 隱藏主頁面 ===== */
   .main-content.hidden {
     display: none;
+  }
+  /* ===== 2026年團隊區塊 ===== */
+  .staff-section-2026 {
+    background: linear-gradient(180deg, #FFF4E6 0%, #FFE5F0 100%);
   }
