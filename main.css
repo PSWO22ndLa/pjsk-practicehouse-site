@@ -1256,7 +1256,38 @@
       flex-direction: column;
       text-align: center;
     }
+      .profile-left {
+    flex-direction: column;
+    text-align: center;
   }
+  
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .equipped-titles {
+    justify-content: center;
+  }
+  
+  .title-slot {
+    min-width: 140px;
+    font-size: 13px;
+    padding: 10px 20px;
+  }
+  
+  .profile-stats {
+    width: 100%;
+  }
+  
+  .stat-item {
+    padding: 15px 20px;
+  }
+  
+  .profile-badge {
+    display: none;
+  }
+}
 
   /* ===== 滾動動畫 ===== */
   .fade-up {
