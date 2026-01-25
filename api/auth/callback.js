@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
   const { code } = req.query;
   
   if (!code) {
-    return res.redirect('/?login=failed');
+    return res.redirect('https://pjsk-practicehouse-site.vercel.app/?login=failed');
   }
 
   try {
@@ -50,23 +50,12 @@ module.exports = async (req, res) => {
       pb: []
     };
 
-    // ✅ 修正 Cookie 設定
-    const cookieValue = encodeURIComponent(JSON.stringify(userData));
-    const maxAge = 7 * 24 * 60 * 60; // 7 天（秒）
+    // ✅ 用 URL 傳遞資料,由前端存入 localStorage
+    const userDataEncoded = encodeURIComponent(JSON.stringify(userData));
+    res.redirect(`https://pjsk-practicehouse-site.vercel.app/?login=success&userData=${userDataEncoded}`);
     
-    // 設定多個 Set-Cookie header
-    res.setHeader('Set-Cookie', [
-      `user=${cookieValue}; Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=None; Secure`,
-      `user_token=${access_token}; Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=None; Secure`
-    ]);
-    
-    // ✅ 加入 CORS headers
-    res.setHeader('Access-Control-Allow-Origin', 'https://pjsk-practicehouse-site.vercel.app');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    
-    res.redirect('https://pjsk-practicehouse-site.vercel.app/?login=success');
   } catch (error) {
     console.error('Discord OAuth Error:', error.response?.data || error.message);
-    res.redirect('https://pjsk-practicehouse-site.vercel.app/?login=failed&error=' + encodeURIComponent(error.message));
+    res.redirect(`https://pjsk-practicehouse-site.vercel.app/?login=failed&error=${encodeURIComponent(error.message)}`);
   }
 };

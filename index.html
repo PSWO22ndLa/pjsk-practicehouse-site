@@ -588,26 +588,14 @@ function getLevelColor(level) {
   else return 'linear-gradient(135deg, #FFF59D 0%, #FCC1C1 33%, #F9D4FF 66%, #70FFF8 100%)';  // 彩虹 (Lv.100+)
 }
 
-// ===== 頁面載入時檢查登入狀態 =====
-async function checkLoginStatus() {
-  try {
-    const response = await fetch(`${API_URL}/api/auth/status`, {
-      credentials: 'include'
-    });
-    const data = await response.json();
-    
-    if (data.loggedIn) {
-      currentUser = data.user;
-      await loadUserTitles(currentUser.id);
-      updateUI();
-    }
-  } catch (error) {
-    console.error('檢查登入狀態失敗:', error);
-  }
-}
 
 // ===== 讀取使用者稱號 =====
 async function loadUserTitles(userId) {
+  if (!userId) {
+    console.error('❌ 沒有 userId');
+    return;
+  }
+  
   try {
     const response = await fetch(`${API_URL}/api/user/${userId}/titles`, {
       credentials: 'include'
@@ -620,10 +608,13 @@ async function loadUserTitles(userId) {
       userTitles = data.specialTitles || [];
       equippedTitles = data.equippedTitles || [null, null, null];
       
-      // ✨ 更新 messageCount 和 level
       if (data.messageCount !== undefined) {
         currentUser.messageCount = data.messageCount;
         currentUser.level = calculateLevel(data.messageCount);
+        
+        // ✅ 更新 localStorage
+        localStorage.setItem('discordUser', JSON.stringify(currentUser));
+        
         console.log('發言次數:', data.messageCount, '等級:', currentUser.level);
       }
     }
@@ -681,19 +672,15 @@ function loginWithDiscord() {
   window.location.href = `${API_URL}/api/auth/discord`;
 }
 
-async function logout() {
+function logout() {
   if (confirm('確定要登出嗎?')) {
-    try {
-      await fetch(`${API_URL}/api/auth/logout`, {
-        credentials: 'include'
-      });
-      currentUser = null;
-      updateUI();
-      closeSidebar();
-      navigateTo('home');
-    } catch (error) {
-      console.error('登出失敗:', error);
-    }
+    // ✅ 清除 localStorage
+    localStorage.removeItem('discordUser');
+    currentUser = null;
+    updateUI();
+    closeSidebar();
+    navigateTo('home');
+    console.log('✅ 已登出');
   }
 }
 
@@ -956,15 +943,46 @@ document.getElementById('titleModal')?.addEventListener('click', (e) => {
 });
 
 // ===== 初始化 =====
+// ===== 初始化 =====
+// ===== 初始化 =====
 const urlParams = new URLSearchParams(window.location.search);
+
 if (urlParams.get('login') === 'success') {
+  // ✅ 從 URL 取得使用者資料並存入 localStorage
+  const userData = urlParams.get('userData');
+  if (userData) {
+    try {
+      const user = JSON.parse(decodeURIComponent(userData));
+      localStorage.setItem('discordUser', JSON.stringify(user));
+      currentUser = user;
+      updateUI();
+      console.log('✅ 登入成功,使用者資料已存入 localStorage');
+    } catch (e) {
+      console.error('❌ 解析使用者資料失敗:', e);
+      alert('登入資料處理失敗,請重試');
+    }
+  }
+  // 清除 URL 參數
   window.history.replaceState({}, document.title, window.location.pathname);
-  checkLoginStatus();
+  
 } else if (urlParams.get('login') === 'failed') {
-  alert('登入失敗,請重試');
+  const error = urlParams.get('error');
+  alert('登入失敗' + (error ? ': ' + error : ',請重試'));
   window.history.replaceState({}, document.title, window.location.pathname);
+  
 } else {
-  checkLoginStatus();
+  // ✅ 從 localStorage 載入使用者資料
+  const savedUser = localStorage.getItem('discordUser');
+  if (savedUser) {
+    try {
+      currentUser = JSON.parse(savedUser);
+      console.log('✅ 從 localStorage 載入使用者:', currentUser.username);
+      updateUI();
+    } catch (e) {
+      console.error('❌ localStorage 資料損壞,已清除');
+      localStorage.removeItem('discordUser');
+    }
+  }
 }
 
 updateUI();
