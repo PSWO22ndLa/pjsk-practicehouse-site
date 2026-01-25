@@ -19,13 +19,15 @@
 
   /* ===== 頂部導航 ===== */
   .header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.98);
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(255, 107, 157, 0.1);
+}
 
   .header-inner {
     max-width: 1400px;
@@ -324,7 +326,14 @@
   border-left-color: #FF6B9D;
   transform: translateX(5px);
 }
+/* 登出按鈕特別樣式 */
+.sidebar-menu-item:last-child:hover {
+  border-left-color: #FF4444;
+}
 
+.sidebar-menu-item:last-child:hover::before {
+  background: linear-gradient(90deg, rgba(255, 68, 68, 0.15), transparent);
+}
 .sidebar-menu-item.active {
   background: linear-gradient(90deg, rgba(255, 107, 157, 0.2), transparent);
   border-left-color: #FF6B9D;
@@ -836,16 +845,17 @@
   }
 
   .profile-header {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 40px;
-    position: relative;
-  }
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F7 100%);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  position: relative;
+  border: 2px solid rgba(255, 107, 157, 0.1);
+}
 
   .profile-left {
     display: flex;
@@ -1116,17 +1126,19 @@
   }
 
   .profile-card {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;  /* 增加內距 */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s;  /* 加入動畫 */
-  }
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF9FC 100%);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
 
-  .profile-card:hover {
-    transform: translateY(-5px);  /* 懸停效果 */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-  }
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(255, 107, 157, 0.15);
+  border-color: rgba(255, 107, 157, 0.2);
+}
 
   .profile-card h3 {
     font-size: 24px;
@@ -1186,16 +1198,30 @@
 
   /* ===== Footer ===== */
   .footer {
-    background: #333;
-    color: white;
-    text-align: center;
-    padding: 40px 20px;
-  }
+  background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
 
-  .footer-text {
-    font-size: 14px;
-    opacity: 0.8;
-  }
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FF6B9D, #FFB3D9, #B3E5FF);
+}
+
+.footer-text {
+  font-size: 14px;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
 
   /* ===== 響應式 ===== */
   @media (max-width: 768px) {
@@ -1234,15 +1260,15 @@
 
   /* ===== 滾動動畫 ===== */
   .fade-up {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease-out;
-  }
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
 
   /* ===== 隱藏主頁面 ===== */
   .main-content.hidden {
