@@ -438,13 +438,22 @@
   }
 
   .hero-logo {
-    font-size: 72px;
-    font-weight: 900;
-    color: #FF6B9D;
-    margin-bottom: 20px;
-    line-height: 1.2;
-    text-shadow: 3px 3px 0 #FFE5F0;
-  }
+  font-size: 72px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #FF6B9D 0%, #FFB3D9 50%, #B3E5FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  filter: drop-shadow(2px 2px 4px rgba(255, 107, 157, 0.3));
+  animation: titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
 
   .hero-subtitle {
     font-size: 28px;
