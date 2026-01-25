@@ -7,6 +7,13 @@
 <link rel="stylesheet" href="/main.css">
 </head>
 <body>
+  <!-- 載入動畫 -->
+  <div class="page-loader">
+    <div class="loader-content">
+      <div class="loader-logo">練習屋</div>
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
   <!-- 稱號選擇彈窗 -->
   <div class="title-modal" id="titleModal">
     <div class="title-modal-content">
@@ -391,7 +398,15 @@
   </div>
 
 <script>
-  
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    const loader = document.querySelector('.page-loader');
+    if (loader) {
+      loader.classList.add('hidden');
+      setTimeout(() => loader.remove(), 500);
+    }
+  }, 800);
+});  
 // 正式環境：需要公開 Bot 的 API
 const API_URL = 'https://labotcode-production.up.railway.app';
 
