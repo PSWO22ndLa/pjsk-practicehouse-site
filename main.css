@@ -1286,7 +1286,11 @@
   }
   
   .profile-badge {
-    display: none;
+    position: static;
+    width: 80px;
+    height: 80px;
+    margin: 20px auto;
+    opacity: 0.8;
   }
 }
 
