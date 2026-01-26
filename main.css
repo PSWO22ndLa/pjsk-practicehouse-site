@@ -911,30 +911,25 @@
   }
 
   .profile-badge {
-    position: absolute;
-    right: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 150px;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 80px;
-    opacity: 0.15;
-    pointer-events: none;
-  }
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
 
-  .profile-badge img {
+.profile-badge img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: 
-    brightness(1.2)
-    contrast(1.3)
-    saturate(1.1)
-    drop-shadow(0 0 20px rgba(255, 107, 157, 0.4));
-  opacity: 0.25;
+  filter: drop-shadow(0 5px 15px rgba(255, 107, 157, 0.3));
 }
   /* ===== 稱號裝備槽 ===== */
   .equipped-titles {
