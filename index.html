@@ -587,7 +587,32 @@ function getLevelColor(level) {
   else if (level < 100) return 'linear-gradient(135deg, #FF8C00 0%, #FF4500 100%)';  // 橙紅 (Lv.90-99)
   else return 'linear-gradient(135deg, #FFF59D 0%, #FCC1C1 33%, #F9D4FF 66%, #70FFF8 100%)';  // 彩虹 (Lv.100+)
 }
-
+// ===== 段位設定 =====
+function getRankConfig(rank) {
+  const configs = {
+    'プロセカ初心者': { class: '', badge: '🎵', badgeImage: 'beginner' },
+    'プロセカ青銅者': { class: '', badge: '🥉', badgeImage: 'bronze' },
+    'プロセカ白銀者': { class: '', badge: '🥈', badgeImage: 'silver' },
+    'プロセカ黃金者': { class: '', badge: '🥇', badgeImage: 'gold' },
+    'プロセカ白金者': { class: '', badge: '💎', badgeImage: 'platinum' },
+    'プロセカ鑽石者': { class: '', badge: '💠', badgeImage: 'diamond' },
+    'プロセカ大師': { class: 'master', badge: '👑', badgeImage: 'master' },
+    'プロセカ巔峰者': { class: 'master', badge: '⭐', badgeImage: 'peak' },
+    'プロセカ 亞神': { class: 'god', badge: '✨', badgeImage: 'demigod' },
+    'プロセカ 神': { class: 'god', badge: '🌟', badgeImage: 'god' },
+    'プロセカ 天啓': { class: 'god', badge: '☀️', badgeImage: 'revelation' },
+    'プロセカ 創神者': { class: 'god', badge: '🔥', badgeImage: 'creator' },
+    'プロセカ ∞': { class: 'infinity', badge: '∞', badgeImage: 'infinity' },
+    '2025 管管': { class: 'special', badge: '👨‍💼', badgeImage: 'admin' },
+    '2025 幹部': { class: 'special', badge: '⚡', badgeImage: 'staff' },
+    '特殊貢獻者': { class: 'special', badge: '🎖️', badgeImage: 'contributor' }
+  };
+  
+  if (rank.includes('管管')) return { class: 'special', badge: '👨‍💼', badgeImage: 'admin' };
+  if (rank.includes('幹部')) return { class: 'special', badge: '⚡', badgeImage: 'staff' };
+  
+  return configs[rank] || { class: '', badge: '🎵', badgeImage: 'beginner' };
+}
 
 // ===== 讀取使用者稱號 =====
 async function loadUserTitles(userId) {
@@ -718,6 +743,7 @@ function updateUI() {
 }
 
 // ===== 顯示個人資訊頁 =====
+
 // ===== 顯示個人資訊頁 =====
 function showProfile() {
   if (!currentUser) return;
