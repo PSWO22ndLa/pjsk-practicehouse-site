@@ -334,9 +334,14 @@
         <div class="profile-left">
           <img id="profileAvatar" class="profile-avatar" src="" alt="頭像">
           <div class="profile-info">
-            <h2 id="profileName">使用者名稱</h2>
-            <!-- 三個稱號槽位 -->
-            <div class="equipped-titles" id="equippedTitles">
+  <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+    <h2 id="profileName">使用者名稱</h2>
+    <button id="refreshBtn" onclick="refreshProfileData()" class="refresh-btn">
+      🔄 更新
+    </button>
+  </div>
+  <!-- 三個稱號槽位 -->
+  <div class="equipped-titles" id="equippedTitles">
               <div class="title-slot empty" onclick="openTitleModal(0)" data-slot="0">
                點擊裝備稱號
               </div>
@@ -664,9 +669,171 @@ function closeSidebar() {
   document.getElementById('overlay').classList.remove('active');
   document.getElementById('menuBtn').classList.remove('active');
 }
+// ===== 即時更新系統 =====
+let profileUpdateInterval = null;
 
+// 刷新資料
+async function refreshProfileData() {
+  if (!currentUser) return;
+  
+  const btn = document.getElementById('refreshBtn');
+  if (btn) {
+    btn.classList.add('loading');
+    btn.disabled = true;
+  }
+  
+  try {
+    const response = await fetch(`${API_URL}/api/user/${currentUser.id}/titles`);
+    const data = await response.json();
+    
+    if (data) {
+      const oldMessageCount = currentUser.messageCount;
+      const oldRank = currentUser.rank;
+      
+      // 更新資料
+      currentUser.rank = data.rank || currentUser.rank;
+      currentUser.messageCount = data.messageCount || 0;
+      currentUser.achievements = data.achievements || [];
+      currentUser.totalPoints = data.totalPoints || 0;
+      
+      // 更新 localStorage
+      localStorage.setItem('discordUser', JSON.stringify(currentUser));
+      
+      // 更新側邊欄
+      updateUI();
+      
+      // 如果在個人資料頁,重新渲染
+      if (document.getElementById('profilePage').classList.contains('active')) {
+        updateProfileUI();
+      }
+      
+      // 顯示更新通知
+      if (data.messageCount > oldMessageCount) {
+        console.log(`🎉 發言次數更新: ${oldMessageCount} → ${data.messageCount}`);
+      }
+      if (data.rank !== oldRank) {
+        console.log(`🏆 段位更新: ${oldRank} → ${data.rank}`);
+      }
+      
+      console.log('✅ 資料已更新');
+    }
+  } catch (error) {
+    console.error('❌ 更新失敗:', error);
+  } finally {
+    if (btn) {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  }
+}
+
+// 開始自動更新
+function startAutoRefresh() {
+  // 清除舊的定時器
+  if (profileUpdateInterval) {
+    clearInterval(profileUpdateInterval);
+  }
+  
+  // 每 30 秒更新一次
+  profileUpdateInterval = setInterval(async () => {
+    if (document.getElementById('profilePage').classList.contains('active')) {
+      await refreshProfileData();
+    }
+  }, 30000); // 30 秒
+  
+  console.log('✅ 自動更新已啟動 (每 30 秒)');
+}
+
+// 停止自動更新
+function stopAutoRefresh() {
+  if (profileUpdateInterval) {
+    clearInterval(profileUpdateInterval);
+    profileUpdateInterval = null;
+    console.log('⏸️ 自動更新已停止');
+  }
+}
+// ===== 顯示個人資訊頁 =====
+async function showProfile() {
+  if (!currentUser) return;
+
+  document.getElementById('mainContent').classList.add('hidden');
+  document.getElementById('profilePage').classList.add('active');
+
+  document.getElementById('profileAvatar').src = currentUser.avatar;
+  document.getElementById('profileName').textContent = currentUser.username;
+  
+  // 先顯示快取資料
+  updateProfileUI();
+  
+  // ✨ 啟動自動更新
+  startAutoRefresh();
+  
+  // ✨ 立即更新一次最新資料
+  await refreshProfileData();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== 更新個人資料 UI =====
+function updateProfileUI() {
+  if (!currentUser) return;
+  
+  // 計算等級
+  const messageCount = currentUser.messageCount || 0;
+  const level = calculateLevel(messageCount);
+  const levelColor = getLevelColor(level);
+  
+  // 更新統計數據
+  document.getElementById('statAchievements').textContent = currentUser.achievements?.length || 0;
+  document.getElementById('statPoints').textContent = currentUser.totalPoints || 0;
+  document.getElementById('statLevel').textContent = level;
+  
+  // 更新等級顯示區塊
+  const displayLevelElement = document.getElementById('displayLevel');
+  displayLevelElement.textContent = level;
+  
+  // 套用顏色
+  if (levelColor.startsWith('linear-gradient')) {
+    displayLevelElement.style.background = levelColor;
+    displayLevelElement.style.webkitBackgroundClip = 'text';
+    displayLevelElement.style.webkitTextFillColor = 'transparent';
+    displayLevelElement.style.backgroundClip = 'text';
+  } else {
+    displayLevelElement.style.color = levelColor;
+    displayLevelElement.style.background = 'none';
+    displayLevelElement.style.webkitTextFillColor = levelColor;
+  }
+  
+  document.getElementById('messageCount').textContent = messageCount;
+  document.getElementById('nextLevelInfo').textContent = getNextLevelInfo(messageCount);
+  
+  // ✨ 顯示段位徽章圖片
+  const rankConfig = getRankConfig(currentUser.rank || 'プロセカ初心者');
+  const badgeElement = document.getElementById('profileBadge');
+  badgeElement.innerHTML = `<img src="/public/images/ranks/${rankConfig.badgeImage}.webp" alt="段位徽章" onerror="this.parentElement.innerHTML='${rankConfig.badge}'">`;
+  
+  // 成就列表
+  const achList = document.getElementById('achievementsList');
+  if (currentUser.achievements && currentUser.achievements.length > 0) {
+    achList.innerHTML = currentUser.achievements.map(ach => `
+      <div class="achievement-item">
+        <div class="achievement-name">${ach.name} (+${ach.points}pt)</div>
+        <div class="achievement-desc">${ach.description}</div>
+      </div>
+    `).join('');
+  } else {
+    achList.innerHTML = '<p style="color: #999; text-align: center;">尚無成就記錄</p>';
+  }
+  
+  // 更新稱號槽
+  updateEquippedTitles();
+}
 // ===== 導航功能 =====
 function navigateTo(page) {
+
+  // ✨ 停止自動更新
+  stopAutoRefresh();
+  
   closeSidebar();
 
   if (page === 'home') {
@@ -690,7 +857,7 @@ function navigateTo(page) {
       window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
   }
-}
+}  
 
 // ===== 登入系統 =====
 function loginWithDiscord() {
