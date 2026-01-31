@@ -863,7 +863,7 @@ function navigateTo(page) {
 function loginWithDiscord() {
   const clientId = '1407405904000979045';
   const redirectUri = 'https://pjsk-practicehouse-site.vercel.app/api/auth/callback';
-  const scope = 'identify';
+  const scope = 'identify guilds.members.read';
   
   window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}`;
 }
@@ -908,71 +908,6 @@ function updateUI() {
     document.getElementById('sidebarContent').style.display = 'none';
   }
 }
-
-// ===== 顯示個人資訊頁 =====
-
-// ===== 顯示個人資訊頁 =====
-function showProfile() {
-  if (!currentUser) return;
-
-  document.getElementById('mainContent').classList.add('hidden');
-  document.getElementById('profilePage').classList.add('active');
-
-  document.getElementById('profileAvatar').src = currentUser.avatar;
-  document.getElementById('profileName').textContent = currentUser.username;
-  
-  // 計算等級
-  const messageCount = currentUser.messageCount || 0;
-  const level = calculateLevel(messageCount);
-  const levelColor = getLevelColor(level);
-  
-  // 更新統計數據
-  document.getElementById('statAchievements').textContent = currentUser.achievements?.length || 0;
-  document.getElementById('statPoints').textContent = currentUser.totalPoints || 0;
-  document.getElementById('statLevel').textContent = level;
-  
-  // 更新等級顯示區塊
-  const displayLevelElement = document.getElementById('displayLevel');
-  displayLevelElement.textContent = level;
-  
-  // 套用顏色
-  if (levelColor.startsWith('linear-gradient')) {
-    displayLevelElement.style.background = levelColor;
-    displayLevelElement.style.webkitBackgroundClip = 'text';
-    displayLevelElement.style.webkitTextFillColor = 'transparent';
-    displayLevelElement.style.backgroundClip = 'text';
-  } else {
-    displayLevelElement.style.color = levelColor;
-    displayLevelElement.style.background = 'none';
-    displayLevelElement.style.webkitTextFillColor = levelColor;
-  }
-  
-  document.getElementById('messageCount').textContent = messageCount;
-  document.getElementById('nextLevelInfo').textContent = getNextLevelInfo(messageCount);
-  
-  // ✨ 顯示段位徽章圖片
-  const rankConfig = getRankConfig(currentUser.rank || 'プロセカ初心者');
-  const badgeElement = document.getElementById('profileBadge');
-  badgeElement.innerHTML = `<img src="/public/images/ranks/${rankConfig.badgeImage}.webp" alt="段位徽章" onerror="this.parentElement.innerHTML='${rankConfig.badge}'">`;
-  
-  // 成就列表
-  const achList = document.getElementById('achievementsList');
-  if (currentUser.achievements && currentUser.achievements.length > 0) {
-    achList.innerHTML = currentUser.achievements.map(ach => `
-      <div class="achievement-item">
-        <div class="achievement-name">${ach.name} (+${ach.points}pt)</div>
-        <div class="achievement-desc">${ach.description}</div>
-      </div>
-    `).join('');
-  }
-  
-  // 更新稱號槽
-  updateEquippedTitles();
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-// ===== 稱號設定系統 =====
-
 
 // ===== 更新已裝備稱號顯示 =====
 function updateEquippedTitles() {
