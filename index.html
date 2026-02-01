@@ -757,7 +757,16 @@ function stopAutoRefresh() {
 // ===== 顯示個人資訊頁 =====
 async function showProfile() {
   if (!currentUser) return;
-
+  // ✨ 根據段位套用主題
+  const profilePage = document.getElementById('profilePage');
+  profilePage.classList.remove('god-tier', 'infinity-tier'); // 清除舊主題
+  
+  const rank = currentUser.rank || 'プロセカ初心者';
+  if (rank === 'プロセカ ∞') {
+    profilePage.classList.add('infinity-tier');
+  } else if (rank === 'プロセカ 創神者' || rank === 'プロセカ 天啓' || rank === 'プロセカ 神' || rank === 'プロセカ 亞神') {
+    profilePage.classList.add('god-tier');
+  }
   document.getElementById('mainContent').classList.add('hidden');
   document.getElementById('profilePage').classList.add('active');
 

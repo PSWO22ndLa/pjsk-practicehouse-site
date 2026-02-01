@@ -1417,3 +1417,134 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+/* ========== 神級段位黑色主題 ========== */
+
+/* 天啓、創神者、∞ 的個人資料頁 */
+.profile-page.god-tier {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f0f23 100%);
+}
+
+.profile-page.god-tier .profile-container {
+  background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(10, 10, 30, 0.98));
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    0 0 40px rgba(255, 215, 0, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.profile-page.god-tier .profile-header {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.8), rgba(20, 20, 40, 0.9));
+  border-bottom: 2px solid rgba(255, 215, 0, 0.4);
+}
+
+.profile-page.god-tier h2,
+.profile-page.god-tier h3 {
+  color: #FFD700;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.profile-page.god-tier .stat-label,
+.profile-page.god-tier .sidebar-stat-label {
+  color: #999;
+}
+
+.profile-page.god-tier .stat-number {
+  color: #FFD700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.profile-page.god-tier .profile-card {
+  background: linear-gradient(135deg, rgba(25, 25, 45, 0.95), rgba(15, 15, 35, 0.98));
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* 段位徽章優化 */
+.profile-page.god-tier .profile-badge {
+  opacity: 0.25;
+  filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.5));
+}
+
+.profile-page.god-tier .profile-badge img {
+  filter: 
+    drop-shadow(0 0 20px rgba(255, 215, 0, 0.4))
+    brightness(1.2)
+    contrast(1.1);
+}
+
+/* 更新按鈕 */
+.profile-page.god-tier .refresh-btn {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+}
+
+.profile-page.god-tier .refresh-btn:hover {
+  box-shadow: 0 6px 30px rgba(255, 215, 0, 0.6);
+  transform: translateY(-3px);
+}
+
+/* 等級顯示 */
+.profile-page.god-tier #displayLevel {
+  text-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.6),
+    0 0 60px rgba(255, 215, 0, 0.3);
+}
+
+/* 稱號槽 */
+.profile-page.god-tier .title-slot {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.6), rgba(20, 20, 40, 0.8));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: #FFD700;
+}
+
+.profile-page.god-tier .title-slot.god {
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+/* ∞ 特殊效果 */
+.profile-page.infinity-tier {
+  background: linear-gradient(135deg, 
+    #000000 0%, 
+    #1a0033 25%, 
+    #330066 50%, 
+    #1a0033 75%, 
+    #000000 100%);
+  animation: infinityGlow 10s ease-in-out infinite;
+}
+
+@keyframes infinityGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.profile-page.infinity-tier .profile-badge {
+  opacity: 0.3;
+  filter: 
+    drop-shadow(0 0 40px rgba(138, 43, 226, 0.8))
+    hue-rotate(20deg);
+  animation: infinityPulse 3s ease-in-out infinite;
+}
+
+@keyframes infinityPulse {
+  0%, 100% { 
+    filter: drop-shadow(0 0 40px rgba(138, 43, 226, 0.8));
+    transform: scale(1);
+  }
+  50% { 
+    filter: drop-shadow(0 0 60px rgba(138, 43, 226, 1));
+    transform: scale(1.05);
+  }
+}
+
+/* 響應式 - 手機版 */
+@media (max-width: 768px) {
+  .profile-page.god-tier .profile-badge,
+  .profile-page.infinity-tier .profile-badge {
+    opacity: 0.4;
+    width: 80px;
+    height: 80px;
+  }
+}
