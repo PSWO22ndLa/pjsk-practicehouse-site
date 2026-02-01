@@ -673,6 +673,7 @@ function closeSidebar() {
 let profileUpdateInterval = null;
 
 // 刷新資料
+// 刷新資料
 async function refreshProfileData() {
   if (!currentUser) return;
   
@@ -683,15 +684,20 @@ async function refreshProfileData() {
   }
   
   try {
+    // ✨ 重新呼叫 callback 的邏輯 - 直接用 Discord OAuth token
+    // 但我們沒有 access_token 了...
+    
+    // 所以改成:只從 Railway 讀發言次數和成就,段位保持不變
     const response = await fetch(`${API_URL}/api/user/${currentUser.id}/titles`);
     const data = await response.json();
     
     if (data) {
       const oldMessageCount = currentUser.messageCount;
-      const oldRank = currentUser.rank;
       
-      // 更新資料
-      currentUser.rank = data.rank || currentUser.rank;
+      // ✨ 段位不要更新!保持登入時偵測到的
+      // currentUser.rank = data.rank || currentUser.rank;  // ← 註解掉這行
+      
+      // 只更新發言次數和成就
       currentUser.messageCount = data.messageCount || 0;
       currentUser.achievements = data.achievements || [];
       currentUser.totalPoints = data.totalPoints || 0;
@@ -711,11 +717,8 @@ async function refreshProfileData() {
       if (data.messageCount > oldMessageCount) {
         console.log(`🎉 發言次數更新: ${oldMessageCount} → ${data.messageCount}`);
       }
-      if (data.rank !== oldRank) {
-        console.log(`🏆 段位更新: ${oldRank} → ${data.rank}`);
-      }
       
-      console.log('✅ 資料已更新');
+      console.log('✅ 資料已更新 (段位保持:', currentUser.rank, ')');
     }
   } catch (error) {
     console.error('❌ 更新失敗:', error);
@@ -726,7 +729,6 @@ async function refreshProfileData() {
     }
   }
 }
-
 // 開始自動更新
 function startAutoRefresh() {
   // 清除舊的定時器
