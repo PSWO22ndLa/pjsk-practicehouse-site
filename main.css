@@ -1417,7 +1417,7 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-/* ========== 神級段位黑色主題 ========== */
+/* ========== 神級段位黑色主題 (優化版) ========== */
 
 /* 天啓、創神者、∞ 的個人資料頁 */
 .profile-page.god-tier {
@@ -1437,45 +1437,65 @@
   border-bottom: 2px solid rgba(255, 215, 0, 0.4);
 }
 
+/* ✨ 統計卡片改成深色 */
+.profile-page.god-tier .profile-stats .stat-item {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.6), rgba(20, 20, 40, 0.8)) !important;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+}
+
 .profile-page.god-tier h2,
 .profile-page.god-tier h3 {
   color: #FFD700;
   text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
-.profile-page.god-tier .stat-label,
-.profile-page.god-tier .sidebar-stat-label {
-  color: #999;
+/* ✨ 所有文字改成淺色 */
+.profile-page.god-tier .stat-label {
+  color: #999 !important;
 }
 
 .profile-page.god-tier .stat-number {
-  color: #FFD700;
+  color: #FFD700 !important;
   text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
 }
 
 .profile-page.god-tier .profile-card {
-  background: linear-gradient(135deg, rgba(25, 25, 45, 0.95), rgba(15, 15, 35, 0.98));
+  background: linear-gradient(135deg, rgba(25, 25, 45, 0.95), rgba(15, 15, 35, 0.98)) !important;
   border: 1px solid rgba(255, 215, 0, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-/* 段位徽章優化 */
+/* ✨ 成就和等級卡片內的文字 */
+.profile-page.god-tier .profile-card h3 {
+  color: #FFD700;
+}
+
+.profile-page.god-tier .profile-card p,
+.profile-page.god-tier .profile-card div {
+  color: #ccc;
+}
+
+/* ✨ 段位徽章變小變淡 */
 .profile-page.god-tier .profile-badge {
-  opacity: 0.25;
-  filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.5));
+  opacity: 0.15 !important;
+  width: 180px;
+  height: 180px;
+  filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.3));
 }
 
 .profile-page.god-tier .profile-badge img {
   filter: 
-    drop-shadow(0 0 20px rgba(255, 215, 0, 0.4))
-    brightness(1.2)
+    drop-shadow(0 0 20px rgba(255, 215, 0, 0.3))
+    brightness(0.9)
     contrast(1.1);
 }
 
 /* 更新按鈕 */
 .profile-page.god-tier .refresh-btn {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  color: #000;
+  background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+  color: #000 !important;
   font-weight: 700;
   box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
 }
@@ -1487,21 +1507,43 @@
 
 /* 等級顯示 */
 .profile-page.god-tier #displayLevel {
+  color: #FFD700 !important;
   text-shadow: 
     0 0 30px rgba(255, 215, 0, 0.6),
     0 0 60px rgba(255, 215, 0, 0.3);
 }
 
-/* 稱號槽 */
+.profile-page.god-tier #messageCount {
+  background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* ✨ 稱號槽深色主題 */
 .profile-page.god-tier .title-slot {
-  background: linear-gradient(135deg, rgba(30, 30, 50, 0.6), rgba(20, 20, 40, 0.8));
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  color: #FFD700;
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.6), rgba(20, 20, 40, 0.8)) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  color: #FFD700 !important;
+}
+
+.profile-page.god-tier .title-slot.empty {
+  background: linear-gradient(135deg, rgba(20, 20, 35, 0.5), rgba(15, 15, 30, 0.7)) !important;
+  color: #666 !important;
 }
 
 .profile-page.god-tier .title-slot.god {
-  border-color: rgba(255, 215, 0, 0.5);
+  border-color: rgba(255, 215, 0, 0.5) !important;
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+/* ✨ 等級資訊卡片背景 */
+.profile-page.god-tier #levelInfo > div {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.5), rgba(20, 20, 40, 0.7)) !important;
+}
+
+/* ✨ 發言次數區塊 */
+.profile-page.god-tier #levelInfo > div > div:last-child {
+  background: linear-gradient(135deg, rgba(40, 40, 60, 0.6), rgba(30, 30, 50, 0.8)) !important;
 }
 
 /* ∞ 特殊效果 */
@@ -1512,6 +1554,7 @@
     #330066 50%, 
     #1a0033 75%, 
     #000000 100%);
+  background-size: 200% 200%;
   animation: infinityGlow 10s ease-in-out infinite;
 }
 
@@ -1521,7 +1564,7 @@
 }
 
 .profile-page.infinity-tier .profile-badge {
-  opacity: 0.3;
+  opacity: 0.2 !important;
   filter: 
     drop-shadow(0 0 40px rgba(138, 43, 226, 0.8))
     hue-rotate(20deg);
@@ -1543,8 +1586,8 @@
 @media (max-width: 768px) {
   .profile-page.god-tier .profile-badge,
   .profile-page.infinity-tier .profile-badge {
-    opacity: 0.4;
-    width: 80px;
-    height: 80px;
+    opacity: 0.3 !important;
+    width: 70px;
+    height: 70px;
   }
 }
