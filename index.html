@@ -605,9 +605,9 @@ function getRankConfig(rank) {
     'プロセカ巔峰者': { class: 'master', badge: '⭐', badgeImage: 'peak' },
     'プロセカ 亞神': { class: 'god', badge: '✨', badgeImage: 'demigod' },
     'プロセカ 神': { class: 'god', badge: '🌟', badgeImage: 'god' },
-    'プロセカ 天啓': { class: 'god', badge: '☀️', badgeImage: 'revelation' },
-    'プロセカ 創神者': { class: 'god', badge: '🔥', badgeImage: 'godmaker' },
-    'プロセカ ∞': { class: 'infinity', badge: '∞', badgeImage: 'infinity' },
+    'プロセカ 天啓': { class: 'god', badge: '☀️', badgeImage: 'revelation.png' },
+    'プロセカ 創神者': { class: 'god', badge: '🔥', badgeImage: 'godmaker.png' },
+    'プロセカ ∞': { class: 'infinity', badge: '∞', badgeImage: 'infinity.png' },
     '2025 管管': { class: 'special', badge: '👨‍💼', badgeImage: 'admin' },
     '2025 幹部': { class: 'special', badge: '⚡', badgeImage: 'staff' },
     '特殊貢獻者': { class: 'special', badge: '🎖️', badgeImage: 'contributor' }
@@ -821,7 +821,8 @@ function updateProfileUI() {
   // ✨ 顯示段位徽章圖片
   const rankConfig = getRankConfig(currentUser.rank || 'プロセカ初心者');
   const badgeElement = document.getElementById('profileBadge');
-  badgeElement.innerHTML = `<img src="/public/images/ranks/${rankConfig.badgeImage}.webp" alt="段位徽章" onerror="this.parentElement.innerHTML='${rankConfig.badge}'">`;
+  const extension = rankConfig.badgeImage.includes('.') ? '' : '.webp';
+  badgeElement.innerHTML = `<img src="/public/images/ranks/${rankConfig.badgeImage}${extension}" alt="段位徽章" onerror="this.parentElement.innerHTML='${rankConfig.badge}'">`;
   
   // 成就列表
   const achList = document.getElementById('achievementsList');

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>段位挑戰系統 - Project Sekai 練習屋</title>
+<link rel="stylesheet" href="/main.css">
+<style>
+  /* 段位挑戰頁面 - 暗色系 */
+  .rank-challenge-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 100px 0 60px;
+  }
+
+  .rank-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    gap: 30px;
+    align-items: start;
+  }
+
+  /* 左側 - 最高段位展示 */
+  .rank-showcase {
+    background: rgba(30, 30, 50, 0.8);
+    border-radius: 8px;
+    padding: 50px 40px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: sticky;
+    top: 120px;
+  }
+
+  .rank-showcase-title {
+    font-size: 36px;
+    font-weight: 900;
+    color: #FFD700;
+    margin-bottom: 50px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+
+  .rank-badge-display {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .rank-badge-display img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(255, 215, 0, 0.6));
+    animation: floatBadge 3s ease-in-out infinite;
+  }
+
+  @keyframes floatBadge {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .rank-name-display {
+    font-size: 32px;
+    font-weight: 800;
+    color: #FFD700;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+
+  .rank-subtitle {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 40px;
+  }
+
+  .leaderboard-button {
+    display: inline-block;
+    padding: 16px 45px;
+    background: rgba(255, 215, 0, 0.15);
+    color: #FFD700;
+    font-size: 18px;
+    font-weight: 700;
+    border: 2px solid #FFD700;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .leaderboard-button:hover {
+    background: #FFD700;
+    color: #1a1a2e;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  }
+
+  .leaderboard-button::before {
+    content: '🏆 ';
+  }
+
+  /* 右側 - 段位列表 */
+  .rank-list-container {
+    background: rgba(30, 30, 50, 0.8);
+    border-radius: 8px;
+    padding: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+  }
+
+  .rank-list-header {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .rank-list-header::before {
+    content: '📜';
+    font-size: 32px;
+  }
+
+  .rank-grid {
+    display: grid;
+    gap: 15px;
+  }
+
+  .rank-item {
+    background: rgba(40, 40, 60, 0.6);
+    border-radius: 6px;
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-left: 4px solid;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .rank-item:hover {
+    transform: translateX(8px);
+    background: rgba(50, 50, 70, 0.8);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .rank-item-badge {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+  }
+
+  .rank-item-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .rank-item-info {
+    flex: 1;
+  }
+
+  .rank-item-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .rank-item-desc {
+    font-size: 13px;
+    color: #aaa;
+  }
+
+  .rank-item-arrow {
+    font-size: 24px;
+    transition: all 0.3s ease;
+  }
+
+  .rank-item:hover .rank-item-arrow {
+    transform: translateX(5px);
+  }
+
+  /* 各段位專屬顏色 */
+  .rank-beginner {
+    border-color: #2BFF00;
+  }
+  .rank-beginner .rank-item-name { color: #2BFF00; }
+  .rank-beginner .rank-item-arrow { color: #2BFF00; }
+
+  .rank-bronze {
+    border-color: #CD7F32;
+  }
+  .rank-bronze .rank-item-name { color: #CD7F32; }
+  .rank-bronze .rank-item-arrow { color: #CD7F32; }
+
+  .rank-silver {
+    border-color: #C0C0C0;
+  }
+  .rank-silver .rank-item-name { color: #C0C0C0; }
+  .rank-silver .rank-item-arrow { color: #C0C0C0; }
+
+  .rank-gold {
+    border-color: #FFD700;
+  }
+  .rank-gold .rank-item-name { color: #FFD700; }
+  .rank-gold .rank-item-arrow { color: #FFD700; }
+
+  .rank-platinum {
+    border-color: #E5E4E2;
+  }
+  .rank-platinum .rank-item-name { color: #E5E4E2; }
+  .rank-platinum .rank-item-arrow { color: #E5E4E2; }
+
+  .rank-diamond {
+    border-color: #00BFFF;
+  }
+  .rank-diamond .rank-item-name { color: #00BFFF; }
+  .rank-diamond .rank-item-arrow { color: #00BFFF; }
+
+  .rank-master {
+    border-color: #B388FF;
+  }
+  .rank-master .rank-item-name { color: #B388FF; }
+  .rank-master .rank-item-arrow { color: #B388FF; }
+
+  .rank-peak {
+    border-color: #FF8A80;
+  }
+  .rank-peak .rank-item-name { color: #FF8A80; }
+  .rank-peak .rank-item-arrow { color: #FF8A80; }
+
+  .rank-demigod {
+    border-color: #FF69B4;
+  }
+  .rank-demigod .rank-item-name { 
+    background: linear-gradient(135deg, #FF69B4, #FFB6C1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .rank-demigod .rank-item-arrow { color: #FF69B4; }
+
+  .rank-god {
+    border-color: #FFD700;
+  }
+  .rank-god .rank-item-name { 
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  .rank-god .rank-item-arrow { color: #FFD700; }
+
+  .rank-revelation {
+    border-color: #87CEEB;
+  }
+  .rank-revelation .rank-item-name { 
+    background: linear-gradient(135deg, #87CEEB, #00BFFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .rank-revelation .rank-item-arrow { color: #87CEEB; }
+
+  .rank-creator {
+    border-color: #FF6B9D;
+  }
+  .rank-creator .rank-item-name { 
+    background: linear-gradient(135deg, #FF6B9D, #C74DF5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .rank-creator .rank-item-arrow { color: #FF6B9D; }
+
+  .rank-infinity {
+    border-color: #9370DB;
+  }
+  .rank-infinity .rank-item-name { 
+    background: linear-gradient(135deg, #9370DB, #DDA0DD);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .rank-infinity .rank-item-arrow { color: #9370DB; }
+
+  /* 返回按鈕 */
+  .back-button {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    background: rgba(255, 215, 0, 0.15);
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    border: 2px solid #FFD700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    text-decoration: none;
+  }
+
+  .back-button:hover {
+    background: #FFD700;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  }
+
+  .back-button::before {
+    content: '←';
+    font-size: 24px;
+    color: #FFD700;
+    font-weight: 700;
+    transition: all 0.3s ease;
+  }
+
+  .back-button:hover::before {
+    color: #1a1a2e;
+  }
+
+  /* 滾動條樣式 */
+  .rank-list-container::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .rank-list-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
+  .rank-list-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.3);
+    border-radius: 4px;
+  }
+
+  .rank-list-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 0.5);
+  }
+
+  /* 響應式 */
+  @media (max-width: 1024px) {
+    .rank-container {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .rank-showcase {
+      position: static;
+      margin-bottom: 20px;
+    }
+
+    .rank-list-container {
+      max-height: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <!-- 返回首頁按鈕 -->
+  <a href="index.html" class="back-button" title="返回首頁"></a>
+
+  <div class="rank-challenge-page">
+    <div class="rank-container">
+      <!-- 左側 - 最高段位展示 -->
+      <div class="rank-showcase">
+        <h1 class="rank-showcase-title">段位挑戰</h1>
+        
+        <div class="rank-badge-display">
+          <img src="/public/images/ranks/creator.webp" alt="最高段位徽章" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%22100%22%3E🔥%3C/text%3E%3C/svg%3E'">
+        </div>
+
+        <p class="rank-subtitle">目前挑戰成功之最高段位</p>
+        <h2 class="rank-name-display">プロセカ 創神者</h2>
+
+        <a href="leaderboard.html" class="leaderboard-button">查看排行榜</a>
+      </div>
+
+      <!-- 右側 - 段位列表 -->
+      <div class="rank-list-container">
+        <h2 class="rank-list-header">選擇段位</h2>
+
+        <div class="rank-grid">
+          <a href="rank-detail.html?rank=beginner" class="rank-item rank-beginner">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/beginner.webp" alt="初心者" onerror="this.textContent='🎵'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ初心者</div>
+              <div class="rank-item-desc">入門段位 • 適合新手挑戰</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=bronze" class="rank-item rank-bronze">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/bronze.webp" alt="青銅者" onerror="this.textContent='🥉'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ青銅者</div>
+              <div class="rank-item-desc">基礎段位 • 掌握基本技巧</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=silver" class="rank-item rank-silver">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/silver.webp" alt="白銀者" onerror="this.textContent='🥈'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ白銀者</div>
+              <div class="rank-item-desc">進階段位 • 穩定的實力</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=gold" class="rank-item rank-gold">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/gold.webp" alt="黃金者" onerror="this.textContent='🥇'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ黃金者</div>
+              <div class="rank-item-desc">優秀段位 • 展現實力</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=platinum" class="rank-item rank-platinum">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/platinum.webp" alt="白金者" onerror="this.textContent='💎'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ白金者</div>
+              <div class="rank-item-desc">卓越段位 • 精通技巧</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=diamond" class="rank-item rank-diamond">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/diamond.webp" alt="鑽石者" onerror="this.textContent='💠'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ鑽石者</div>
+              <div class="rank-item-desc">精英段位 • 頂尖玩家</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=master" class="rank-item rank-master">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/master.webp" alt="大師" onerror="this.textContent='👑'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ大師</div>
+              <div class="rank-item-desc">大師段位 • 超凡實力</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=peak" class="rank-item rank-peak">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/peak.webp" alt="巔峰者" onerror="this.textContent='⭐'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ巔峰者</div>
+              <div class="rank-item-desc">巔峰段位 • 登峰造極</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=demigod" class="rank-item rank-demigod">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/demigod.webp" alt="亞神" onerror="this.textContent='✨'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ 亞神</div>
+              <div class="rank-item-desc">神級段位 • 近乎完美</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=god" class="rank-item rank-god">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/god.webp" alt="神" onerror="this.textContent='🌟'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ 神</div>
+              <div class="rank-item-desc">神之領域 • 無可匹敵</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=revelation" class="rank-item rank-revelation">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/revelation.webp" alt="天啓" onerror="this.textContent='☀️'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ 天啓</div>
+              <div class="rank-item-desc">天啓段位 • 神之啟示</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=creator" class="rank-item rank-creator">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/creator.webp" alt="創神者" onerror="this.textContent='🔥'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ 創神者</div>
+              <div class="rank-item-desc">創世段位 • 開天闢地</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=infinity" class="rank-item rank-infinity">
+            <div class="rank-item-badge">
+              <img src="/public/images/ranks/infinity.webp" alt="無限" onerror="this.textContent='∞'">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">プロセカ ∞</div>
+              <div class="rank-item-desc">無限段位 • 超越極限</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
