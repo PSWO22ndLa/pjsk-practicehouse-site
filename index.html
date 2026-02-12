@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project Sekai 練習屋</title>
-<link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="main.css">
 </head>
 <body>
   <!-- 載入動畫 -->
@@ -1071,75 +1071,49 @@ document.getElementById('titleModal')?.addEventListener('click', (e) => {
 // ===== 初始化 =====
 const urlParams = new URLSearchParams(window.location.search);
 
-if (urlParams.get('login') === 'success') {
-  // ✅ 從 URL 取得使用者資料並存入 localStorage
-  // 5. 組合完整使用者資料
-const userData = {
-  id: discordUser.id,
-  username: discordUser.username,
-  discriminator: discordUser.discriminator,
-  avatar: discordUser.avatar 
-    ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
-    : `https://cdn.discordapp.com/embed/avatars/${parseInt(discordUser.discriminator) % 5}.png`,
-  ...gameData
-};
+// ===== 初始化 =====
+(async function init() {
+  const urlParams = new URLSearchParams(window.location.search);
 
-// ✨ 6. 更新段位到 Railway (如果有變化)
-try {
-  await axios.post(
-    `https://labotcode-production.up.railway.app/api/user/${discordUser.id}/rank`,
-    { rank: detectedRank },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.RAILWAY_API_KEY}` // 如果需要驗證
+  if (urlParams.get('login') === 'success') {
+    const userData = urlParams.get('userData');
+    if (userData) {
+      try {
+        const user = JSON.parse(decodeURIComponent(userData));
+        localStorage.setItem('discordUser', JSON.stringify(user));
+        currentUser = user;
+        await loadUserTitles(user.id);
+        updateUI();
+        console.log('✅ 登入成功:', user.username);
+      } catch (e) {
+        console.error('❌ 解析使用者資料失敗:', e);
+        alert('登入資料處理失敗,請重試');
       }
     }
-  );
-  console.log(`✅ 段位已同步到 Railway: ${detectedRank}`);
-} catch (syncError) {
-  console.log('⚠️ 段位同步失敗,使用偵測到的段位:', syncError.message);
-}
-
-// 7. 傳回前端
-const userDataEncoded = encodeURIComponent(JSON.stringify(userData));
-res.redirect(`https://pjsk-practicehouse-site.vercel.app/?login=success&userData=${userDataEncoded}`);
-  if (userData) {
-    try {
-      const user = JSON.parse(decodeURIComponent(userData));
-      localStorage.setItem('discordUser', JSON.stringify(user));
-      currentUser = user;
-      updateUI();
-      console.log('✅ 登入成功,使用者資料已存入 localStorage');
-    } catch (e) {
-      console.error('❌ 解析使用者資料失敗:', e);
-      alert('登入資料處理失敗,請重試');
+    window.history.replaceState({}, document.title, window.location.pathname);
+    
+  } else if (urlParams.get('login') === 'failed') {
+    const error = urlParams.get('error');
+    alert('登入失敗' + (error ? ': ' + error : ',請重試'));
+    window.history.replaceState({}, document.title, window.location.pathname);
+    
+  } else {
+    const savedUser = localStorage.getItem('discordUser');
+    if (savedUser) {
+      try {
+        currentUser = JSON.parse(savedUser);
+        console.log('✅ 從 localStorage 載入使用者:', currentUser.username);
+        await loadUserTitles(currentUser.id);
+        updateUI();
+      } catch (e) {
+        console.error('❌ localStorage 資料損壞,已清除');
+        localStorage.removeItem('discordUser');
+      }
     }
   }
-  // 清除 URL 參數
-  window.history.replaceState({}, document.title, window.location.pathname);
-  
-} else if (urlParams.get('login') === 'failed') {
-  const error = urlParams.get('error');
-  alert('登入失敗' + (error ? ': ' + error : ',請重試'));
-  window.history.replaceState({}, document.title, window.location.pathname);
-  
-} else {
-  // ✅ 從 localStorage 載入使用者資料
-  const savedUser = localStorage.getItem('discordUser');
-  if (savedUser) {
-    try {
-      currentUser = JSON.parse(savedUser);
-      console.log('✅ 從 localStorage 載入使用者:', currentUser.username);
-      updateUI();
-    } catch (e) {
-      console.error('❌ localStorage 資料損壞,已清除');
-      localStorage.removeItem('discordUser');
-    }
-  }
-}
 
-updateUI();
+  updateUI();
+})();
 </script>
 
 </body>
