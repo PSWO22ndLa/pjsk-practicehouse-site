@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>段位挑戰系統 - Project Sekai 練習屋</title>
-<link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="main.css">
 <style>
   /* 段位挑戰頁面 - 暗色系 */
   .rank-challenge-page {
@@ -159,6 +159,10 @@
     width: 70px;
     height: 70px;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
   }
 
   .rank-item-badge img {
@@ -192,18 +196,6 @@
   }
 
   /* 各段位專屬顏色 */
-  .rank-beginner {
-    border-color: #2BFF00;
-  }
-  .rank-beginner .rank-item-name { color: #2BFF00; }
-  .rank-beginner .rank-item-arrow { color: #2BFF00; }
-
-  .rank-bronze {
-    border-color: #CD7F32;
-  }
-  .rank-bronze .rank-item-name { color: #CD7F32; }
-  .rank-bronze .rank-item-arrow { color: #CD7F32; }
-
   .rank-silver {
     border-color: #C0C0C0;
   }
@@ -229,26 +221,22 @@
   .rank-diamond .rank-item-arrow { color: #00BFFF; }
 
   .rank-master {
-    border-color: #B388FF;
+    border-color: #FFB6E1;
   }
-  .rank-master .rank-item-name { color: #B388FF; }
-  .rank-master .rank-item-arrow { color: #B388FF; }
+  .rank-master .rank-item-name { color: #FFB6E1; }
+  .rank-master .rank-item-arrow { color: #FFB6E1; }
 
-  .rank-peak {
-    border-color: #FF8A80;
+  .rank-peak-unlock, .rank-peak {
+    border-color: #FF6B6B;
   }
-  .rank-peak .rank-item-name { color: #FF8A80; }
-  .rank-peak .rank-item-arrow { color: #FF8A80; }
+  .rank-peak-unlock .rank-item-name, .rank-peak .rank-item-name { color: #FF6B6B; }
+  .rank-peak-unlock .rank-item-arrow, .rank-peak .rank-item-arrow { color: #FF6B6B; }
 
   .rank-demigod {
-    border-color: #FF69B4;
+    border-color: #FFF59D;
   }
-  .rank-demigod .rank-item-name { 
-    background: linear-gradient(135deg, #FF69B4, #FFB6C1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .rank-demigod .rank-item-arrow { color: #FF69B4; }
+  .rank-demigod .rank-item-name { color: #FFF59D; }
+  .rank-demigod .rank-item-arrow { color: #FFF59D; }
 
   .rank-god {
     border-color: #FFD700;
@@ -257,39 +245,38 @@
     background: linear-gradient(135deg, #FFD700, #FFA500);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
   }
   .rank-god .rank-item-arrow { color: #FFD700; }
 
-  .rank-revelation {
+  .rank-revelation-unlock, .rank-revelation {
     border-color: #87CEEB;
   }
-  .rank-revelation .rank-item-name { 
+  .rank-revelation-unlock .rank-item-name, .rank-revelation .rank-item-name { 
     background: linear-gradient(135deg, #87CEEB, #00BFFF);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .rank-revelation .rank-item-arrow { color: #87CEEB; }
+  .rank-revelation-unlock .rank-item-arrow, .rank-revelation .rank-item-arrow { color: #87CEEB; }
 
   .rank-creator {
-    border-color: #FF6B9D;
-  }
-  .rank-creator .rank-item-name { 
-    background: linear-gradient(135deg, #FF6B9D, #C74DF5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .rank-creator .rank-item-arrow { color: #FF6B9D; }
-
-  .rank-infinity {
     border-color: #9370DB;
   }
-  .rank-infinity .rank-item-name { 
-    background: linear-gradient(135deg, #9370DB, #DDA0DD);
+  .rank-creator .rank-item-name { 
+    background: linear-gradient(135deg, #9370DB, #BA55D3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .rank-infinity .rank-item-arrow { color: #9370DB; }
+  .rank-creator .rank-item-arrow { color: #9370DB; }
+
+  .rank-infinity-unlock, .rank-infinity {
+    border-color: #E6D5F5;
+  }
+  .rank-infinity-unlock .rank-item-name, .rank-infinity .rank-item-name { 
+    background: linear-gradient(135deg, #E6D5F5, #D8BFD8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .rank-infinity-unlock .rank-item-arrow, .rank-infinity .rank-item-arrow { color: #E6D5F5; }
 
   /* 返回按鈕 */
   .back-button {
@@ -350,7 +337,6 @@
   @media (max-width: 1024px) {
     .rank-container {
       grid-template-columns: 1fr;
-      gap: 20px;
     }
 
     .rank-showcase {
@@ -375,11 +361,11 @@
         <h1 class="rank-showcase-title">段位挑戰</h1>
         
         <div class="rank-badge-display">
-          <img src="/public/images/ranks/godmaker.png" alt="最高段位徽章" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%22100%22%3E🔥%3C/text%3E%3C/svg%3E'">
+          <img id="highestRankBadge" src="public/images/ranks/silver.webp" alt="最高段位徽章" onerror="this.parentElement.innerHTML='🔥'">
         </div>
 
         <p class="rank-subtitle">目前挑戰成功之最高段位</p>
-        <h2 class="rank-name-display">プロセカ 創神者</h2>
+        <h2 class="rank-name-display" id="highestRankName">白銀</h2>
 
         <a href="leaderboard.html" class="leaderboard-button">查看排行榜</a>
       </div>
@@ -389,144 +375,253 @@
         <h2 class="rank-list-header">選擇段位</h2>
 
         <div class="rank-grid">
-          <a href="rank-detail.html?rank=beginner" class="rank-item rank-beginner">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/beginner.webp" alt="初心者" onerror="this.textContent='🎵'">
-            </div>
-            <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ初心者</div>
-              <div class="rank-item-desc">入門段位 • 適合新手挑戰</div>
-            </div>
-            <div class="rank-item-arrow">→</div>
-          </a>
-
-          <a href="rank-detail.html?rank=bronze" class="rank-item rank-bronze">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/bronze.webp" alt="青銅者" onerror="this.textContent='🥉'">
-            </div>
-            <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ青銅者</div>
-              <div class="rank-item-desc">基礎段位 • 掌握基本技巧</div>
-            </div>
-            <div class="rank-item-arrow">→</div>
-          </a>
-
           <a href="rank-detail.html?rank=silver" class="rank-item rank-silver">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/silver.webp" alt="白銀者" onerror="this.textContent='🥈'">
-            </div>
+            <div class="rank-item-badge">🥈</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ白銀者</div>
-              <div class="rank-item-desc">進階段位 • 穩定的實力</div>
+              <div class="rank-item-name">白銀</div>
+              <div class="rank-item-desc">基礎段位 • 開始挑戰</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
           <a href="rank-detail.html?rank=gold" class="rank-item rank-gold">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/gold.webp" alt="黃金者" onerror="this.textContent='🥇'">
-            </div>
+            <div class="rank-item-badge">🥇</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ黃金者</div>
-              <div class="rank-item-desc">優秀段位 • 展現實力</div>
+              <div class="rank-item-name">黃金</div>
+              <div class="rank-item-desc">進階段位 • 穩定實力</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-detail.html?rank=platinum" class="rank-item rank-platinum">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/platinum.webp" alt="白金者" onerror="this.textContent='💎'">
-            </div>
+          <a href="rank-detail.html?rank=platinum1" class="rank-item rank-platinum">
+            <div class="rank-item-badge">💎</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ白金者</div>
-              <div class="rank-item-desc">卓越段位 • 精通技巧</div>
+              <div class="rank-item-name">白金I</div>
+              <div class="rank-item-desc">優秀段位 • 展現技術</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-detail.html?rank=diamond" class="rank-item rank-diamond">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/diamond.webp" alt="鑽石者" onerror="this.textContent='💠'">
-            </div>
+          <a href="rank-detail.html?rank=platinum2" class="rank-item rank-platinum">
+            <div class="rank-item-badge">💎</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ鑽石者</div>
-              <div class="rank-item-desc">精英段位 • 頂尖玩家</div>
+              <div class="rank-item-name">白金II</div>
+              <div class="rank-item-desc">優秀段位 • 精進技巧</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-detail.html?rank=master" class="rank-item rank-master">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/master.webp" alt="大師" onerror="this.textContent='👑'">
-            </div>
+          <a href="rank-detail.html?rank=diamond1" class="rank-item rank-diamond">
+            <div class="rank-item-badge">💠</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ大師</div>
-              <div class="rank-item-desc">大師段位 • 超凡實力</div>
+              <div class="rank-item-name">鑽石I</div>
+              <div class="rank-item-desc">精英段位 • 頂尖水準</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-detail.html?rank=peak" class="rank-item rank-peak">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/peak.webp" alt="巔峰者" onerror="this.textContent='⭐'">
-            </div>
+          <a href="rank-detail.html?rank=diamond2" class="rank-item rank-diamond">
+            <div class="rank-item-badge">💠</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ巔峰者</div>
+              <div class="rank-item-name">鑽石II</div>
+              <div class="rank-item-desc">精英段位 • 卓越表現</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=master1" class="rank-item rank-master">
+            <div class="rank-item-badge">👑</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">大師I</div>
+              <div class="rank-item-desc">大師段位 • 超凡入聖</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=master2" class="rank-item rank-master">
+            <div class="rank-item-badge">👑</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">大師II</div>
+              <div class="rank-item-desc">大師段位 • 爐火純青</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=master3" class="rank-item rank-master">
+            <div class="rank-item-badge">👑</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">大師III</div>
+              <div class="rank-item-desc">大師段位 • 出神入化</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=peak-unlock" class="rank-item rank-peak-unlock">
+            <div class="rank-item-badge">🔓</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">巔峰解鎖任務</div>
+              <div class="rank-item-desc">特殊挑戰 • 解鎖巔峰段位</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=peak1" class="rank-item rank-peak">
+            <div class="rank-item-badge">⭐</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">巔峰I</div>
               <div class="rank-item-desc">巔峰段位 • 登峰造極</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-detail.html?rank=demigod" class="rank-item rank-demigod">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/demigod.webp" alt="亞神" onerror="this.textContent='✨'">
-            </div>
+          <a href="rank-detail.html?rank=peak2" class="rank-item rank-peak">
+            <div class="rank-item-badge">⭐</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ 亞神</div>
-              <div class="rank-item-desc">神級段位 • 近乎完美</div>
+              <div class="rank-item-name">巔峰II</div>
+              <div class="rank-item-desc">巔峰段位 • 無人能及</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-detail.html?rank=god" class="rank-item rank-god">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/god.webp" alt="神" onerror="this.textContent='🌟'">
-            </div>
+          <a href="rank-detail.html?rank=peak3" class="rank-item rank-peak">
+            <div class="rank-item-badge">⭐</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ 神</div>
+              <div class="rank-item-name">巔峰III</div>
+              <div class="rank-item-desc">巔峰段位 • 至高境界</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=demigod1" class="rank-item rank-demigod">
+            <div class="rank-item-badge">✨</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">亞神I</div>
+              <div class="rank-item-desc">神級段位 • 接近完美</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=demigod2" class="rank-item rank-demigod">
+            <div class="rank-item-badge">✨</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">亞神II</div>
+              <div class="rank-item-desc">神級段位 • 幾近無瑕</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=demigod3" class="rank-item rank-demigod">
+            <div class="rank-item-badge">✨</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">亞神III</div>
+              <div class="rank-item-desc">神級段位 • 半神之力</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=god1" class="rank-item rank-god">
+            <div class="rank-item-badge">🌟</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">神I</div>
               <div class="rank-item-desc">神之領域 • 無可匹敵</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-detail.html?rank=revelation" class="rank-item rank-revelation">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/revelation.png" alt="天啓" onerror="this.textContent='☀️'">
-            </div>
+          <a href="rank-detail.html?rank=god2" class="rank-item rank-god">
+            <div class="rank-item-badge">🌟</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ 天啓</div>
-              <div class="rank-item-desc">天啓段位 • 神之啟示</div>
+              <div class="rank-item-name">神II</div>
+              <div class="rank-item-desc">神之領域 • 神乎其技</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-detail.html?rank=godmaker" class="rank-item rank-godmaker">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/godmaker.png" alt="創神者" onerror="this.textContent='🔥'">
-            </div>
+          <a href="rank-detail.html?rank=god3" class="rank-item rank-god">
+            <div class="rank-item-badge">🌟</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ 創神者</div>
+              <div class="rank-item-name">神III</div>
+              <div class="rank-item-desc">神之領域 • 神之境界</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=revelation-unlock" class="rank-item rank-revelation-unlock">
+            <div class="rank-item-badge">🔓</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">天啟解鎖任務</div>
+              <div class="rank-item-desc">特殊挑戰 • 解鎖天啟段位</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=revelation1" class="rank-item rank-revelation">
+            <div class="rank-item-badge">☀️</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">天啟I</div>
+              <div class="rank-item-desc">天啟段位 • 神之啟示</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=revelation2" class="rank-item rank-revelation">
+            <div class="rank-item-badge">☀️</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">天啟II</div>
+              <div class="rank-item-desc">天啟段位 • 天命昭示</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=revelation3" class="rank-item rank-revelation">
+            <div class="rank-item-badge">☀️</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">天啟III</div>
+              <div class="rank-item-desc">天啟段位 • 天啟降臨</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=creator1" class="rank-item rank-creator">
+            <div class="rank-item-badge">🔥</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">創神I</div>
               <div class="rank-item-desc">創世段位 • 開天闢地</div>
             </div>
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-detail.html?rank=infinity" class="rank-item rank-infinity">
-            <div class="rank-item-badge">
-              <img src="/public/images/ranks/infinity.png" alt="無限" onerror="this.textContent='∞'">
-            </div>
+          <a href="rank-detail.html?rank=creator2" class="rank-item rank-creator">
+            <div class="rank-item-badge">🔥</div>
             <div class="rank-item-info">
-              <div class="rank-item-name">プロセカ ∞</div>
+              <div class="rank-item-name">創神II</div>
+              <div class="rank-item-desc">創世段位 • 造化天工</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=creator3" class="rank-item rank-creator">
+            <div class="rank-item-badge">🔥</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">創神III</div>
+              <div class="rank-item-desc">創世段位 • 創世之神</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=infinity-unlock" class="rank-item rank-infinity-unlock">
+            <div class="rank-item-badge">🔓</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">無限挑戰解鎖任務</div>
+              <div class="rank-item-desc">終極挑戰 • 解鎖無限段位</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
+          <a href="rank-detail.html?rank=infinity" class="rank-item rank-infinity">
+            <div class="rank-item-badge">∞</div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">Infinity</div>
               <div class="rank-item-desc">無限段位 • 超越極限</div>
             </div>
             <div class="rank-item-arrow">→</div>
@@ -535,5 +630,45 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const API_URL = 'https://labotcode-production.up.railway.app';
+    
+    // 載入最高段位
+    async function loadHighestRank() {
+      try {
+        const response = await fetch(`${API_URL}/api/highest-rank`);
+        const data = await response.json();
+        
+        if (data.success && data.hasChallenges) {
+          updateHighestRank(data.rank);
+        }
+      } catch (error) {
+        console.error('載入最高段位失敗:', error);
+      }
+    }
+
+    function updateHighestRank(rank) {
+      const rankConfig = {
+        '白銀': 'silver.webp',
+        '黃金': 'gold.webp',
+        // ... 可以繼續擴充
+      };
+      
+      const badgeImg = document.getElementById('highestRankBadge');
+      const rankName = document.getElementById('highestRankName');
+      
+      if (badgeImg && rankConfig[rank]) {
+        badgeImg.src = `public/images/ranks/${rankConfig[rank]}`;
+      }
+      
+      if (rankName) {
+        rankName.textContent = rank;
+      }
+    }
+
+    // 頁面載入時執行
+    loadHighestRank();
+  </script>
 </body>
 </html>
