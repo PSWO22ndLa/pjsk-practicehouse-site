@@ -505,11 +505,33 @@
   </div>
 
   <script>
-        const songs = [
-      { name: '嬢王', composer: '八王子P', arranger: '八王子P', difficulty: 'HARD', level: 24, jacket: null },
-      { name: 'だんだん早くなる', composer: '40㍍P', arranger: '40㍍P', difficulty: 'EXPERT', level: 24, jacket: null },
-      { name: 'ロストエンファウンド', composer: 'sasakure.UK', arranger: 'sasakure.UK', difficulty: 'EXPERT', level: 25, jacket: null }
-    ];
+const songs = [
+  { 
+    name: '嬢王', 
+    composer: '八王子P', 
+    arranger: '八王子P', 
+    difficulty: 'HARD', 
+    level: 24, 
+    jacket: 'public/images/jackets/bronze-1.webp'  // ← 這裡改
+  },
+  { 
+    name: 'だんだん早くなる', 
+    composer: '40㍍P', 
+    arranger: '40㍍P', 
+    difficulty: 'EXPERT', 
+    level: 24, 
+    jacket: 'public/images/jackets/bronze-2.webp'  // ← 這裡改
+  },
+  { 
+    name: 'ロストエンファウンド', 
+    composer: 'sasakure.UK', 
+    arranger: 'sasakure.UK', 
+    difficulty: 'EXPERT', 
+    level: 25, 
+    jacket: 'public/images/jackets/bronze-3.webp'  // ← 這裡改
+  }
+];
+
 
     // 生成小曲繪標籤
     document.getElementById('songTabs').innerHTML = songs.map((song, i) => `
