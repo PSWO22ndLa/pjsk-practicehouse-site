@@ -11,12 +11,27 @@
     min-height: 100vh;
     background: linear-gradient(135deg, #ffad00 0%, #ffe000 100%);
     padding: 100px 0 60px;
+    position: relative;
+  }
+
+  /* 黑色半透明遮罩 */
+  .rank-detail-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
   }
 
   .detail-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
+    z-index: 1;
   }
 
   .detail-header {
@@ -42,7 +57,7 @@
   }
 
   .rank-badge img {
-    width: 100%;
+    width: 30%;
     height: 100%;
     object-fit: contain;
   }
@@ -74,7 +89,7 @@
   }
 
   .song-tab img {
-    width: 100%;
+    width: 30%;
     height: 100%;
     object-fit: cover;
   }
@@ -160,7 +175,7 @@
   }
 
   .song-jacket-large {
-    width: 100%;
+    width: 30%;
     max-width: 500px;
     height: 500px;
     margin: 0 auto 30px;
@@ -174,7 +189,7 @@
   }
 
   .song-jacket-large img {
-    width: 100%;
+    width: 30%;
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
@@ -229,13 +244,13 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 
-  .difficulty-badge.easy { background: #2BFF00; }
-  .difficulty-badge.normal { background: #00BFFF; }
-  .difficulty-badge.hard { background: #E5FF00; color: #333; }
-  .difficulty-badge.expert { background: #FF8A80; }
-  .difficulty-badge.master { background: #B388FF; }
+  .difficulty-badge.easy { background: #00FF00; }
+  .difficulty-badge.normal { background: #0099FF; }
+  .difficulty-badge.hard { background: #FFDD00; color: #000; }
+  .difficulty-badge.expert { background: #FF4444; }
+  .difficulty-badge.master { background: #9966FF; }
   .difficulty-badge.append { 
-    background: linear-gradient(90deg, #ffb6e9 0%, #da60ff 100%);
+    background: linear-gradient(90deg, #FF33CC 0%, #CC00FF 100%);
   }
 
   .back-button {
@@ -287,7 +302,7 @@
     }
 
     .rank-title-area {
-      width: 100%;
+      width: 30%;
     }
 
     .rank-badge {
@@ -300,7 +315,7 @@
     }
 
     .song-tabs {
-      width: 100%;
+      width: 30%;
       justify-content: flex-start;
       overflow-x: auto;
       padding-bottom: 10px;
@@ -430,36 +445,36 @@
                 <div style="display: flex; align-items: center; gap: 15px;">
                   <div style="min-width: 100px; font-size: 14px; font-weight: 700; color: #ff6ceb;">GREAT</div>
                   <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; position: relative;">
-                    <div style="width: 20%; height: 100%; background: #ff6ceb; border-radius: 3px;"></div>
+                    <div style="width: 10%; height: 100%; background: #ff6ceb; border-radius: 3px;"></div>
                   </div>
-                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #ff6ceb;">-2</div>
+                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #ff6ceb;">-1</div>
                 </div>
                 
                 <!-- GOOD -->
                 <div style="display: flex; align-items: center; gap: 15px;">
                   <div style="min-width: 100px; font-size: 14px; font-weight: 700; color: #48cef0;">GOOD</div>
                   <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; position: relative;">
-                    <div style="width: 50%; height: 100%; background: #48cef0; border-radius: 3px;"></div>
+                    <div style="width: 20%; height: 100%; background: #48cef0; border-radius: 3px;"></div>
                   </div>
-                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #48cef0;">-5</div>
+                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #48cef0;">-2</div>
                 </div>
                 
                 <!-- BAD -->
                 <div style="display: flex; align-items: center; gap: 15px;">
                   <div style="min-width: 100px; font-size: 14px; font-weight: 700; color: #4dee47;">BAD</div>
                   <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; position: relative;">
-                    <div style="width: 80%; height: 100%; background: #4dee47; border-radius: 3px;"></div>
+                    <div style="width: 30%; height: 100%; background: #4dee47; border-radius: 3px;"></div>
                   </div>
-                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #4dee47;">-8</div>
+                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #4dee47;">-3</div>
                 </div>
                 
                 <!-- MISS -->
                 <div style="display: flex; align-items: center; gap: 15px;">
                   <div style="min-width: 100px; font-size: 14px; font-weight: 700; color: #999;">MISS</div>
                   <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; position: relative;">
-                    <div style="width: 100%; height: 100%; background: #999; border-radius: 3px;"></div>
+                    <div style="width: 30%; height: 100%; background: #999; border-radius: 3px;"></div>
                   </div>
-                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #999;">-10</div>
+                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #999;">-3</div>
                 </div>
               </div>
             </div>
