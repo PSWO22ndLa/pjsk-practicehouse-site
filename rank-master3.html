@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>大師III - 段位挑戰</title>
+<title>青銅 - 段位挑戰</title>
 <link rel="stylesheet" href="main.css">
 <style>
   /* 段位詳細頁面樣式 */
@@ -57,7 +57,7 @@
   }
 
   .rank-badge img {
-    width: 30%;
+    width: 100%;
     height: 100%;
     object-fit: contain;
   }
@@ -89,7 +89,7 @@
   }
 
   .song-tab img {
-    width: 30%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
   }
@@ -174,22 +174,23 @@
     display: block;
   }
 
-.song-jacket-large {
-  width: 100%;
-  max-width: 500px;
-  aspect-ratio: 1 / 1;  /* ← 加這行,保持正方形 */
-  margin: 0 auto 30px;
-  background: linear-gradient(135deg, #e0e0e0, #bdbdbd);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 150px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-}
+  .song-jacket-large {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto 30px;
+    background: linear-gradient(135deg, #e0e0e0, #bdbdbd);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 150px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+  }
 
   .song-jacket-large img {
-    width: 30%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
@@ -302,7 +303,7 @@
     }
 
     .rank-title-area {
-      width: 30%;
+      width: 100%;
     }
 
     .rank-badge {
@@ -315,7 +316,7 @@
     }
 
     .song-tabs {
-      width: 30%;
+      width: 100%;
       justify-content: flex-start;
       overflow-x: auto;
       padding-bottom: 10px;
@@ -341,7 +342,6 @@
     }
 
     .song-jacket-large {
-      height: 300px;
       font-size: 100px;
     }
 
@@ -381,7 +381,6 @@
     }
 
     .song-jacket-large {
-      height: 250px;
       font-size: 80px;
     }
 
@@ -505,7 +504,7 @@
   </div>
 
   <script>
-        const songs = [
+    const songs = [
       { name: '曲目1', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
       { name: '曲目2', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
       { name: '曲目3', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
