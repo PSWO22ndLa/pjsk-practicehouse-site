@@ -196,106 +196,77 @@
   }
 
   /* 各段位專屬顏色 */
-  .rank-silver {
-    border-color: #C0C0C0;
+  .rank-bronze {
+    border-color: #8e5513;
   }
-  .rank-silver .rank-item-name { color: #C0C0C0; }
-  .rank-silver .rank-item-arrow { color: #C0C0C0; }
+  .rank-bronze .rank-item-name { color: #8e5513; }
+  .rank-bronze .rank-item-arrow { color: #8e5513; }
+
+  .rank-silver {
+    border-color: #909090;
+  }
+  .rank-silver .rank-item-name { color: #909090; }
+  .rank-silver .rank-item-arrow { color: #909090; }
 
   .rank-gold {
-    border-color: #FFD700;
+    border-color: #f6ff43;
   }
-  .rank-gold .rank-item-name { color: #FFD700; }
-  .rank-gold .rank-item-arrow { color: #FFD700; }
+  .rank-gold .rank-item-name { color: #f6ff43; }
+  .rank-gold .rank-item-arrow { color: #f6ff43; }
 
   .rank-platinum {
-    border-color: #E5E4E2;
+    border-color: #b8e4ff;
   }
-  .rank-platinum .rank-item-name { color: #E5E4E2; }
-  .rank-platinum .rank-item-arrow { color: #E5E4E2; }
+  .rank-platinum .rank-item-name { color: #b8e4ff; }
+  .rank-platinum .rank-item-arrow { color: #b8e4ff; }
 
   .rank-diamond {
-    border-color: #00BFFF;
+    border-color: #44ffcd;
   }
-  .rank-diamond .rank-item-name { color: #00BFFF; }
-  .rank-diamond .rank-item-arrow { color: #00BFFF; }
+  .rank-diamond .rank-item-name { color: #44ffcd; }
+  .rank-diamond .rank-item-arrow { color: #44ffcd; }
 
   .rank-master {
-    border-color: #FFB6E1;
+    border-color: #ff97ee;
   }
-  .rank-master .rank-item-name { color: #FFB6E1; }
-  .rank-master .rank-item-arrow { color: #FFB6E1; }
+  .rank-master .rank-item-name { color: #ff97ee; }
+  .rank-master .rank-item-arrow { color: #ff97ee; }
 
   .rank-peak-unlock, .rank-peak {
-    border-color: #FF6B6B;
+    border-color: #ff0000;
   }
-  .rank-peak-unlock .rank-item-name, .rank-peak .rank-item-name { color: #FF6B6B; }
-  .rank-peak-unlock .rank-item-arrow, .rank-peak .rank-item-arrow { color: #FF6B6B; }
+  .rank-peak .rank-item-name { color: #ff0000; }
+  .rank-peak .rank-item-arrow { color: #ff0000; }
 
   .rank-demigod {
-    border-color: #FFF59D;
+    border-color: #fffb9e;
   }
-  .rank-demigod .rank-item-name { color: #FFF59D; }
-  .rank-demigod .rank-item-arrow { color: #FFF59D; }
+  .rank-demigod .rank-item-name { color: #fffb9e; }
+  .rank-demigod .rank-item-arrow { color: #fffb9e; }
 
   .rank-god {
-    border-color: #FFD700;
+    border-color: #ffad00;
   }
-  .rank-god .rank-item-name { 
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .rank-god .rank-item-arrow { color: #FFD700; }
+  .rank-god .rank-item-name { color: #ffad00; }
+  .rank-god .rank-item-arrow { color: #ffad00; }
 
   .rank-revelation-unlock, .rank-revelation {
-    border-color: #87CEEB;
+    border-color: #b4c7ff;
   }
-  .rank-revelation-unlock .rank-item-name, .rank-revelation .rank-item-name { 
-    background: linear-gradient(135deg, #87CEEB, #00BFFF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .rank-revelation-unlock .rank-item-arrow, .rank-revelation .rank-item-arrow { color: #87CEEB; }
+  .rank-revelation .rank-item-name { color: #b4c7ff; }
+  .rank-revelation .rank-item-arrow { color: #b4c7ff; }
 
   .rank-creator {
-    border-color: #9370DB;
+    border-color: #6800ff;
   }
-  .rank-creator .rank-item-name { 
-    background: linear-gradient(135deg, #9370DB, #BA55D3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .rank-creator .rank-item-arrow { color: #9370DB; }
+  .rank-creator .rank-item-name { color: #6800ff; }
+  .rank-creator .rank-item-arrow { color: #6800ff; }
 
   .rank-infinity-unlock, .rank-infinity {
-    border-color: #E6D5F5;
+    border-color: #dbb7ff;
   }
-  .rank-infinity-unlock .rank-item-name, .rank-infinity .rank-item-name { 
-    background: linear-gradient(135deg, #E6D5F5, #D8BFD8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .rank-infinity-unlock .rank-item-arrow, .rank-infinity .rank-item-arrow { color: #E6D5F5; }
-
-  /* 返回按鈕 */
-  .back-button {
-    position: fixed;
-    top: 100px;
-    left: 20px;
-    background: rgba(255, 215, 0, 0.15);
-    width: 50px;
-    height: 50px;
-    border-radius: 6px;
-    border: 2px solid #FFD700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 100;
-    text-decoration: none;
-  }
+  .rank-infinity .rank-item-name { color: #dbb7ff; }
+  .rank-infinity .rank-item-arrow { color: #dbb7ff; }
 
   .back-button:hover {
     background: #FFD700;
@@ -361,11 +332,11 @@
         <h1 class="rank-showcase-title">段位挑戰</h1>
         
         <div class="rank-badge-display">
-          <img id="highestRankBadge" src="public/images/ranks/silver.webp" alt="最高段位徽章" onerror="this.parentElement.innerHTML='🔥'">
+          <img id="highestRankBadge" src="public/images/ranks/beginner.webp" alt="初心者" onerror="this.parentElement.innerHTML='🎵'">
         </div>
 
         <p class="rank-subtitle">目前挑戰成功之最高段位</p>
-        <h2 class="rank-name-display" id="highestRankName">白銀</h2>
+        <h2 class="rank-name-display" id="highestRankName">初心者</h2>
 
         <a href="leaderboard.html" class="leaderboard-button">查看排行榜</a>
       </div>
@@ -375,6 +346,17 @@
         <h2 class="rank-list-header">選擇段位</h2>
 
         <div class="rank-grid">
+          <a href="rank-bronze.html" class="rank-item rank-bronze">
+            <div class="rank-item-badge">
+              <img src="public/images/ranks/bronze.webp" alt="青銅">
+            </div>
+            <div class="rank-item-info">
+              <div class="rank-item-name">青銅</div>
+              <div class="rank-item-desc">起始段位 • 踏入旅程</div>
+            </div>
+            <div class="rank-item-arrow">→</div>
+          </a>
+
           <a href="rank-silver.html" class="rank-item rank-silver">
             <div class="rank-item-badge">
               <img src="public/images/ranks/silver.webp" alt="白銀">
@@ -624,7 +606,7 @@
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-creator1.html" class="rank-item rank-creator">
+          <a href="rank-godmaker1.html" class="rank-item rank-creator">
             <div class="rank-item-badge">
               <img src="public/images/ranks/godmaker.png" alt="創神">
             </div>
@@ -635,7 +617,7 @@
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-creator2.html" class="rank-item rank-creator">
+          <a href="rank-godmaker2.html" class="rank-item rank-creator">
             <div class="rank-item-badge">
               <img src="public/images/ranks/godmaker.png" alt="創神">
             </div>
@@ -646,7 +628,7 @@
             <div class="rank-item-arrow">→</div>
           </a>
 
-          <a href="rank-creator3.html" class="rank-item rank-creator">
+          <a href="rank-godmaker3.html" class="rank-item rank-creator">
             <div class="rank-item-badge">
               <img src="public/images/ranks/godmaker.png" alt="創神">
             </div>
@@ -692,6 +674,9 @@
         
         if (data.success && data.hasChallenges) {
           updateHighestRank(data.rank);
+        } else {
+          // 沒有挑戰紀錄,顯示初心者
+          updateHighestRank('初心者');
         }
       } catch (error) {
         console.error('載入最高段位失敗:', error);
@@ -700,9 +685,36 @@
 
     function updateHighestRank(rank) {
       const rankConfig = {
+        '初心者': 'beginner.webp',
+        '青銅': 'bronze.webp',
         '白銀': 'silver.webp',
         '黃金': 'gold.webp',
-        // ... 可以繼續擴充
+        '白金I': 'platinum.webp',
+        '白金II': 'platinum.webp',
+        '鑽石I': 'diamond.webp',
+        '鑽石II': 'diamond.webp',
+        '大師I': 'master.webp',
+        '大師II': 'master.webp',
+        '大師III': 'master.webp',
+        '巔峰解鎖任務': 'peak.webp',
+        '巔峰I': 'peak.webp',
+        '巔峰II': 'peak.webp',
+        '巔峰III': 'peak.webp',
+        '亞神I': 'demigod.webp',
+        '亞神II': 'demigod.webp',
+        '亞神III': 'demigod.webp',
+        '神I': 'god.webp',
+        '神II': 'god.webp',
+        '神III': 'god.webp',
+        '天啟解鎖任務': 'revelation.png',
+        '天啟I': 'revelation.png',
+        '天啟II': 'revelation.png',
+        '天啟III': 'revelation.png',
+        '創神I': 'godmaker.png',
+        '創神II': 'godmaker.png',
+        '創神III': 'godmaker.png',
+        '無限挑戰解鎖任務': 'infinity.png',
+        'Infinity': 'infinity.png'
       };
       
       const badgeImg = document.getElementById('highestRankBadge');

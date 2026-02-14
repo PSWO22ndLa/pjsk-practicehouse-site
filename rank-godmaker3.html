@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>巔峰解鎖任務 - 段位挑戰</title>
+<title>創神III - 段位挑戰</title>
 <link rel="stylesheet" href="main.css">
 <style>
   /* 段位詳細頁面樣式 */
   .rank-detail-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #ff0000 0%, #ff0000 100%);
+    background: linear-gradient(135deg, #6800ff 0%, #8700ff 100%);
     padding: 100px 0 60px;
   }
 
@@ -389,9 +389,9 @@
       <div class="detail-header">
         <div class="rank-title-area">
           <div class="rank-badge">
-            <img src="public/images/ranks/peak.webp" alt="巔峰解鎖任務" onerror="this.parentElement.innerHTML='🥈'">
+            <img src="public/images/ranks/godmaker.png" alt="創神III" onerror="this.parentElement.innerHTML='🥈'">
           </div>
-          <h1 class="rank-title">巔峰解鎖任務</h1>
+          <h1 class="rank-title">創神III</h1>
         </div>
         <div class="song-tabs" id="songTabs"></div>
       </div>
@@ -401,7 +401,7 @@
           <h2 class="rules-title">段位規則</h2>
           <div class="rule-item">
             <div class="rule-label">曲目數量</div>
-            <div class="rule-value">1 首</div>
+            <div class="rule-value">5 首</div>
           </div>
           <div class="rule-item">
             <div class="rule-label">血量</div>
@@ -491,7 +491,11 @@
 
   <script>
         const songs = [
-      { name: '曲目1', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null }
+      { name: '曲目1', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
+      { name: '曲目2', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
+      { name: '曲目3', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
+      { name: '曲目4', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
+      { name: '曲目5', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null }
     ];
 
     // 生成小曲繪標籤
