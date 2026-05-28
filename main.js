@@ -1,11 +1,11 @@
 /* ===== 資料（改文字 / 加 img 都在這裡） ===== */
   const ACTIVITIES=[
-    {cat:'賽事',date:'Spring 2026',grad:['#2b3a4a','#6b8190'],title:'2026 Spring Championship',text:'最激烈的賽事，挑戰你的實力，爭奪冠軍榮耀，展現你的音遊技術。'},
-    {cat:'挑戰',date:'New Release',grad:['#15151c','#3a4a5c'],title:'段位挑戰系統',text:'全新的段位挑戰系統上線，一起練習，感受音樂的樂趣與成長的快樂。'},
+    {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],title:'2026 Spring Championship',text:'最激烈的賽事，挑戰你的實力，爭奪冠軍榮耀，展現你的音遊技術。'},
+    {cat:'挑戰',date:'New Release',img:'public/images/image.png',grad:['#15151c','#3a4a5c'],title:'段位挑戰系統',text:'全新的段位挑戰系統上線，一起練習，感受音樂的樂趣與成長的快樂。'},
     {cat:'創作',date:'Workshop',grad:['#1a2230','#244a6b'],title:'譜面創作工坊',text:'學習譜面製作技巧，分享你的創意，與社群一同成長茁壯。'},
     {cat:'每週',date:'Weekly',grad:['#1a2a33','#3a6675'],title:'每週挑戰賽',text:'每週更新的挑戰曲目，測試你的極限，攀登排行榜頂端。'},
-    {cat:'預告',date:'Coming Soon',grad:['#20002c','#3a3897'],title:'特別活動',text:'即將推出全新合作活動，敬請期待，更多驚喜等你來發現。'},
-    {cat:'社群',date:'Discord',grad:['#1a2a6c','#2a5298'],title:'社群交流',text:'加入我們的 Discord，與志同道合的玩家一起討論、練習、進步。'}
+    {cat:'預告',date:'Coming Soon',img:'public/images/event-comingsoon.png',grad:['#20002c','#3a3897'],title:'特別活動',text:'即將推出全新合作活動，敬請期待，更多驚喜等你來發現。'},
+    {cat:'社群',date:'Discord',img:'public/images/group-icon.png',grad:['#1a2a6c','#2a5298'],title:'社群交流',text:'加入我們的 Discord，與志同道合的玩家一起討論、練習、進步。'}
   ];
   const EVENTS=[
     {grad:['#3f5a6b','#8aa6b5'],cap:'2026 Spring Championship — 爭奪冠軍榮耀的季度賽事'},
@@ -19,12 +19,12 @@
     {grad:['#1a2a33','#2a5298'],title:'社群交流',text:'認識同好，一起練習、一起進步。',href:'#about'}
   ];
   const STAFF2025=[
-    {emoji:'👑',grad:['#2b3a4a','#6b8190'],name:'La.',role:'群主 / 創辦人',desc:'創辦人，負責活動策劃、伺服器管理與網頁設計，確保大家能安心使用群內資源。'},
-    {emoji:'❄️',grad:['#15151c','#3a4a5c'],name:'雪白',role:'管理員',desc:'專精譜面節奏與難度設計，致力創造流暢且富挑戰性的遊戲體驗。'},
-    {emoji:'🌸',grad:['#1a2230','#244a6b'],name:'萌忻',role:'手續委員',desc:'開服玩家，已遊玩 1500+ 天，負責初始段位確認與課題曲挑戰區裁判。'},
-    {emoji:'🍋',grad:['#1a2a33','#3a6675'],name:'檸檬貓',role:'活動與功能委員',desc:'打了音遊二年，最高 FC Apd33 Mas35，負責活動策劃與功能管理。'},
-    {emoji:'💙',grad:['#20002c','#3a3897'],name:'小藍',role:'秩序委員長',desc:'設計比賽 Banner 與 Logo，用視覺設計為活動增添專業質感。'},
-    {emoji:'🎮',grad:['#1a2a6c','#2a5298'],name:'小祥',role:'秩序委員',desc:'音遊愛好者，常玩プロセカ・ユメステ，也是個愛閒聊的人。'}
+    {img:'public/images/la.webp',grad:['#2b3a4a','#6b8190'],name:'La.',role:'群主 / 創辦人',desc:'創辦人，負責活動策劃、伺服器管理與網頁設計，確保大家能安心使用群內資源。'},
+    {img:'public/images/white.jpg',grad:['#15151c','#3a4a5c'],name:'雪白',role:'管理員',desc:'專精譜面節奏與難度設計，致力創造流暢且富挑戰性的遊戲體驗。'},
+    {img:'public/images/IMG_20251111_134644.webp',grad:['#1a2230','#244a6b'],name:'萌忻',role:'手續委員',desc:'開服玩家，已遊玩 1500+ 天，負責初始段位確認與課題曲挑戰區裁判。'},
+    {img:'public/images/neko.webp',grad:['#1a2a33','#3a6675'],name:'檸檬貓',role:'活動與功能委員',desc:'打了音遊二年，最高 FC Apd33 Mas35，負責活動策劃與功能管理。'},
+    {img:'public/images/lan.png',grad:['#20002c','#3a3897'],name:'小藍',role:'秩序委員長',desc:'設計比賽 Banner 與 Logo，用視覺設計為活動增添專業質感。'},
+    {img:'public/images/shang.webp',grad:['#1a2a6c','#2a5298'],name:'小祥',role:'秩序委員',desc:'音遊愛好者，常玩プロセカ・ユメステ，也是個愛閒聊的人。'}
   ];
   const STAFF2026=Array.from({length:8},(_,i)=>({
     emoji:['🎀','🎧','🎹','🥁','🎸','🎤','🎺','🎻'][i],
