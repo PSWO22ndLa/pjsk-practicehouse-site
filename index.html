@@ -4,1117 +4,168 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project Sekai 練習屋</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <!-- 載入動畫 -->
-  <div class="page-loader">
-    <div class="loader-content">
-      <div class="loader-logo">練習屋</div>
-      <div class="loader-spinner"></div>
-    </div>
-  </div>
-  <!-- 稱號選擇彈窗 -->
-  <div class="title-modal" id="titleModal">
-    <div class="title-modal-content">
-  <div class="title-modal-header">
-    <h3>✨ 選擇稱號</h3>
-    <span class="title-modal-close" onclick="closeTitleModal()">×</span>
-  </div>
-  <div class="title-modal-body">
-    <div class="title-list" id="titleList">
-      <!-- 動態生成 -->
-    </div>
-  </div>
-</div>
-  </div>
-  <!-- 遮罩 -->
-  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
-  <!-- 側邊欄 -->
-  <div class="sidebar" id="sidebar">
-    <!-- 未登入狀態 -->
-    <div class="sidebar-login" id="sidebarLogin">
-      <p>請先登入以查看個人資訊</p>
-      <button class="login-btn" onclick="loginWithDiscord()">使用 Discord 登入</button>
-    </div>
-
-    <!-- 已登入狀態 -->
-    <div id="sidebarContent" style="display: none;">
-      <div class="sidebar-header">
-        <div class="sidebar-user">
-          <img id="sidebarAvatar" class="sidebar-avatar" src="" alt="頭像">
-          <div class="sidebar-user-info">
-            <h3 id="sidebarName">使用者名稱</h3>
-            <div class="sidebar-rank" id="sidebarRank">プロセカ初心者</div>
-          </div>
-        </div>
-        <div class="sidebar-stats">
-        <div class="sidebar-stat">
-            <div class="sidebar-stat-number" id="sidebarStatAch">0</div>
-            <div class="sidebar-stat-label">成就</div>
-          </div>
-          <div class="sidebar-stat">
-          <div class="sidebar-stat-number" id="sidebarStatMsg">0</div>
-          <div class="sidebar-stat-label">發言</div>
-          </div>
-        </div>
+  <!-- 導覽列 -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand"><span class="brand-mark"></span>練習屋</a>
+      <nav class="nav-center">
+        <a href="#activities">活動</a>
+        <a href="#events">精選</a>
+        <a href="#about">關於</a>
+        <a href="#team">團隊</a>
+      </nav>
+      <div class="nav-right">
+        <a class="soc" href="https://discord.gg/wN3wx48nTB" target="_blank" rel="noopener" title="Discord">✦</a>
+        <a class="soc" href="#" title="YouTube">▶</a>
+        <a class="soc" href="#" title="Mail">✉</a>
+        <a href="https://discord.gg/wN3wx48nTB" target="_blank" rel="noopener" class="btn btn-discord nav-cta">加入 Discord</a>
       </div>
-      <div class="sidebar-menu">
-        <div class="sidebar-menu-item" onclick="navigateTo('home')">
-          <span class="sidebar-menu-icon">🏠</span>
-          <span class="sidebar-menu-text">首頁</span>
-        </div>
-        <div class="sidebar-menu-item" onclick="navigateTo('activities')">
-          <span class="sidebar-menu-icon">🎮</span>
-          <span class="sidebar-menu-text">活動</span>
-        </div>
-        <div class="sidebar-menu-item" onclick="navigateTo('about')">
-          <span class="sidebar-menu-icon">ℹ️</span>
-          <span class="sidebar-menu-text">關於</span>
-        </div>
-        <div class="sidebar-menu-item" onclick="navigateTo('staff')">
-          <span class="sidebar-menu-icon">👥</span>
-          <span class="sidebar-menu-text">團隊</span>
-        </div>
-        <div class="sidebar-menu-item" onclick="navigateTo('profile')">
-          <span class="sidebar-menu-icon">👤</span>
-          <span class="sidebar-menu-text">個人資訊</span>
-        </div>
-        <div class="sidebar-menu-item" onclick="logout()">
-          <span class="sidebar-menu-icon">🚪</span>
-          <span class="sidebar-menu-text">登出</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 頂部導航 -->
-  <header class="header">
-    <div class="header-inner">
-      <div class="logo" onclick="navigateTo('home')">練習屋</div>
-      <div class="header-right">
-        <!-- 未登入時顯示登入按鈕 -->
-        <div id="authBtn">
-          <button class="login-btn" onclick="loginWithDiscord()">登入</button>
-        </div>
-        <!-- 已登入時顯示使用者資訊 -->
-        <div id="userInfo" style="display: none;">
-          <div class="user-info">
-            <img id="userAvatar" class="user-avatar" src="" alt="頭像">
-            <span id="userName" class="user-name"></span>
-          </div>
-        </div>
-        <!-- 漢堡選單 -->
-        <div class="menu-btn" id="menuBtn" onclick="toggleSidebar()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
+      <div class="burger" id="burger"><span></span><span></span><span></span></div>
     </div>
   </header>
-
-  <!-- 主頁面內容 -->
-  <div class="main-content" id="mainContent">
-    <!-- 主視覺 -->
-    <section class="hero" id="hero">
-      <div class="hero-bg-shapes">
-        <div class="bg-circle c1"></div>
-        <div class="bg-circle c2"></div>
-        <div class="bg-circle c3"></div>
-        <div class="bg-circle c4"></div>
-        <div class="bg-circle c5"></div>
-      </div>
-      <div class="hero-content">
-        <h1 class="hero-logo">プロジェクトセカイ<br>練習屋</h1>
-        <p class="hero-subtitle">音樂連結你我 · 創作無限可能</p>
-        <div class="hero-buttons">
-          <a href="#activities" class="hero-button hero-button-primary">探索活動</a>
-          <a href="https://discord.gg/wN3wx48nTB" class="hero-button hero-button-discord" target="_blank">立即加入 Discord</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 活動區 -->
-    <section class="section feature-section" id="activities">
-      <div class="section-header fade-up">
-        <h2 class="section-title pink">群內活動</h2>
-        <p class="section-subtitle">ACTIVITIES</p>
-      </div>
-      <div class="cards">
-        <a href="2026springchampionshippt.html" class="card fade-up">
-          <img src="public/images/themepicture.png" alt="賽事" class="card-image" onerror="this.style.background='linear-gradient(135deg, #FFE5F0, #FFB3D9)'">
-          <div class="card-body">
-            <h3 class="card-title">2026 SPRING CHAMPIONSHIP</h3>
-            <p class="card-text">最激烈的賽事,挑戰你的實力,爭奪冠軍榮耀!參加比賽,展現你的音遊技術!</p>
-          </div>
-        </a>
-        <a href="rank-challenge.html" class="card fade-up">
-          <img src="public/images/image.png" alt="段位挑戰" class="card-image">
-          <div class="card-body">
-            <h3 class="card-title">段位挑戰系統</h3>
-            <p class="card-text">全新的段位挑戰系統上線!一起練習,感受音樂的樂趣與成長的快樂!</p>
-        </div>
-      </a>
-        <div class="card fade-up">
-          <div class="card-image" style="background: linear-gradient(135deg, #FFF9E5, #FFEB99);"></div>
-          <div class="card-body">
-            <h3 class="card-title">譜面創作工坊</h3>
-            <p class="card-text">學習譜面製作技巧,分享你的創意,與社群一同成長!</p>
-          </div>
-        </div>
-        <div class="card fade-up">
-          <div class="card-image" style="background: linear-gradient(135deg, #E5FFE5, #B3FFB3);"></div>
-          <div class="card-body">
-            <h3 class="card-title">每週挑戰賽</h3>
-            <p class="card-text">每週更新的挑戰曲目,測試你的極限,攀登排行榜頂端!</p>
-          </div>
-        </div>
-        <div class="card fade-up">
-          <img src="public/images/event-comingsoon.png" alt="活動預告" class="card-image" onerror="this.style.background='linear-gradient(135deg, #FFE5F0, #FFCCF0)'">
-          <div class="card-body">
-            <h3 class="card-title">特別活動 Coming Soon</h3>
-            <p class="card-text">即將推出全新合作活動,敬請期待!更多驚喜等你來發現!</p>
-          </div>
-        </div>
-        <div class="card fade-up">
-          <img src="public/images/group-icon.png" alt="社群" class="card-image" onerror="this.style.background='linear-gradient(135deg, #E5E5FF, #CCCCFF)'">
-          <div class="card-body">
-            <h3 class="card-title">社群交流</h3>
-            <p class="card-text">加入我們的Discord社群,與志同道合的玩家一起討論、練習、進步!</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 關於 -->
-    <section class="section about-section" id="about">
-      <div class="section-header fade-up">
-        <h2 class="section-title blue">關於我們</h2>
-        <p class="section-subtitle">ABOUT US</p>
-      </div>
-      <div class="fade-up">
-        <div class="about-image-wrap">
-          <img src="public/images/IMG_4323.jpeg" alt="群組" class="about-image" onerror="this.style.display='none'">
-        </div>
-        <p class="about-text">「練習屋」是由一群音遊愛好者組成的創作與練習社群,致力於提供玩家更好的譜面體驗、創作工具分享與比賽舉辦資訊。我們相信,每一次練習,都是邁向更高舞台的開始。讓我們一起用音樂連結彼此,創造無限可能!</p>
-      </div>
-    </section>
-
-    <!-- 團隊 -->
-    <section class="section staff-section" id="staff">
-      <div class="section-header fade-up">
-        <h2 class="section-title yellow">2025年練習屋委員介紹</h2>
-        <p class="section-subtitle">STAFF</p>
-      </div>
-      <div class="staff-grid">
-        <div class="staff-card fade-up">
-          <img src="public/images/la.webp" alt="La." class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">La.</h3>
-          <p class="staff-role">群主/創辦人</p>
-          <p class="staff-desc">各位好 我是此群之創辦人,負責活動策劃、伺服器管理與網頁設計,確保各位於此群的豆腐能夠安心使用群內資源。</p>
-        </div>
-        <div class="staff-card fade-up">
-          <img src="public/images/white.jpg" alt="雪白" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">雪白</h3>
-          <p class="staff-role">管理員</p>
-          <p class="staff-desc">專精於譜面節奏與難度設計,帶來最佳手感體驗。致力於創造流暢且富有挑戰性的遊戲體驗。</p>
-        </div>
-        <div class="staff-card fade-up">
-          <img src="public/images/IMG_20251111_134644.webp" alt="萌忻" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFF9E5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">萌忻</h3>
-          <p class="staff-role">手續委員</p>
-          <p class="staff-desc">開服玩家,已遊玩1500+天。負責初始段位確認、課題曲挑戰區裁判。台服33以下除數學學園全FC,紫31、彩30以下全AP。</p>
-        </div>
-        <div class="staff-card fade-up">
-          <img src="public/images/neko.webp" alt="檸檬貓" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5FFE5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">檸檬貓</h3>
-          <p class="staff-role">活動與功能委員</p>
-          <p class="staff-desc">16歲香港人,打了音游二年。最高FC: Apd33 Mas35 FC。主要負責活動策劃與功能管理,歡迎找我討論活動相關問題!</p>
-        </div>
-        <div class="staff-card fade-up">
-          <img src="public/images/lan.png" alt="小藍" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">小藍</h3>
-          <p class="staff-role">秩序委員長</p>
-          <p class="staff-desc">設計比賽Banner與Logo,營造專業氛圍。用視覺設計為活動增添專業質感。</p>
-        </div>
-        <div class="staff-card fade-up">
-          <img src="public/images/shang.webp" alt="小祥" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">小祥</h3>
-          <p class="staff-role">秩序委員</p>
-          <p class="staff-desc">音遊玩家,常玩プロセカ ユメステ,接機:CHUNITHM
-一個音遊愛好者，但卻很爛👍
-一個愛閒聊的人。</p>
-        </div>
-      </div>
-    </section>
-    <!-- 2026年團隊 -->
-    <section class="section staff-section-2026" id="staff2026">
-      <div class="section-header fade-up">
-        <h2 class="section-title blue">2026年練習屋委員介紹</h2>
-        <p class="section-subtitle">STAFF 2026</p>
-      </div>
-      <div class="staff-grid">
-        <!-- 成員1 -->
-        <div class="staff-card fade-up">
-          <img src="/public/images/member1.jpg" alt="成員1" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">成員名稱1</h3>
-          <p class="staff-role">職位</p>
-          <p class="staff-desc">簡介文字</p>
-        </div>
-        
-        <!-- 成員2 -->
-        <div class="staff-card fade-up">
-          <img src="/public/images/member2.jpg" alt="成員2" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">成員名稱2</h3>
-          <p class="staff-role">職位</p>
-          <p class="staff-desc">簡介文字</p>
-        </div>
-        
-        <!-- 成員3 -->
-        <div class="staff-card fade-up">
-          <img src="/public/images/member3.jpg" alt="成員3" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFF9E5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">成員名稱3</h3>
-          <p class="staff-role">職位</p>
-          <p class="staff-desc">簡介文字</p>
-        </div>
-        
-        <!-- 成員4 -->
-        <div class="staff-card fade-up">
-          <img src="/public/images/member4.jpg" alt="成員4" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5FFE5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">成員名稱4</h3>
-          <p class="staff-role">職位</p>
-          <p class="staff-desc">簡介文字</p>
-        </div>
-        
-        <!-- 成員5 -->
-        <div class="staff-card fade-up">
-          <img src="/public/images/member5.jpg" alt="成員5" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFE5F0%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">成員名稱5</h3>
-          <p class="staff-role">職位</p>
-          <p class="staff-desc">簡介文字</p>
-        </div>
-        
-        <!-- 成員6 -->
-        <div class="staff-card fade-up">
-          <img src="/public/images/member6.jpg" alt="成員6" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5F4FF%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">成員名稱6</h3>
-          <p class="staff-role">職位</p>
-          <p class="staff-desc">簡介文字</p>
-        </div>
-        
-        <!-- 成員7 -->
-        <div class="staff-card fade-up">
-          <img src="/public/images/member7.jpg" alt="成員7" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23FFF9E5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">成員名稱7</h3>
-          <p class="staff-role">職位</p>
-          <p class="staff-desc">簡介文字</p>
-        </div>
-        
-        <!-- 成員8 -->
-        <div class="staff-card fade-up">
-          <img src="/public/images/member8.jpg" alt="成員8" class="staff-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Crect fill=%22%23E5FFE5%22 width=%22140%22 height=%22140%22/%3E%3C/svg%3E'">
-          <h3 class="staff-name">成員名稱8</h3>
-          <p class="staff-role">職位</p>
-          <p class="staff-desc">簡介文字</p>
-        </div>
-      </div>
-    </section>
-    <!-- Footer -->
-    <footer class="footer">
-      <p class="footer-text">© 2025 Project Sekai 練習屋 | 用音樂連結世界</p>
-    </footer>
+  <div class="drawer" id="drawer">
+    <a class="dl" href="#activities">活動</a>
+    <a class="dl" href="#events">精選</a>
+    <a class="dl" href="#about">關於</a>
+    <a class="dl" href="#team">團隊</a>
+    <a href="https://discord.gg/wN3wx48nTB" target="_blank" rel="noopener" class="btn btn-discord">加入 Discord</a>
   </div>
 
-  <!-- 個人資訊頁面 -->
-  <div class="profile-page" id="profilePage">
-    <div class="profile-container">
-      <div class="profile-header">
-        <div class="profile-left">
-          <img id="profileAvatar" class="profile-avatar" src="" alt="頭像">
-          <div class="profile-info">
-  <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-    <h2 id="profileName">使用者名稱</h2>
-    <button id="refreshBtn" onclick="refreshProfileData()" class="refresh-btn">
-      🔄 更新
-    </button>
-  </div>
-  <!-- 三個稱號槽位 -->
-  <div class="equipped-titles" id="equippedTitles">
-              <div class="title-slot empty" onclick="openTitleModal(0)" data-slot="0">
-               點擊裝備稱號
-              </div>
-              <div class="title-slot empty" onclick="openTitleModal(1)" data-slot="1">
-                點擊裝備稱號
-             </div>
-              <div class="title-slot empty" onclick="openTitleModal(2)" data-slot="2">
-                點擊裝備稱號
-              </div>
+  <!-- Hero -->
+  <!-- 換背景照片：在 slide-bg 加 inline 圖片即可蓋過漸層，例如
+       <div class="slide-bg s1" style="background-image:url('public/images/hero1.jpg')"></div> -->
+  <section class="hero" id="top">
+    <div class="slide active">
+      <div class="slide-bg s1"></div>
+      <div class="slide-content">
+        <h1>用音樂連結你我，創作無限可能</h1>
+        <a href="#activities" class="btn btn-white">探索活動</a>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-bg s2"></div>
+      <div class="slide-content">
+        <h1>全新段位挑戰系統，一起練習、一起成長</h1>
+        <a href="#events" class="btn btn-white">了解更多</a>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-bg s3"></div>
+      <div class="slide-content">
+        <h1>加入熱鬧的社群，與同好一起進步</h1>
+        <a href="https://discord.gg/wN3wx48nTB" target="_blank" rel="noopener" class="btn btn-white">立即加入</a>
+      </div>
+    </div>
+    <span class="hero-arrow prev" id="heroPrev">&#8249;</span>
+    <span class="hero-arrow next" id="heroNext">&#8250;</span>
+    <div class="hero-dots" id="heroDots"></div>
+  </section>
+
+  <!-- 活動（新聞式卡片） -->
+  <section class="section" id="activities">
+    <div class="limit">
+      <h2 class="sec-title reveal">Activities</h2>
+      <div class="card-grid" id="activityGrid"></div>
+    </div>
+  </section>
+
+  <!-- 精選（深色舞台輪播） -->
+  <section class="section dark" id="events">
+    <div class="limit">
+      <h2 class="sec-title reveal">Top Events</h2>
+      <div class="stage reveal" id="eventStage"></div>
+      <div class="stage-dots" id="eventDots"></div>
+    </div>
+  </section>
+
+  <!-- Banner -->
+  <section class="banner">
+    <div class="banner-bg"></div>
+    <div class="banner-inner reveal">
+      <h2>每一次練習，都是邁向更高舞台的開始</h2>
+      <a href="https://discord.gg/wN3wx48nTB" target="_blank" rel="noopener" class="btn btn-white">加入我們</a>
+    </div>
+  </section>
+
+  <!-- Explore further -->
+  <section class="section">
+    <div class="limit">
+      <h2 class="sec-title reveal">Explore Further</h2>
+      <div class="ef-grid" id="efGrid"></div>
+    </div>
+  </section>
+
+  <!-- 2025 委員 -->
+  <section class="section alt" id="team">
+    <div class="limit">
+      <h2 class="sec-title reveal">Staff 2025</h2>
+      <div class="team-grid" id="team2025"></div>
+    </div>
+  </section>
+
+  <!-- 2026 委員 -->
+  <section class="section alt">
+    <div class="limit">
+      <h2 class="sec-title reveal">Staff 2026</h2>
+      <div class="team-grid" id="team2026"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="limit">
+      <h2 class="sec-title reveal">About</h2>
+      <div class="about-wrap reveal">
+        <p>「練習屋」是由一群音遊愛好者組成的創作與練習社群，致力於提供玩家更好的譜面體驗、創作工具分享與比賽舉辦資訊。我們相信，每一次練習，都是邁向更高舞台的開始。讓我們一起用音樂連結彼此，創造無限可能。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site">
+    <div class="limit">
+      <div class="foot-grid">
+        <div class="foot">
+          <div class="foot-brand">練習屋</div>
+          <p>用音樂連結世界。由玩家為玩家打造的 Project Sekai 練習與創作社群。</p>
+        </div>
+        <div class="foot">
+          <h4>Explore</h4>
+          <div class="foot-cols">
+            <div>
+              <a href="#activities">群內活動</a>
+              <a href="#events">精選活動</a>
+              <a href="#about">關於我們</a>
+              <a href="#team">委員團隊</a>
             </div>
-            <div class="profile-stats">
-              <div class="stat-item">
-                <div class="stat-number" id="statAchievements">0</div>
-                <div class="stat-label">成就數</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number" id="statPoints">0</div>
-                <div class="stat-label">總點數</div>
-              </div>
-              <div class="stat-item">
-              <div class="stat-number" id="statLevel">1</div>
-              <div class="stat-label">等級</div>
-              </div>
+            <div>
+              <a href="#">2026 Spring Championship</a>
+              <a href="#">段位挑戰系統</a>
+              <a href="#">譜面創作工坊</a>
+              <a href="#">每週挑戰賽</a>
             </div>
           </div>
         </div>
-        <div class="profile-badge" id="profileBadge">
-          🎵
-        </div>
-      </div>
-
-      <div class="profile-sections">
-        <div class="profile-card">
-          <h3>🏆 我的成就</h3>
-          <div id="achievementsList">
-            <p style="color: #999; text-align: center;">尚無成就記錄</p>
+        <div class="foot">
+          <h4>About</h4>
+          <p>由一群音遊愛好者組成，2025 年成立的 Project Sekai 練習與創作社群。</p>
+          <div class="foot-social" style="margin-top:20px">
+            <a href="https://discord.gg/wN3wx48nTB" target="_blank" rel="noopener"><span class="ic">✦</span>DISCORD</a>
+            <a href="#"><span class="ic">▶</span>YOUTUBE</a>
           </div>
         </div>
-
-        <div class="profile-card">
-  <h3>⚡ 等級資訊</h3>
-  <div id="levelInfo">
-    <div style="text-align: center; padding: 20px;">
-      <div style="font-size: 72px; font-weight: 900; color: #FF6B9D; margin-bottom: 15px; text-shadow: 3px 3px 0 #FFE5F0;" id="displayLevel">1</div>
-      <div style="font-size: 16px; color: #666; margin-bottom: 20px;">目前等級</div>
-      <div style="background: linear-gradient(135deg, #FFE5F0, #E5F4FF); border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
-        <div style="font-size: 14px; color: #999; margin-bottom: 10px;">發言次數</div>
-        <div style="font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #00A8E8, #4A90E2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 10px 0;" id="messageCount">0</div>
-        <div style="margin-top: 15px; font-size: 14px; color: #666;">
-          <span id="nextLevelInfo">再發 5 次言即可升級</span>
-        </div>
       </div>
     </div>
-  </div>
-</div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="copyright">© 2026 Project Sekai 練習屋 ・ 用音樂連結世界</div>
+  </footer>
 
-<script>
-window.addEventListener('load', function() {
-  setTimeout(function() {
-    const loader = document.querySelector('.page-loader');
-    if (loader) {
-      loader.classList.add('hidden');
-      setTimeout(() => loader.remove(), 500);
-    }
-  }, 800);
-});  
-// 正式環境：需要公開 Bot 的 API
-const API_URL = 'https://labotcode-production.up.railway.app';
-
-// ===== 使用者資料 =====
-let currentUser = null;
-let userTitles = [];
-let equippedTitles = [null, null, null];
-let currentEditingSlot = null;
-
-// 稱號資料庫
-const TITLE_DATABASE = {
-  'beginner': { name: 'プロセカ初心者', class: '' },
-  'bronze': { name: 'プロセカ青銅者', class: '' },
-  'silver': { name: 'プロセカ白銀者', class: '' },
-  'gold': { name: 'プロセカ黃金者', class: '' },
-  'platinum': { name: 'プロセカ白金者', class: '' },
-  'diamond': { name: 'プロセカ鑽石者', class: '' },
-  'master': { name: 'プロセカ大師', class: 'master' },
-  'peak': { name: 'プロセカ巔峰者', class: 'master' },
-  'demigod': { name: 'プロセカ 亞神', class: 'god' },
-  'god': { name: 'プロセカ 神', class: 'god' },
-  'revelation': { name: 'プロセカ 天啓', class: 'god' },
-  'creator': { name: 'プロセカ 創神者', class: 'god' },
-  'infinity': { name: 'プロセカ ∞', class: 'infinity' },
-  'admin_2025': { name: '2025 管管', class: 'special' },
-  'staff_2025': { name: '2025 幹部', class: 'special' },
-  'contributor': { name: '特殊貢獻者', class: 'special' }
-};
-
-// ===== 等級計算（移到外面）=====
-// ===== 遊戲化等級系統（平衡版）=====
-function calculateLevel(messageCount) {
-  if (!messageCount) return 1;
-  
-  // 等級所需經驗值（漸進成長，更平衡）
-  const levels = [
-    0,      // Lv.1
-    5,      // Lv.2   (+5)
-    12,     // Lv.3   (+7)
-    21,     // Lv.4   (+9)
-    32,     // Lv.5   (+11)
-    45,     // Lv.6   (+13)
-    60,     // Lv.7   (+15)
-    77,     // Lv.8   (+17)
-    96,     // Lv.9   (+19)
-    117,    // Lv.10  (+21)
-    140,    // Lv.11  (+23)
-    165,    // Lv.12  (+25)
-    192,    // Lv.13  (+27)
-    221,    // Lv.14  (+29)
-    252,    // Lv.15  (+31)
-    285,    // Lv.16  (+33)
-    320,    // Lv.17  (+35)
-    357,    // Lv.18  (+37)
-    396,    // Lv.19  (+39)
-    437,    // Lv.20  (+41)
-    480,    // Lv.21  (+43)
-    525,    // Lv.22  (+45)
-    572,    // Lv.23  (+47)
-    621,    // Lv.24  (+49)
-    672,    // Lv.25  (+51)
-    725,    // Lv.26  (+53)
-    780,    // Lv.27  (+55)
-    837,    // Lv.28  (+57)
-    896,    // Lv.29  (+59)
-    957,    // Lv.30  (+61) ← 灰色最高，開始藍色
-    1020,   // Lv.31  (+63)
-    1085,   // Lv.32  (+65)
-    1152,   // Lv.33  (+67)
-    1221,   // Lv.34  (+69)
-    1292,   // Lv.35  (+71)
-    1365,   // Lv.36  (+73)
-    1440,   // Lv.37  (+75)
-    1517,   // Lv.38  (+77)
-    1596,   // Lv.39  (+79)
-    1677,   // Lv.40  (+81)
-    1760,   // Lv.41  (+83)
-    1845,   // Lv.42  (+85)
-    1932,   // Lv.43  (+87)
-    2021,   // Lv.44  (+89)
-    2112,   // Lv.45  (+91)
-    2205,   // Lv.46  (+93)
-    2300,   // Lv.47  (+95)
-    2397,   // Lv.48  (+97)
-    2496,   // Lv.49  (+99)
-    2597,   // Lv.50  (+101) ← 藍色最高，開始紫色
-    2700,   // Lv.51  (+103)
-    2805,   // Lv.52  (+105)
-    2912,   // Lv.53  (+107)
-    3021,   // Lv.54  (+109)
-    3132,   // Lv.55  (+111)
-    3245,   // Lv.56  (+113)
-    3360,   // Lv.57  (+115)
-    3477,   // Lv.58  (+117)
-    3596,   // Lv.59  (+119)
-    3717,   // Lv.60  (+121)
-    3840,   // Lv.61  (+123)
-    3965,   // Lv.62  (+125)
-    4092,   // Lv.63  (+127)
-    4221,   // Lv.64  (+129)
-    4352,   // Lv.65  (+131)
-    4485,   // Lv.66  (+133)
-    4620,   // Lv.67  (+135)
-    4757,   // Lv.68  (+137)
-    4896,   // Lv.69  (+139)
-    5037,   // Lv.70  (+141) ← 紫色最高，開始金色
-    5180,   // Lv.71  (+143)
-    5325,   // Lv.72  (+145)
-    5472,   // Lv.73  (+147)
-    5621,   // Lv.74  (+149)
-    5772,   // Lv.75  (+151)
-    5925,   // Lv.76  (+153)
-    6080,   // Lv.77  (+155)
-    6237,   // Lv.78  (+157)
-    6396,   // Lv.79  (+159)
-    6557,   // Lv.80  (+161)
-    6720,   // Lv.81  (+163)
-    6885,   // Lv.82  (+165)
-    7052,   // Lv.83  (+167)
-    7221,   // Lv.84  (+169)
-    7392,   // Lv.85  (+171)
-    7565,   // Lv.86  (+173)
-    7740,   // Lv.87  (+175)
-    7917,   // Lv.88  (+177)
-    8096,   // Lv.89  (+179)
-    8277,   // Lv.90  (+181) ← 金色最高，開始橙紅
-    8460,   // Lv.91  (+183)
-    8645,   // Lv.92  (+185)
-    8832,   // Lv.93  (+187)
-    9021,   // Lv.94  (+189)
-    9212,   // Lv.95  (+191)
-    9405,   // Lv.96  (+193)
-    9600,   // Lv.97  (+195)
-    9797,   // Lv.98  (+197)
-    9996,   // Lv.99  (+199)
-    10197,  // Lv.100 (+201) ← 橙紅最高，開始彩虹
-  ];
-  
-  for (let i = levels.length - 1; i >= 0; i--) {
-    if (messageCount >= levels[i]) {
-      return i + 1;
-    }
-  }
-  return 1;
-}
-
-function getNextLevelInfo(messageCount) {
-  const levels = [
-    0, 5, 12, 21, 32, 45, 60, 77, 96, 117,
-    140, 165, 192, 221, 252, 285, 320, 357, 396, 437,
-    480, 525, 572, 621, 672, 725, 780, 837, 896, 957,
-    1020, 1085, 1152, 1221, 1292, 1365, 1440, 1517, 1596, 1677,
-    1760, 1845, 1932, 2021, 2112, 2205, 2300, 2397, 2496, 2597,
-    2700, 2805, 2912, 3021, 3132, 3245, 3360, 3477, 3596, 3717,
-    3840, 3965, 4092, 4221, 4352, 4485, 4620, 4757, 4896, 5037,
-    5180, 5325, 5472, 5621, 5772, 5925, 6080, 6237, 6396, 6557,
-    6720, 6885, 7052, 7221, 7392, 7565, 7740, 7917, 8096, 8277,
-    8460, 8645, 8832, 9021, 9212, 9405, 9600, 9797, 9996, 10197
-  ];
-  
-  const currentLevel = calculateLevel(messageCount || 0);
-  
-  if (currentLevel >= levels.length) {
-    return `已達最高等級！`;
-  }
-  
-  const nextLevelExp = levels[currentLevel];
-  const remaining = nextLevelExp - (messageCount || 0);
-  
-  return `再發 ${remaining} 次言即可升到 Lv.${currentLevel + 1}`;
-}
-
-function getLevelColor(level) {
-  if (level < 30) return '#999999';  // 灰色 (Lv.1-29)
-  else if (level < 50) return '#4A90E2';  // 藍色 (Lv.30-49)
-  else if (level < 70) return '#9B59B6';  // 紫色 (Lv.50-69)
-  else if (level < 90) return 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)';  // 金色 (Lv.70-89)
-  else if (level < 100) return 'linear-gradient(135deg, #FF8C00 0%, #FF4500 100%)';  // 橙紅 (Lv.90-99)
-  else return 'linear-gradient(135deg, #FFF59D 0%, #FCC1C1 33%, #F9D4FF 66%, #70FFF8 100%)';  // 彩虹 (Lv.100+)
-}
-// ===== 段位設定 =====
-function getRankConfig(rank) {
-  const configs = {
-    'プロセカ初心者': { class: '', badge: '🎵', badgeImage: 'beginner' },
-    'プロセカ青銅者': { class: '', badge: '🥉', badgeImage: 'bronze' },
-    'プロセカ白銀者': { class: '', badge: '🥈', badgeImage: 'silver' },
-    'プロセカ黃金者': { class: '', badge: '🥇', badgeImage: 'gold' },
-    'プロセカ白金者': { class: '', badge: '💎', badgeImage: 'platinum' },
-    'プロセカ鑽石者': { class: '', badge: '💠', badgeImage: 'diamond' },
-    'プロセカ大師': { class: 'master', badge: '👑', badgeImage: 'master' },
-    'プロセカ巔峰者': { class: 'master', badge: '⭐', badgeImage: 'peak' },
-    'プロセカ 亞神': { class: 'god', badge: '✨', badgeImage: 'demigod' },
-    'プロセカ 神': { class: 'god', badge: '🌟', badgeImage: 'god' },
-    'プロセカ 天啓': { class: 'god', badge: '☀️', badgeImage: 'revelation.png' },
-    'プロセカ 創神者': { class: 'god', badge: '🔥', badgeImage: 'godmaker.png' },
-    'プロセカ ∞': { class: 'infinity', badge: '∞', badgeImage: 'infinity.png' },
-    '2025 管管': { class: 'special', badge: '👨‍💼', badgeImage: 'admin' },
-    '2025 幹部': { class: 'special', badge: '⚡', badgeImage: 'staff' },
-    '特殊貢獻者': { class: 'special', badge: '🎖️', badgeImage: 'contributor' }
-  };
-  
-  if (rank.includes('管管')) return { class: 'special', badge: '👨‍💼', badgeImage: 'admin' };
-  if (rank.includes('幹部')) return { class: 'special', badge: '⚡', badgeImage: 'staff' };
-  
-  return configs[rank] || { class: '', badge: '🎵', badgeImage: 'beginner' };
-}
-
-// ===== 讀取使用者稱號 =====
-async function loadUserTitles(userId) {
-  if (!userId) {
-    console.error('❌ 沒有 userId');
-    return;
-  }
-  
-  try {
-    const response = await fetch(`${API_URL}/api/user/${userId}/titles`, {
-      credentials: 'include'
-    });
-    const data = await response.json();
-    
-    console.log('使用者資料:', data);
-    
-    if (data.specialTitles) {
-      userTitles = data.specialTitles || [];
-      equippedTitles = data.equippedTitles || [null, null, null];
-      
-      if (data.messageCount !== undefined) {
-        currentUser.messageCount = data.messageCount;
-        currentUser.level = calculateLevel(data.messageCount);
-        
-        // ✅ 更新 localStorage
-        localStorage.setItem('discordUser', JSON.stringify(currentUser));
-        
-        console.log('發言次數:', data.messageCount, '等級:', currentUser.level);
-      }
-    }
-  } catch (error) {
-    console.error('載入資料失敗:', error);
-  }
-}
-
-// ===== 側邊欄控制 =====
-function toggleSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('overlay');
-  const menuBtn = document.getElementById('menuBtn');
-  
-  sidebar.classList.toggle('active');
-  overlay.classList.toggle('active');
-  menuBtn.classList.toggle('active');
-}
-
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('active');
-  document.getElementById('overlay').classList.remove('active');
-  document.getElementById('menuBtn').classList.remove('active');
-}
-// ===== 即時更新系統 =====
-let profileUpdateInterval = null;
-
-// 刷新資料
-// 刷新資料
-async function refreshProfileData() {
-  if (!currentUser) return;
-  
-  const btn = document.getElementById('refreshBtn');
-  if (btn) {
-    btn.classList.add('loading');
-    btn.disabled = true;
-  }
-  
-  try {
-    // ✨ 重新呼叫 callback 的邏輯 - 直接用 Discord OAuth token
-    // 但我們沒有 access_token 了...
-    
-    // 所以改成:只從 Railway 讀發言次數和成就,段位保持不變
-    const response = await fetch(`${API_URL}/api/user/${currentUser.id}/titles`);
-    const data = await response.json();
-    
-    if (data) {
-      const oldMessageCount = currentUser.messageCount;
-      
-      // ✨ 段位不要更新!保持登入時偵測到的
-      // currentUser.rank = data.rank || currentUser.rank;  // ← 註解掉這行
-      
-      // 只更新發言次數和成就
-      currentUser.messageCount = data.messageCount || 0;
-      currentUser.achievements = data.achievements || [];
-      currentUser.totalPoints = data.totalPoints || 0;
-      
-      // 更新 localStorage
-      localStorage.setItem('discordUser', JSON.stringify(currentUser));
-      
-      // 更新側邊欄
-      updateUI();
-      
-      // 如果在個人資料頁,重新渲染
-      if (document.getElementById('profilePage').classList.contains('active')) {
-        updateProfileUI();
-      }
-      
-      // 顯示更新通知
-      if (data.messageCount > oldMessageCount) {
-        console.log(`🎉 發言次數更新: ${oldMessageCount} → ${data.messageCount}`);
-      }
-      
-      console.log('✅ 資料已更新 (段位保持:', currentUser.rank, ')');
-    }
-  } catch (error) {
-    console.error('❌ 更新失敗:', error);
-  } finally {
-    if (btn) {
-      btn.classList.remove('loading');
-      btn.disabled = false;
-    }
-  }
-}
-// 開始自動更新
-function startAutoRefresh() {
-  // 清除舊的定時器
-  if (profileUpdateInterval) {
-    clearInterval(profileUpdateInterval);
-  }
-  
-  // 每 30 秒更新一次
-  profileUpdateInterval = setInterval(async () => {
-    if (document.getElementById('profilePage').classList.contains('active')) {
-      await refreshProfileData();
-    }
-  }, 30000); // 30 秒
-  
-  console.log('✅ 自動更新已啟動 (每 30 秒)');
-}
-
-// 停止自動更新
-function stopAutoRefresh() {
-  if (profileUpdateInterval) {
-    clearInterval(profileUpdateInterval);
-    profileUpdateInterval = null;
-    console.log('⏸️ 自動更新已停止');
-  }
-}
-// ===== 顯示個人資訊頁 =====
-async function showProfile() {
-  if (!currentUser) return;
-  // ✨ 根據段位套用主題
-  const profilePage = document.getElementById('profilePage');
-  profilePage.classList.remove('god-tier', 'infinity-tier'); // 清除舊主題
-  
-  const rank = currentUser.rank || 'プロセカ初心者';
-  if (rank === 'プロセカ ∞') {
-    profilePage.classList.add('infinity-tier');
-  } else if (rank === 'プロセカ 創神者' || rank === 'プロセカ 天啓' || rank === 'プロセカ 神' || rank === 'プロセカ 亞神') {
-    profilePage.classList.add('god-tier');
-  }
-  document.getElementById('mainContent').classList.add('hidden');
-  document.getElementById('profilePage').classList.add('active');
-
-  document.getElementById('profileAvatar').src = currentUser.avatar;
-  document.getElementById('profileName').textContent = currentUser.username;
-  
-  // 先顯示快取資料
-  updateProfileUI();
-  
-  // ✨ 啟動自動更新
-  startAutoRefresh();
-  
-  // ✨ 立即更新一次最新資料
-  await refreshProfileData();
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ===== 更新個人資料 UI =====
-function updateProfileUI() {
-  if (!currentUser) return;
-  
-  // 計算等級
-  const messageCount = currentUser.messageCount || 0;
-  const level = calculateLevel(messageCount);
-  const levelColor = getLevelColor(level);
-  
-  // 更新統計數據
-  document.getElementById('statAchievements').textContent = currentUser.achievements?.length || 0;
-  document.getElementById('statPoints').textContent = currentUser.totalPoints || 0;
-  document.getElementById('statLevel').textContent = level;
-  
-  // 更新等級顯示區塊
-  const displayLevelElement = document.getElementById('displayLevel');
-  displayLevelElement.textContent = level;
-  
-  // 套用顏色
-  if (levelColor.startsWith('linear-gradient')) {
-    displayLevelElement.style.background = levelColor;
-    displayLevelElement.style.webkitBackgroundClip = 'text';
-    displayLevelElement.style.webkitTextFillColor = 'transparent';
-    displayLevelElement.style.backgroundClip = 'text';
-  } else {
-    displayLevelElement.style.color = levelColor;
-    displayLevelElement.style.background = 'none';
-    displayLevelElement.style.webkitTextFillColor = levelColor;
-  }
-  
-  document.getElementById('messageCount').textContent = messageCount;
-  document.getElementById('nextLevelInfo').textContent = getNextLevelInfo(messageCount);
-  
-  // ✨ 顯示段位徽章圖片
-  const rankConfig = getRankConfig(currentUser.rank || 'プロセカ初心者');
-  const badgeElement = document.getElementById('profileBadge');
-  const extension = rankConfig.badgeImage.includes('.') ? '' : '.webp';
-  badgeElement.innerHTML = `<img src="/public/images/ranks/${rankConfig.badgeImage}${extension}" alt="段位徽章" onerror="this.parentElement.innerHTML='${rankConfig.badge}'">`;
-  
-  // 成就列表
-  const achList = document.getElementById('achievementsList');
-  if (currentUser.achievements && currentUser.achievements.length > 0) {
-    achList.innerHTML = currentUser.achievements.map(ach => `
-      <div class="achievement-item">
-        <div class="achievement-name">${ach.name} (+${ach.points}pt)</div>
-        <div class="achievement-desc">${ach.description}</div>
-      </div>
-    `).join('');
-  } else {
-    achList.innerHTML = '<p style="color: #999; text-align: center;">尚無成就記錄</p>';
-  }
-  
-  // 更新稱號槽
-  updateEquippedTitles();
-}
-// ===== 導航功能 =====
-function navigateTo(page) {
-
-  // ✨ 停止自動更新
-  stopAutoRefresh();
-  
-  closeSidebar();
-
-  if (page === 'home') {
-    document.getElementById('mainContent').classList.remove('hidden');
-    document.getElementById('profilePage').classList.remove('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else if (page === 'profile') {
-    if (!currentUser) {
-      alert('請先登入!');
-      return;
-    }
-    showProfile();
-  } else {
-    document.getElementById('mainContent').classList.remove('hidden');
-    document.getElementById('profilePage').classList.remove('active');
-    const section = document.getElementById(page);
-    if (section) {
-      const headerOffset = 80;
-      const elementPosition = section.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-    }
-  }
-}  
-// ===== 登入系統 =====
-function loginWithDiscord() {
-  const clientId = '1407405904000979045';
-  const redirectUri = 'https://pjsk-practicehouse-site.vercel.app/api/auth/callback';
-  const scope = 'identify guilds.members.read';
-  
-  window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}`;
-}
-
-function logout() {
-  if (confirm('確定要登出嗎?')) {
-    // ✅ 清除 localStorage
-    localStorage.removeItem('discordUser');
-    currentUser = null;
-    updateUI();
-    closeSidebar();
-    navigateTo('home');
-    console.log('✅ 已登出');
-  }
-}
-
-// ===== 更新介面 =====
-function updateUI() {
-  if (currentUser) {
-    const messageCount = currentUser.messageCount || 0;
-    const level = calculateLevel(messageCount);
-    const rank = currentUser.rank || 'プロセカ初心者';
-    
-    // 頂部
-    document.getElementById('authBtn').style.display = 'none';
-    document.getElementById('userInfo').style.display = 'block';
-    document.getElementById('userAvatar').src = currentUser.avatar;
-    document.getElementById('userName').textContent = currentUser.username;
-
-    // 側邊欄
-    document.getElementById('sidebarLogin').style.display = 'none';
-    document.getElementById('sidebarContent').style.display = 'block';
-    document.getElementById('sidebarAvatar').src = currentUser.avatar;
-    document.getElementById('sidebarName').textContent = currentUser.username;
-    document.getElementById('sidebarRank').textContent = `${rank} | Lv.${level}`; // ✨ 顯示段位和等級
-    document.getElementById('sidebarStatAch').textContent = currentUser.achievements?.length || 0;
-    document.getElementById('sidebarStatMsg').textContent = currentUser.messageCount || 0;
-  } else {
-    document.getElementById('authBtn').style.display = 'block';
-    document.getElementById('userInfo').style.display = 'none';
-    document.getElementById('sidebarLogin').style.display = 'block';
-    document.getElementById('sidebarContent').style.display = 'none';
-  }
-}
-
-// ===== 更新已裝備稱號顯示 =====
-function updateEquippedTitles() {
-  const container = document.getElementById('equippedTitles');
-  if (!container) return;
-
-  container.innerHTML = '';
-  
-  for (let i = 0; i < 3; i++) {
-    const titleId = equippedTitles[i];
-    const slot = document.createElement('div');
-    slot.className = 'title-slot';
-    slot.dataset.slot = i;
-    
-    if (titleId && TITLE_DATABASE[titleId]) {
-      const titleInfo = TITLE_DATABASE[titleId];
-      slot.textContent = titleInfo.name;
-      if (titleInfo.class) {
-        slot.classList.add(titleInfo.class);
-      }
-      slot.onclick = () => unequipTitle(i);
-    } else {
-      slot.classList.add('empty');
-      slot.textContent = '點擊裝備稱號';
-      slot.onclick = () => openTitleModal(i);
-    }
-    
-    container.appendChild(slot);
-  }
-}
-
-// ===== 打開稱號選擇彈窗 =====
-function openTitleModal(slot) {
-  if (!currentUser) {
-    alert('請先登入');
-    return;
-  }
-  
-  currentEditingSlot = slot;
-  const modal = document.getElementById('titleModal');
-  const titleList = document.getElementById('titleList');
-  
-  titleList.innerHTML = '';
-  
-  if (userTitles.length === 0) {
-    titleList.innerHTML = '<p style="text-align: center; color: #999;">你還沒有解鎖任何稱號</p>';
-  } else {
-    userTitles.forEach(titleId => {
-      const titleInfo = TITLE_DATABASE[titleId];
-      if (!titleInfo) return;
-      
-      const item = document.createElement('div');
-      item.className = 'title-item';
-      item.textContent = titleInfo.name;
-      
-      if (equippedTitles.includes(titleId)) {
-        item.classList.add('equipped');
-        item.textContent += ' (已裝備)';
-      }
-      
-      item.onclick = () => equipTitle(titleId, slot);
-      titleList.appendChild(item);
-    });
-  }
-  
-  modal.classList.add('active');
-}
-
-// ===== 關閉彈窗 =====
-function closeTitleModal() {
-  document.getElementById('titleModal').classList.remove('active');
-  currentEditingSlot = null;
-}
-
-// ===== 裝備稱號 =====
-async function equipTitle(titleId, slot) {
-  try {
-    const response = await fetch(`${API_URL}/api/titles?userId=${currentUser.id}&action=equip`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ titleId, slot })
-    });
-    
-    const data = await response.json();
-    if (data.success) {
-      equippedTitles = data.equippedTitles;
-      updateEquippedTitles();
-      closeTitleModal();
-      alert('稱號裝備成功!');
-    } else {
-      alert(data.message || '裝備失敗');
-    }
-  } catch (error) {
-    console.error('裝備稱號失敗:', error);
-    alert('裝備失敗');
-  }
-}
-
-// ===== 卸下稱號 =====
-async function unequipTitle(slot) {
-  if (!confirm('確定要卸下這個稱號嗎?')) return;
-  
-  try {
-    const response = await fetch(`${API_URL}/api/titles?userId=${currentUser.id}&action=unequip`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ slot })
-    });
-    
-    const data = await response.json();
-    if (data.success) {
-      equippedTitles = data.equippedTitles;
-      updateEquippedTitles();
-      alert('稱號已卸下');
-    }
-  } catch (error) {
-    console.error('卸下稱號失敗:', error);
-  }
-}
-
-// ===== 滾動動畫 =====
-const observerOptions = {
-  threshold: 0.15,
-  rootMargin: '0px 0px -80px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, observerOptions);
-
-document.querySelectorAll('.fade-up').forEach(el => {
-  observer.observe(el);
-});
-
-// 點擊彈窗外部關閉
-document.getElementById('titleModal')?.addEventListener('click', (e) => {
-  if (e.target.id === 'titleModal') {
-    closeTitleModal();
-  }
-});
-
-// ===== 初始化 =====
-// ===== 初始化 =====
-// ===== 初始化 =====
-const urlParams = new URLSearchParams(window.location.search);
-
-// ===== 初始化 =====
-(async function init() {
-  const urlParams = new URLSearchParams(window.location.search);
-
-  if (urlParams.get('login') === 'success') {
-    const userData = urlParams.get('userData');
-    if (userData) {
-      try {
-        const user = JSON.parse(decodeURIComponent(userData));
-        localStorage.setItem('discordUser', JSON.stringify(user));
-        currentUser = user;
-        await loadUserTitles(user.id);
-        updateUI();
-        console.log('✅ 登入成功:', user.username);
-      } catch (e) {
-        console.error('❌ 解析使用者資料失敗:', e);
-        alert('登入資料處理失敗,請重試');
-      }
-    }
-    window.history.replaceState({}, document.title, window.location.pathname);
-    
-  } else if (urlParams.get('login') === 'failed') {
-    const error = urlParams.get('error');
-    alert('登入失敗' + (error ? ': ' + error : ',請重試'));
-    window.history.replaceState({}, document.title, window.location.pathname);
-    
-  } else {
-    const savedUser = localStorage.getItem('discordUser');
-    if (savedUser) {
-      try {
-        currentUser = JSON.parse(savedUser);
-        console.log('✅ 從 localStorage 載入使用者:', currentUser.username);
-        await loadUserTitles(currentUser.id);
-        updateUI();
-      } catch (e) {
-        console.error('❌ localStorage 資料損壞,已清除');
-        localStorage.removeItem('discordUser');
-      }
-    }
-  }
-
-  updateUI();
-})();
-</script>
-
+<script src="main.js"></script>
 </body>
 </html>
