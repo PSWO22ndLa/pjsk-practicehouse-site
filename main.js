@@ -152,11 +152,11 @@ function updateAuthUI(){
     chip.style.display='flex';
     $('navAvatar').src=currentUser.avatar||'';
     $('navName').textContent=currentUser.username||'';
-    dAuth.textContent='登出';
+    dAuth.textContent='Log Out';
   }else{
     loginBtn.style.display='';
     chip.style.display='none';
-    dAuth.textContent='登入';
+    dAuth.textContent='Log In';
   }
 }
 
