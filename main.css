@@ -178,3 +178,86 @@ footer.site{background:var(--bg);padding:82px 0 0}
   .section{padding:62px 0}
   .hero-arrow{font-size:30px;padding:8px}
 }
+
+/* ===== 登入 / 個人資訊 ===== */
+.user-chip{display:flex;align-items:center;gap:9px;cursor:pointer;color:#fff}
+.user-chip img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,.7)}
+.user-chip span{font-family:var(--sans);font-size:13px;font-weight:500}
+
+.profile-page{display:none;min-height:100vh;padding:128px 0 80px;background:var(--bg)}
+.profile-page.active{display:block}
+.profile-page.tier-god{background:linear-gradient(160deg,#0c0c11 0%,#16161f 60%,#0e0e16 100%);color:#fff}
+.profile-page.tier-infinity{background:linear-gradient(160deg,#0a0010 0%,#1a0633 55%,#0a0014 100%);color:#fff}
+.profile-wrap{max-width:1000px}
+.profile-back{background:none;border:none;font-family:var(--sans);font-size:14px;letter-spacing:.06em;color:var(--muted);cursor:pointer;margin-bottom:30px;transition:color .25s}
+.profile-back:hover{color:var(--ink)}
+.tier-god .profile-back,.tier-infinity .profile-back{color:rgba(255,255,255,.7)}
+
+.profile-head{display:flex;gap:34px;align-items:center;padding-bottom:36px;border-bottom:1px solid var(--line);margin-bottom:40px;flex-wrap:wrap}
+.tier-god .profile-head,.tier-infinity .profile-head{border-color:rgba(255,255,255,.15)}
+.profile-avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.profile-meta{flex:1;min-width:260px}
+.profile-name-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.profile-name-row h2{font-family:var(--serif);font-weight:600;font-size:32px}
+.refresh-btn{padding:9px 20px;font-size:11px}
+.logout-btn{margin-top:46px;background:transparent;color:var(--muted);border:1px solid var(--line)}
+.logout-btn:hover{border-color:var(--ink);color:var(--ink)}
+.tier-god .logout-btn,.tier-infinity .logout-btn{color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.25)}
+
+.equipped-titles{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.title-slot{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:9px 18px;border-radius:30px;cursor:pointer;border:1px solid var(--ink);color:var(--ink);background:#fff;transition:all .25s;min-width:130px;text-align:center}
+.title-slot:hover{background:var(--ink);color:#fff}
+.title-slot.empty{border-style:dashed;border-color:var(--line);color:var(--muted)}
+.title-slot.empty:hover{background:transparent;color:var(--ink);border-color:var(--ink)}
+.tier-god .title-slot,.tier-infinity .title-slot{border-color:rgba(255,215,140,.6);color:#ffd98c;background:transparent}
+.tier-god .title-slot:hover,.tier-infinity .title-slot:hover{background:rgba(255,215,140,.15);color:#fff}
+
+.profile-stats{display:flex;gap:40px}
+.pstat-num{font-family:var(--serif);font-weight:600;font-size:30px}
+.pstat-label{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.tier-god .pstat-label,.tier-infinity .pstat-label{color:rgba(255,255,255,.6)}
+
+.profile-cards{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.pcard{border:1px solid var(--line);border-radius:4px;padding:34px}
+.tier-god .pcard,.tier-infinity .pcard{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.03)}
+.pcard h3{font-family:var(--serif);font-weight:600;font-size:19px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.tier-god .pcard h3,.tier-infinity .pcard h3{border-color:rgba(255,255,255,.15)}
+.level-display{display:flex;align-items:center;gap:30px}
+.level-num{font-family:var(--serif);font-weight:700;font-size:80px;line-height:1;color:var(--ink)}
+.level-meta{flex:1}
+.level-msg-label{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.level-msg{font-family:var(--serif);font-weight:600;font-size:34px;margin:4px 0 10px}
+.level-next{font-family:var(--serif);font-size:14px;color:var(--muted)}
+.tier-god .level-msg-label,.tier-infinity .level-msg-label,.tier-god .level-next,.tier-infinity .level-next{color:rgba(255,255,255,.6)}
+.achievement-item{padding:16px 0;border-bottom:1px solid var(--line)}
+.achievement-item:last-child{border-bottom:none}
+.tier-god .achievement-item,.tier-infinity .achievement-item{border-color:rgba(255,255,255,.12)}
+.achievement-name{font-family:var(--serif);font-weight:600;font-size:16px;margin-bottom:4px}
+.achievement-desc{font-family:var(--serif);font-size:14px;color:var(--muted)}
+.tier-god .achievement-desc,.tier-infinity .achievement-desc{color:rgba(255,255,255,.6)}
+#achievementsList .empty{font-family:var(--serif);color:var(--muted);text-align:center;padding:20px 0}
+
+/* 稱號彈窗 */
+.tmodal{display:none;position:fixed;inset:0;background:rgba(10,12,16,.72);z-index:3000;align-items:center;justify-content:center;padding:20px}
+.tmodal.active{display:flex}
+.tmodal-box{background:#fff;border-radius:6px;max-width:520px;width:100%;max-height:80vh;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+.tmodal-head{display:flex;align-items:center;justify-content:space-between;padding:24px 30px;border-bottom:1px solid var(--line)}
+.tmodal-head h3{font-family:var(--serif);font-weight:600;font-size:21px}
+.tmodal-close{font-size:28px;color:var(--muted);cursor:pointer;line-height:1;transition:color .25s}
+.tmodal-close:hover{color:var(--ink)}
+.tmodal-body{padding:24px 30px 30px;max-height:calc(80vh - 80px);overflow-y:auto}
+.title-list{display:flex;flex-direction:column;gap:12px}
+.title-item{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:15px 20px;border:1px solid var(--line);border-radius:4px;text-align:center;cursor:pointer;transition:all .25s}
+.title-item:hover{border-color:var(--ink)}
+.title-item.equipped{background:var(--ink);color:#fff;border-color:var(--ink)}
+.title-list .empty{font-family:var(--serif);color:var(--muted);text-align:center}
+
+@media(max-width:720px){
+  .profile-cards{grid-template-columns:1fr}
+  .profile-head{gap:22px}
+  .profile-avatar{width:88px;height:88px}
+  .profile-stats{gap:28px}
+  .level-num{font-size:64px}
+}
