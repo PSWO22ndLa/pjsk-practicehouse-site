@@ -1,7 +1,7 @@
 /* ===== 資料（改文字 / 加 img 都在這裡） ===== */
   const ACTIVITIES=[
     {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],title:'2026 Spring Championship',text:'最激烈的賽事，挑戰你的實力，爭奪冠軍榮耀，展現你的音遊技術。'},
-    {cat:'挑戰',date:'New Release',img:'public/images/image.png',grad:['#15151c','#3a4a5c'],title:'段位挑戰系統',text:'全新的段位挑戰系統上線，一起練習，感受音樂的樂趣與成長的快樂。'},
+    {cat:'挑戰',date:'New Release',img:'public/images/rank-stairs.png',grad:['#15151c','#3a4a5c'],title:'段位挑戰系統',text:'全新的段位挑戰系統上線，一起練習，感受音樂的樂趣與成長的快樂。'},
     {cat:'創作',date:'Workshop',grad:['#1a2230','#244a6b'],title:'譜面創作工坊',text:'學習譜面製作技巧，分享你的創意，與社群一同成長茁壯。'},
     {cat:'每週',date:'Weekly',grad:['#1a2a33','#3a6675'],title:'每週挑戰賽',text:'每週更新的挑戰曲目，測試你的極限，攀登排行榜頂端。'},
     {cat:'預告',date:'Coming Soon',img:'public/images/event-comingsoon.png',grad:['#20002c','#3a3897'],title:'特別活動',text:'即將推出全新合作活動，敬請期待，更多驚喜等你來發現。'},
@@ -106,6 +106,33 @@
   /* Reveal */
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* 把金色吊飾注入到每個白底區塊（深色區塊不放） */
+  const ORNAMENT_HTML = `
+    <svg class="ornament-cap" viewBox="0 0 24 70" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="6" r="3.2" fill="none" stroke="currentColor" stroke-width="1"/>
+      <line x1="12" y1="9.5" x2="12" y2="17" stroke="currentColor" stroke-width="1"/>
+      <path d="M12 17 L17.5 28 L12 39 L6.5 28 Z" fill="currentColor"/>
+      <line x1="12" y1="39" x2="12" y2="60" stroke="currentColor" stroke-width="1"/>
+      <path d="M12 60 L14.5 65 L12 70 L9.5 65 Z" fill="currentColor"/>
+    </svg>
+    <div class="ornament-line"></div>
+    <svg class="ornament-tail" viewBox="0 0 24 44" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 0 L16.5 7 L12 14 L7.5 7 Z" fill="currentColor"/>
+      <line x1="12" y1="14" x2="12" y2="28" stroke="currentColor" stroke-width="1"/>
+      <line x1="8" y1="28" x2="5.5" y2="42" stroke="currentColor" stroke-width="1" opacity=".75"/>
+      <line x1="12" y1="28" x2="12" y2="44" stroke="currentColor" stroke-width="1" opacity=".75"/>
+      <line x1="16" y1="28" x2="18.5" y2="42" stroke="currentColor" stroke-width="1" opacity=".75"/>
+    </svg>`;
+  document.querySelectorAll('.section:not(.dark)').forEach(sec=>{
+    ['left','right'].forEach(side=>{
+      const d=document.createElement('div');
+      d.className='side-ornament '+side;
+      d.setAttribute('aria-hidden','true');
+      d.innerHTML=ORNAMENT_HTML;
+      sec.appendChild(d);
+    });
+  });
 
 /* ===================================================================
    登入 / 等級 / 稱號（沿用原本的 Discord OAuth + Railway API）

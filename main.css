@@ -270,14 +270,15 @@ footer.site{background:var(--bg);padding:82px 0 0}
 .brand-tag::before,.nav-motto::after{content:'';display:inline-block;width:38px;height:1px;background:currentColor;opacity:.65}
 @media(max-width:980px){.nav-deco{display:none}}
 
-/* ===== 左右金色吊飾 ===== */
+/* ===== 左右金色吊飾（只放在白底區塊內，跟著該段滾） ===== */
+.section{position:relative}
 .side-ornament{
-  position:fixed;top:120px;bottom:50px;width:24px;
+  position:absolute;top:60px;bottom:30px;width:24px;
   display:flex;flex-direction:column;align-items:center;
-  color:#c5a370;            /* 香檳金 */
+  color:#c5a370;
   opacity:.55;
   pointer-events:none;
-  z-index:50;
+  z-index:2;
 }
 .side-ornament.left{left:34px}
 .side-ornament.right{right:34px}
