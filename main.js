@@ -109,21 +109,12 @@
 
   /* 把金色吊飾注入到每個白底區塊（深色區塊不放） */
   const ORNAMENT_HTML = `
-    <svg class="ornament-cap" viewBox="0 0 24 70" xmlns="http://www.w3.org/2000/svg">
+    <svg class="ornament-cap" viewBox="0 0 24 40" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="6" r="3.2" fill="none" stroke="currentColor" stroke-width="1"/>
-      <line x1="12" y1="9.5" x2="12" y2="17" stroke="currentColor" stroke-width="1"/>
-      <path d="M12 17 L17.5 28 L12 39 L6.5 28 Z" fill="currentColor"/>
-      <line x1="12" y1="39" x2="12" y2="60" stroke="currentColor" stroke-width="1"/>
-      <path d="M12 60 L14.5 65 L12 70 L9.5 65 Z" fill="currentColor"/>
+      <line x1="12" y1="9.5" x2="12" y2="16" stroke="currentColor" stroke-width="1"/>
+      <path d="M12 16 L16 26 L12 36 L8 26 Z" fill="currentColor"/>
     </svg>
-    <div class="ornament-line"></div>
-    <svg class="ornament-tail" viewBox="0 0 24 44" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 0 L16.5 7 L12 14 L7.5 7 Z" fill="currentColor"/>
-      <line x1="12" y1="14" x2="12" y2="28" stroke="currentColor" stroke-width="1"/>
-      <line x1="8" y1="28" x2="5.5" y2="42" stroke="currentColor" stroke-width="1" opacity=".75"/>
-      <line x1="12" y1="28" x2="12" y2="44" stroke="currentColor" stroke-width="1" opacity=".75"/>
-      <line x1="16" y1="28" x2="18.5" y2="42" stroke="currentColor" stroke-width="1" opacity=".75"/>
-    </svg>`;
+    <div class="ornament-line"></div>`;
   document.querySelectorAll('.section:not(.dark)').forEach(sec=>{
     ['left','right'].forEach(side=>{
       const d=document.createElement('div');

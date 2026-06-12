@@ -17,7 +17,7 @@ img{max-width:100%;display:block}
 
 .limit{max-width:var(--limit);margin:0 auto;padding:0 32px}
 .section{padding:92px 0}
-.section.alt{background:#fafafa}
+.section.alt{background:#ffffff}
 .section.dark{background:var(--dark);color:#fff}
 
 /* 區段標題（大寫襯線、寬字距、置中） */
@@ -286,4 +286,3 @@ footer.site{background:var(--bg);padding:82px 0 0}
 .ornament-tail{width:24px;height:auto;display:block;flex-shrink:0}
 .ornament-line{flex:1;width:1px;background:currentColor;opacity:.55;margin:6px 0}
 @media(max-width:1180px){.side-ornament{display:none}}
-
