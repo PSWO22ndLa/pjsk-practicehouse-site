@@ -286,3 +286,4 @@ footer.site{background:var(--bg);padding:82px 0 0}
 .ornament-tail{width:24px;height:auto;display:block;flex-shrink:0}
 .ornament-line{flex:1;width:1px;background:currentColor;opacity:.55;margin:6px 0}
 @media(max-width:1180px){.side-ornament{display:none}}
+
