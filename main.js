@@ -47,12 +47,12 @@ function loadUser(){
     {grad:['#1a2a33','#2a5298'],title:'社群交流',text:'認識同好，一起練習、一起進步。',href:'#about'}
   ];
   const STAFF2025=[
-    {img:'public/images/la.webp',grad:['#2b3a4a','#6b8190'],name:'La.',role:'群主 / 創辦人',desc:'創辦人，負責活動策劃、伺服器管理與網頁設計，確保大家能安心使用群內資源。'},
-    {img:'public/images/white.jpg',grad:['#15151c','#3a4a5c'],name:'雪白',role:'管理員',desc:'專精譜面節奏與難度設計，致力創造流暢且富挑戰性的遊戲體驗。'},
-    {img:'public/images/IMG_20251111_134644.webp',grad:['#1a2230','#244a6b'],name:'萌忻',role:'手續委員',desc:'開服玩家，已遊玩 1500+ 天，負責初始段位確認與課題曲挑戰區裁判。'},
-    {img:'public/images/neko.webp',grad:['#1a2a33','#3a6675'],name:'檸檬貓',role:'活動與功能委員',desc:'打了音遊二年，最高 FC Apd33 Mas35，負責活動策劃與功能管理。'},
-    {img:'public/images/lan.png',grad:['#20002c','#3a3897'],name:'小藍',role:'秩序委員長',desc:'設計比賽 Banner 與 Logo，用視覺設計為活動增添專業質感。'},
-    {img:'public/images/shang.webp',grad:['#1a2a6c','#2a5298'],name:'小祥',role:'秩序委員',desc:'音遊愛好者，常玩プロセカ・ユメステ，也是個愛閒聊的人。'}
+    {img:'public/images/la.webp',grad:['#2b3a4a','#6b8190'],name:'La.',role:'群主 / 創辦人',desc:'各位好，我是此群之創辦人，負責活動策劃、伺服器管理與網頁設計，確保各位於此群的豆腐能夠安心使用群內資源。'},
+    {img:'public/images/white.jpg',grad:['#15151c','#3a4a5c'],name:'雪白',role:'管理員',desc:'專精於譜面節奏與難度設計，帶來最佳手感體驗。致力於創造流暢且富有挑戰性的遊戲體驗。'},
+    {img:'public/images/IMG_20251111_134644.webp',grad:['#1a2230','#244a6b'],name:'萌忻',role:'手續委員',desc:'開服玩家，已遊玩 1500+ 天。負責初始段位確認、課題曲挑戰區裁判。台服 33 以下除數學學園全 FC，紫 31、彩 30 以下全 AP。'},
+    {img:'public/images/neko.webp',grad:['#1a2a33','#3a6675'],name:'檸檬貓',role:'活動與功能委員',desc:'16 歲香港人，打了音遊二年。最高 FC: Apd33 Mas35 FC。主要負責活動策劃與功能管理，歡迎找我討論活動相關問題！'},
+    {img:'public/images/lan.png',grad:['#20002c','#3a3897'],name:'小藍',role:'秩序委員長',desc:'設計比賽 Banner 與 Logo，營造專業氛圍。用視覺設計為活動增添專業質感。'},
+    {img:'public/images/shang.webp',grad:['#1a2a6c','#2a5298'],name:'小祥',role:'秩序委員',desc:'音遊玩家，常玩プロセカ・ユメステ，街機：CHUNITHM\n一個音遊愛好者，但卻很爛👍\n一個愛閒聊的人。'}
   ];
   const STAFF2026=Array.from({length:8},(_,i)=>({
     emoji:['🎀','🎧','🎹','🥁','🎸','🎤','🎺','🎻'][i],
