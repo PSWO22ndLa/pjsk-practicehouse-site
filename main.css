@@ -290,3 +290,8 @@ footer.site{background:var(--bg);padding:82px 0 0}
 /* 活動卡片改為 <a>，需要 block 才能維持原本排版 */
 a.ncard{display:block;text-decoration:none;color:inherit}
 a.ncard:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+
+/* 非首張 slide 的標題：視覺與 h1 相同，但不佔用 h1 語意 */
+.slide-content .slide-title{font:inherit;margin:0}
+.slide-content h1,.slide-content .slide-title{font-family:var(--serif)}
