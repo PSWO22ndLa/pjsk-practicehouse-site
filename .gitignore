@@ -11,3 +11,7 @@ Thumbs.db
 *.swp
 *.swo
 _backup/
+
+fix-*.mjs
+_backup/
+_build/
