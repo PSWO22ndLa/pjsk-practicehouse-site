@@ -54,11 +54,16 @@ function loadUser(){
     {img:'public/images/lan.png',grad:['#20002c','#3a3897'],name:'小藍',role:'秩序委員長',desc:'設計比賽 Banner 與 Logo，營造專業氛圍。用視覺設計為活動增添專業質感。'},
     {img:'public/images/shang.webp',grad:['#1a2a6c','#2a5298'],name:'小祥',role:'秩序委員',desc:'音遊玩家，常玩プロセカ・ユメステ，街機：CHUNITHM\n一個音遊愛好者，但卻很爛👍\n一個愛閒聊的人。'}
   ];
-  const STAFF2026=Array.from({length:8},(_,i)=>({
-    emoji:['🎀','🎧','🎹','🥁','🎸','🎤','🎺','🎻'][i],
-    grad:[['#2b3a4a','#6b8190'],['#15151c','#3a4a5c'],['#1a2230','#244a6b'],['#1a2a33','#3a6675']][i%4],
-    name:'成員 '+(i+1),role:'職位',desc:'簡介文字'
-  }));
+  const STAFF2026=[
+    {emoji:'🎀',grad:['#2b3a4a','#6b8190'],name:'La.',role:'群主 / 創辦人',desc:''},
+    {emoji:'🎧',grad:['#15151c','#3a4a5c'],name:'afedrk',role:'代理群主',desc:''},
+    {img:'public/images/guardian1.gif',emoji:'🎤',grad:['#1a2230','#244a6b'],name:'檸檬貓',role:'管理員',desc:'非常不顯眼的管管(不敢說話TT 有空就幫助其他委員做事，大家多多指教。'},
+    {img:'public/images/formalities1.jpg',emoji:'🎸',grad:['#1a2a33','#3a6675'],name:'萌忻',role:'手續委員',desc:'選課選太多的大一學生，1700+天的開服玩家，主要負責初始段位確認、課題曲挑戰區裁判。世畫成績：綠~紫31,彩30以下全AP、34除ÅMARA全FC。同時也是衝榜玩家，總之就是什麼都會(？)對於任何遊戲機制問題幾乎都能回答。只生活在DC的人，可以來DC找我。DC名稱：sekai_newcomer。'},
+    {img:'public/images/formalities2.png',emoji:'🎺',grad:['#20002c','#3a3897'],name:'karl_hsiao',role:'手續委員',desc:'音遊只玩世畫的怪人 ( ? 請大家多多指教。'},
+    {img:'public/images/function1.jpg',emoji:'🥁',grad:['#1a2a6c','#2a5298'],name:'雪貓',role:'功能委員',desc:'平常不會特別出現在這，主要負責更換群頭貼、新增表符之類的。多多加成伺服器，La 會感謝你的。'},
+    {img:'public/images/white.jpg',emoji:'🎹',grad:['#2b3a4a','#6b8190'],name:'雪白',role:'秩序委員長',desc:''},
+    {img:'public/images/event1.png',emoji:'🎻',grad:['#15151c','#3a4a5c'],name:'lee',role:'活動委員',desc:'嗨嗨我是lee，是個pjsk萌新（入坑剛一年），基本上平時除了pjsk有在玩的音遊是舞萌和中二，雖然實力不怎麼樣但是非常歡迎來交流哦~'}
+  ];
 
   const g=(a)=>`linear-gradient(135deg,${a[0]} 0%,${a[1]} 100%)`;
   // 有填 img 就用圖片，否則用漸層。img 可放網址或本機路徑，例如 'public/images/xxx.jpg'
@@ -96,7 +101,7 @@ function loadUser(){
       <div class="member-cap">
         <span class="role-badge">${m.role}</span>
         <h3>${m.name}</h3>
-        <p>${m.desc}</p>
+        ${m.desc?`<p>${m.desc}</p>`:''}
       </div>
     </div>`;
   document.getElementById('team2025').innerHTML=STAFF2025.map(memberHTML).join('');
