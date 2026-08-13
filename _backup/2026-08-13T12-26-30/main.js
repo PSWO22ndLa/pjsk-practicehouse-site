@@ -1,11 +1,11 @@
 /* ===== 資料（改文字 / 加 img 都在這裡） ===== */
   const ACTIVITIES=[
-    {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],href:'2026springchampionshiprules.html',title:'2026 Spring Championship',text:'最激烈的賽事，挑戰你的實力，爭奪冠軍榮耀，展現你的音遊技術。'},
-    {cat:'挑戰',date:'New Release',img:'public/images/rank-stairs.png',grad:['#15151c','#3a4a5c'],href:'rank-challenge.html',title:'段位挑戰系統',text:'全新的段位挑戰系統上線，一起練習，感受音樂的樂趣與成長的快樂。'},
+    {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],title:'2026 Spring Championship',text:'最激烈的賽事，挑戰你的實力，爭奪冠軍榮耀，展現你的音遊技術。'},
+    {cat:'挑戰',date:'New Release',img:'public/images/rank-stairs.png',grad:['#15151c','#3a4a5c'],title:'段位挑戰系統',text:'全新的段位挑戰系統上線，一起練習，感受音樂的樂趣與成長的快樂。'},
     {cat:'創作',date:'Workshop',grad:['#1a2230','#244a6b'],title:'譜面創作工坊',text:'學習譜面製作技巧，分享你的創意，與社群一同成長茁壯。'},
     {cat:'每週',date:'Weekly',grad:['#1a2a33','#3a6675'],title:'每週挑戰賽',text:'每週更新的挑戰曲目，測試你的極限，攀登排行榜頂端。'},
     {cat:'預告',date:'Coming Soon',img:'public/images/event-comingsoon.png',grad:['#20002c','#3a3897'],title:'特別活動',text:'即將推出全新合作活動，敬請期待，更多驚喜等你來發現。'},
-    {cat:'社群',date:'Discord',img:'public/images/group-icon.png',grad:['#1a2a6c','#2a5298'],href:'https://discord.gg/wN3wx48nTB',title:'社群交流',text:'加入我們的 Discord，與志同道合的玩家一起討論、練習、進步。'}
+    {cat:'社群',date:'Discord',img:'public/images/group-icon.png',grad:['#1a2a6c','#2a5298'],title:'社群交流',text:'加入我們的 Discord，與志同道合的玩家一起討論、練習、進步。'}
   ];
   const EVENTS=[
     {grad:['#3f5a6b','#8aa6b5'],cap:'2026 Spring Championship — 爭奪冠軍榮耀的季度賽事'},
@@ -14,7 +14,7 @@
   ];
   const EXPLORE=[
     {grad:['#3a6675','#6b8190'],title:'加入 Discord',text:'與其他玩家即時交流，尋求支援與討論。',href:'https://discord.gg/wN3wx48nTB'},
-    {grad:['#2a4a55','#3f5a6b'],title:'段位挑戰',text:'測試你的實力，攀上練習屋的段位階梯。',href:'rank-challenge.html'},
+    {grad:['#2a4a55','#3f5a6b'],title:'段位挑戰',text:'測試你的實力，攀上練習屋的段位階梯。',href:'#events'},
     {grad:['#2e2a55','#244a6b'],title:'譜面創作',text:'學習製作譜面，發表你自己的作品。',href:'#activities'},
     {grad:['#1a2a33','#2a5298'],title:'社群交流',text:'認識同好，一起練習、一起進步。',href:'#about'}
   ];
@@ -34,22 +34,18 @@
 
   const g=(a)=>`linear-gradient(135deg,${a[0]} 0%,${a[1]} 100%)`;
   // 有填 img 就用圖片，否則用漸層。img 可放網址或本機路徑，例如 'public/images/xxx.jpg'
-  const bg=(o)=> o.img ? `url('${o.img}'), ${g(o.grad)}` : g(o.grad);
+  const bg=(o)=> o.img ? `url('${o.img}')` : g(o.grad);
 
   /* 活動卡片 */
-  // 沒有 href 的活動保持非互動，避免連到尚未建立的頁面
-  document.getElementById('activityGrid').innerHTML=ACTIVITIES.map(a=>{
-    const inner=`
+  document.getElementById('activityGrid').innerHTML=ACTIVITIES.map(a=>`
+    <article class="ncard reveal">
       <div class="ncard-img" style="background-image:${bg(a)}"><div class="veil"></div><span class="cat-badge">${a.cat}</span></div>
       <div class="ncard-body">
         <div class="ncard-date">${a.date}</div>
         <h3>${a.title}</h3>
         <p>${a.text}</p>
-      </div>`;
-    if(!a.href) return `<article class="ncard reveal">${inner}</article>`;
-    const ext=a.href.startsWith('http')?' target="_blank" rel="noopener"':'';
-    return `<a class="ncard reveal is-link" href="${a.href}"${ext}>${inner}</a>`;
-  }).join('');
+      </div>
+    </article>`).join('');
 
   /* Explore further */
   document.getElementById('efGrid').innerHTML=EXPLORE.map(e=>{
