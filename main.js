@@ -1,3 +1,31 @@
+/* ===== 安全工具 ===== */
+// innerHTML 注入前一律跳脫。資料來自 API，不能假設乾淨。
+const esc=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// 頭像只接受 Discord CDN，避免任意 URL 造成資訊外洩或追蹤
+const safeAvatar=(u)=>{
+  try{
+    const p=new URL(String(u));
+    return (p.protocol==='https:'&&/^(cdn|media)\.discordapp\.(com|net)$/.test(p.hostname))?p.href:'';
+  }catch{return '';}
+};
+
+// localStorage 快取加時效，避免無限期沿用舊資料
+const SESSION_TTL=7*24*60*60*1000;
+function saveUser(u){
+  try{localStorage.setItem('discordUser',JSON.stringify({t:Date.now(),u}));}catch{}
+}
+function loadUser(){
+  try{
+    const raw=localStorage.getItem('discordUser'); if(!raw)return null;
+    const box=JSON.parse(raw);
+    // 舊格式（直接存 user 物件）一律作廢，強制重新登入
+    if(!box||typeof box!=='object'||typeof box.t!=='number'||!box.u){localStorage.removeItem('discordUser');return null;}
+    if(Date.now()-box.t>SESSION_TTL){localStorage.removeItem('discordUser');return null;}
+    return (box.u&&typeof box.u.id==='string')?box.u:null;
+  }catch{localStorage.removeItem('discordUser');return null;}
+}
+
 /* ===== 資料（改文字 / 加 img 都在這裡） ===== */
   const ACTIVITIES=[
     {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],href:'2026springchampionshiprules.html',title:'2026 Spring Championship',text:'最激烈的賽事，挑戰你的實力，爭奪冠軍榮耀，展現你的音遊技術。'},
@@ -172,7 +200,7 @@ function updateAuthUI(){
   if(currentUser){
     loginBtn.style.display='none';
     chip.style.display='flex';
-    $('navAvatar').src=currentUser.avatar||'';
+    $('navAvatar').src=safeAvatar(currentUser.avatar);
     $('navName').textContent=currentUser.username||'';
     dAuth.textContent='Log Out';
   }else{
@@ -199,7 +227,7 @@ function showProfile(){
   if(!currentUser)return;
   profilePage.className='profile-page active'+(rankTier(currentUser.rank)?' tier-'+rankTier(currentUser.rank):'');
   mainContent.style.display='none';
-  $('pAvatar').src=currentUser.avatar||'';
+  $('pAvatar').src=safeAvatar(currentUser.avatar);
   $('pName').textContent=currentUser.username||'使用者';
   updateProfileUI();
   window.scrollTo({top:0,behavior:'instant'in window?'instant':'auto'});
@@ -218,7 +246,7 @@ function updateProfileUI(){
   $('nextLevelInfo').textContent=nextLvInfo(m);
   const al=$('achievementsList');
   al.innerHTML=(currentUser.achievements&&currentUser.achievements.length)
-    ? currentUser.achievements.map(a=>`<div class="achievement-item"><div class="achievement-name">${a.name} (+${a.points}pt)</div><div class="achievement-desc">${a.description||''}</div></div>`).join('')
+    ? currentUser.achievements.map(a=>`<div class="achievement-item"><div class="achievement-name">${esc(a.name)} (+${Number(a.points)||0}pt)</div><div class="achievement-desc">${esc(a.description)}</div></div>`).join('')
     : '<p class="empty">尚無成就記錄</p>';
   renderEquipped();
 }
@@ -280,7 +308,7 @@ async function loadUserTitles(userId){
       userTitles=d.specialTitles||userTitles||[];
       equippedTitles=d.equippedTitles||equippedTitles;
       if(d.messageCount!==undefined)currentUser.messageCount=d.messageCount;
-      localStorage.setItem('discordUser',JSON.stringify(currentUser));
+      saveUser(currentUser);
     }
   }catch(e){console.warn('載入稱號資料失敗（API 可能未啟動）',e);}
 }
@@ -296,7 +324,7 @@ async function refreshProfileData(){
       currentUser.totalPoints=d.totalPoints??currentUser.totalPoints??0;
       if(d.specialTitles)userTitles=d.specialTitles;
       if(d.equippedTitles)equippedTitles=d.equippedTitles;
-      localStorage.setItem('discordUser',JSON.stringify(currentUser));
+      saveUser(currentUser);
       updateProfileUI();
     }
   }catch(e){console.warn('更新失敗（API 可能未啟動）',e);}
@@ -330,23 +358,14 @@ $('drawerAuth').onclick=(e)=>{e.preventDefault();currentUser?logout():loginWithD
 
 /* 初始化：解析 OAuth 回傳 / 還原登入狀態 */
 (async function authInit(){
+  // URL 不再作為登入憑據：?userData= 任何人都能偽造，且會進入瀏覽器歷史與伺服器 log。
+  // 後端改用 HttpOnly cookie 後，這裡應改成 fetch('/api/auth/status') 取得登入狀態。
   const params=new URLSearchParams(location.search);
-  if(params.get('login')==='success'){
-    const ud=params.get('userData');
-    if(ud){
-      try{
-        currentUser=JSON.parse(decodeURIComponent(ud));
-        localStorage.setItem('discordUser',JSON.stringify(currentUser));
-        await loadUserTitles(currentUser.id);
-      }catch(e){alert('登入資料處理失敗，請重試');}
-    }
+  if(params.get('login')){
+    if(params.get('login')==='failed')alert('登入失敗，請重試');
     history.replaceState({},document.title,location.pathname);
-  }else if(params.get('login')==='failed'){
-    alert('登入失敗，請重試');
-    history.replaceState({},document.title,location.pathname);
-  }else{
-    const saved=localStorage.getItem('discordUser');
-    if(saved){try{currentUser=JSON.parse(saved);await loadUserTitles(currentUser.id);}catch(e){localStorage.removeItem('discordUser');}}
   }
+  currentUser=loadUser();
+  if(currentUser)await loadUserTitles(currentUser.id);
   updateAuthUI();
 })();
