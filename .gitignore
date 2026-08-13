@@ -15,3 +15,7 @@ _backup/
 fix-*.mjs
 _backup/
 _build/
+
+fix-*.mjs
+_backup/
+_build/
