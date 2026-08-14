@@ -28,7 +28,7 @@ function loadUser(){
 
 /* ===== 資料（改文字 / 加 img 都在這裡） ===== */
   const ACTIVITIES=[
-    {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],href:'2026springchampionshiprules.html',title:'2026 Spring Championship',text:'最激烈的賽事，挑戰你的實力，爭奪冠軍榮耀，展現你的音遊技術。'},
+    {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],href:'2026springchampionshippt.html',title:'2026 Spring Championship',text:'最激烈的賽事，挑戰你的實力，爭奪冠軍榮耀，展現你的音遊技術。'},
     {cat:'挑戰',date:'New Release',img:'public/images/rank-stairs.png',grad:['#15151c','#3a4a5c'],href:'rank-challenge.html',title:'段位挑戰系統',text:'全新的段位挑戰系統上線，一起練習，感受音樂的樂趣與成長的快樂。'},
     {cat:'創作',date:'Workshop',grad:['#1a2230','#244a6b'],title:'譜面創作工坊',text:'學習譜面製作技巧，分享你的創意，與社群一同成長茁壯。'},
     {cat:'每週',date:'Weekly',grad:['#1a2a33','#3a6675'],title:'每週挑戰賽',text:'每週更新的挑戰曲目，測試你的極限，攀登排行榜頂端。'},
