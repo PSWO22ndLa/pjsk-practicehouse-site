@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T16:11:28.807Z",
+  "updatedAt": "2026-08-15T16:14:08.955Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -289,13 +289,22 @@
       },
       "songs": [
         {
-          "name": "オーバーライド",
-          "composer": "吉田夜世",
-          "arranger": "吉田夜世",
+          "name": "ヒバナ -Reloaded-",
+          "composer": "DECO*27",
+          "arranger": "Rockwell",
           "difficulty": "master",
+          "level": 32,
+          "jacket": "/api/jacket?n=jacket_s_006",
+          "musicId": 6
+        },
+        {
+          "name": "フェレス",
+          "composer": "栗山夕璃（蜂屋ななし）",
+          "arranger": "栗山夕璃（蜂屋ななし）",
+          "difficulty": "append",
           "level": 31,
-          "jacket": "/api/jacket?n=jacket_s_521",
-          "musicId": 521
+          "jacket": "/api/jacket?n=jacket_s_291",
+          "musicId": 291
         },
         {
           "name": "フィクサー",
@@ -305,15 +314,6 @@
           "level": 32,
           "jacket": "/api/jacket?n=jacket_s_183",
           "musicId": 183
-        },
-        {
-          "name": "ヒバナ -Reloaded-",
-          "composer": "DECO*27",
-          "arranger": "Rockwell",
-          "difficulty": "master",
-          "level": 32,
-          "jacket": "/api/jacket?n=jacket_s_006",
-          "musicId": 6
         }
       ],
       "_placeholder": 3,
