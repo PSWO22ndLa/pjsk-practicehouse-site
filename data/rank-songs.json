@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T06:04:15.884Z",
+  "updatedAt": "2026-08-15T06:08:11.103Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -371,40 +371,13 @@
       "rules": {},
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "snooze",
+          "composer": "wotaku",
+          "arranger": "wotaku",
+          "difficulty": "append",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_554",
+          "musicId": 554
         }
       ],
       "_placeholder": 4,
