@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T11:15:17.786Z",
-  "updatedBy": "萌忻MongXin",
+  "updatedAt": "2026-08-15T14:19:35.069Z",
+  "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -806,13 +806,13 @@
           "musicId": 49
         },
         {
-          "name": "What's up? Pop!",
-          "composer": "Capchii",
-          "arranger": "Capchii",
+          "name": "怪獣になりたい",
+          "composer": "Sakuzyo",
+          "arranger": "Sakuzyo",
           "difficulty": "master",
-          "level": 37,
-          "jacket": "/api/jacket?n=jacket_s_315",
-          "musicId": 315
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_671",
+          "musicId": 671
         },
         {
           "name": "ANiMA",
