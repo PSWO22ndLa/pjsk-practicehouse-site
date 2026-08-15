@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T16:17:36.371Z",
+  "updatedAt": "2026-08-15T16:19:05.989Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -420,13 +420,13 @@
       },
       "songs": [
         {
-          "name": "ドーナツホール 2024",
-          "composer": "ハチ",
-          "arranger": "ハチ",
-          "difficulty": "append",
+          "name": "ぼくらの16bit戦争",
+          "composer": "sasakure.UK",
+          "arranger": "sasakure.UK(Gt 佐々木秀尚 Ba 二家本亮介(有形ランペイジ))",
+          "difficulty": "master",
           "level": 33,
-          "jacket": "/api/jacket?n=jacket_s_220",
-          "musicId": 220
+          "jacket": "/api/jacket?n=jacket_s_249",
+          "musicId": 249
         },
         {
           "name": "ゴーストルール",
