@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T06:12:27.855Z",
+  "updatedAt": "2026-08-15T06:12:38.672Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -421,6 +421,15 @@
           "level": 33,
           "jacket": "/api/jacket?n=jacket_s_220",
           "musicId": 220
+        },
+        {
+          "name": "ゴーストルール",
+          "composer": "DECO*27",
+          "arranger": "Naoki Itai(MUSIC FOR MUSIC)",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_199",
+          "musicId": 199
         }
       ],
       "_placeholder": 4,
