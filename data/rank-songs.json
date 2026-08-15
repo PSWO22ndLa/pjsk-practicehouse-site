@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:40:02.453Z",
+  "updatedAt": "2026-08-15T05:40:23.366Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -630,7 +630,7 @@
       ],
       "rules": {
         "hp": 80,
-        "special": "メモリア扣血×2"
+        "special": "メモリア扣血×2\nsage great不扣分"
       },
       "songs": [
         {
@@ -659,6 +659,15 @@
           "level": 35,
           "jacket": "/api/jacket?n=jacket_s_584",
           "musicId": 584
+        },
+        {
+          "name": "Sage",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_448",
+          "musicId": 448
         }
       ],
       "_placeholder": 4,
