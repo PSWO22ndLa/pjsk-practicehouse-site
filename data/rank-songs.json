@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T16:11:14.358Z",
+  "updatedAt": "2026-08-15T16:11:28.807Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -104,7 +104,7 @@
         "#ffff57"
       ],
       "rules": {
-        "hp": 150,
+        "hp": 130,
         "damage": {
           "miss": 3
         }
