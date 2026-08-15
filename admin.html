@@ -114,6 +114,17 @@
     border-radius: 2px; padding: 10px 12px; margin-bottom: 12px;
   }
   .search::placeholder { color: var(--muted); }
+  /* 曲庫篩選：難度 chip + 等級排序 */
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .chip {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 2px;
+    padding: 4px 9px; font-size: 12px; color: var(--muted); letter-spacing: .03em;
+  }
+  .chip:hover { background: var(--hover); color: var(--ink); }
+  .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .sortbar { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 12px; color: var(--muted); }
+  .sortbar .chip { padding: 3px 10px; }
+
   .hit {
     display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
     background: none; border: none; border-bottom: 1px solid var(--line); padding: 8px 4px;
@@ -203,6 +214,12 @@
     <aside class="pane" aria-label="曲庫">
       <h2>曲庫 <span id="catalogCount" style="text-transform:none;letter-spacing:0"></span></h2>
       <input id="search" class="search" type="search" placeholder="搜尋曲名、中文名、作曲者" autocomplete="off">
+      <div class="chips" id="diffChips" role="group" aria-label="難度篩選"></div>
+      <div class="sortbar" id="sortBar" hidden>
+        <span>等級排序</span>
+        <button class="chip" id="sortAsc" aria-pressed="false">升冪</button>
+        <button class="chip" id="sortDesc" aria-pressed="false">降冪</button>
+      </div>
       <div id="results"></div>
     </aside>
   </div>
@@ -229,6 +246,8 @@
     sha: null,          // 樂觀鎖
     tierId: null,
     dirty: false,
+    diff: null,      // 選中的難度，null = 不限
+    sortDir: null,   // 'asc' | 'desc' | null（依原本的曲目 id 順序）
   };
 
   // ---------- 工具 ----------
@@ -623,37 +642,97 @@
   // ---------- 曲庫搜尋 ----------
   function bindSearch() {
     let timer;
-    $('search').addEventListener('input', (e) => {
+    $('search').addEventListener('input', () => {
       clearTimeout(timer);
-      timer = setTimeout(() => renderResults(e.target.value.trim()), 130);
+      timer = setTimeout(renderResults, 130);
     });
-    renderResults('');
+
+    // 難度 chip：再點一次取消選取
+    const wrap = $('diffChips');
+    for (const d of DIFF_ORDER) {
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.textContent = DIFF_LABEL[d];
+      b.dataset.diff = d;
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', () => {
+        state.diff = state.diff === d ? null : d;
+        // 沒選難度時「等級」沒有唯一解，排序一併關掉
+        if (!state.diff) state.sortDir = null;
+        syncFilterUI();
+        renderResults();
+      });
+      wrap.appendChild(b);
+    }
+
+    const setSort = (dir) => {
+      state.sortDir = state.sortDir === dir ? null : dir;
+      syncFilterUI();
+      renderResults();
+    };
+    $('sortAsc').addEventListener('click', () => setSort('asc'));
+    $('sortDesc').addEventListener('click', () => setSort('desc'));
+
+    syncFilterUI();
+    renderResults();
   }
 
-  function renderResults(q) {
+  function syncFilterUI() {
+    for (const b of $('diffChips').children) {
+      b.setAttribute('aria-pressed', String(b.dataset.diff === state.diff));
+    }
+    // 排序只在選定難度後才有意義
+    $('sortBar').hidden = !state.diff;
+    $('sortAsc').setAttribute('aria-pressed', String(state.sortDir === 'asc'));
+    $('sortDesc').setAttribute('aria-pressed', String(state.sortDir === 'desc'));
+  }
+
+  const MAX_HITS = 60;
+
+  function renderResults() {
     const wrap = $('results');
+    const q = $('search').value.trim();
     wrap.innerHTML = '';
-    if (!q) {
-      wrap.innerHTML = '<div class="empty">輸入關鍵字搜尋曲目。</div>';
+
+    // 有難度篩選時就算沒關鍵字也列出結果，方便直接照等級挑
+    if (!q && !state.diff) {
+      wrap.innerHTML = '<div class="empty">輸入關鍵字，或先選一個難度。</div>';
       return;
     }
+
     const lower = q.toLowerCase();
-    const hits = state.songs.filter((s) =>
-      s.title.toLowerCase().includes(lower) ||
-      (s.titleZh && s.titleZh.toLowerCase().includes(lower)) ||
-      (s.composer && s.composer.toLowerCase().includes(lower))
-    ).slice(0, 60);
+    let hits = state.songs.filter((s) => {
+      if (state.diff && s.levels?.[state.diff] == null) return false;
+      if (!q) return true;
+      return s.title.toLowerCase().includes(lower)
+        || (s.titleZh && s.titleZh.toLowerCase().includes(lower))
+        || (s.composer && s.composer.toLowerCase().includes(lower));
+    });
+
+    if (state.diff && state.sortDir) {
+      const sign = state.sortDir === 'asc' ? 1 : -1;
+      hits = hits.slice().sort((a, b) =>
+        sign * ((a.levels[state.diff] ?? 0) - (b.levels[state.diff] ?? 0)));
+    }
+
+    const total = hits.length;
+    hits = hits.slice(0, MAX_HITS);
 
     if (!hits.length) {
-      wrap.innerHTML = `<div class="empty">找不到符合「${esc(q)}」的曲目。</div>`;
+      const what = [q ? `「${esc(q)}」` : '', state.diff ? DIFF_LABEL[state.diff] : '']
+        .filter(Boolean).join(' + ');
+      wrap.innerHTML = `<div class="empty">找不到符合 ${what} 的曲目。</div>`;
       return;
     }
 
     for (const s of hits) {
       const b = document.createElement('button');
       b.className = 'hit';
-      const lvText = DIFF_ORDER.filter((d) => s.levels?.[d] != null)
-        .map((d) => `${DIFF_LABEL[d][0]}${s.levels[d]}`).join(' ');
+      // 選定難度時只顯示該難度的等級，避免一整排數字蓋掉重點
+      const lvText = state.diff
+        ? `${DIFF_LABEL[state.diff]} ${s.levels[state.diff]}`
+        : DIFF_ORDER.filter((d) => s.levels?.[d] != null)
+            .map((d) => `${DIFF_LABEL[d][0]}${s.levels[d]}`).join(' ');
       b.innerHTML =
         `<img src="${esc(s.jacket)}" alt="" loading="lazy">` +
         `<span class="hit-main">
@@ -662,6 +741,14 @@
          </span>`;
       b.addEventListener('click', () => addSong(s));
       wrap.appendChild(b);
+    }
+
+    if (total > MAX_HITS) {
+      const more = document.createElement('div');
+      more.className = 'empty';
+      more.style.padding = '14px 8px';
+      more.textContent = `還有 ${total - MAX_HITS} 首，請再縮小範圍`;
+      wrap.appendChild(more);
     }
   }
 
@@ -672,7 +759,10 @@
     const songs = currentSongs();
     // 預設挑最高難度：段位挑戰基本上都打 master / append
     const avail = DIFF_ORDER.filter((d) => cat.levels?.[d] != null);
-    const diff = avail.includes('master') ? 'master' : (avail[avail.length - 1] || 'master');
+    // 篩選中的難度就是使用者的意圖，優先採用
+    const diff = (state.diff && avail.includes(state.diff))
+      ? state.diff
+      : (avail.includes('master') ? 'master' : (avail[avail.length - 1] || 'master'));
     songs.push({
       name: cat.title,
       composer: cat.composer,
