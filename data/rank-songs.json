@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T04:20:49.742Z",
+  "updatedAt": "2026-08-15T04:32:00.614Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -448,16 +448,19 @@
         "#ff0000",
         "#ff0000"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 30,
+        "special": "每日僅有三次挑戰機會"
+      },
       "songs": [
         {
-          "name": "Sage",
-          "composer": "かめりあ",
-          "arranger": "かめりあ",
-          "difficulty": "append",
-          "level": 36,
-          "jacket": "/api/jacket?n=jacket_s_448",
-          "musicId": 448
+          "name": "ÅMARA(大未来電脳)",
+          "composer": "sasakure.UK",
+          "arranger": "sasakure.UK",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_285",
+          "musicId": 285
         }
       ],
       "_placeholder": 1,
