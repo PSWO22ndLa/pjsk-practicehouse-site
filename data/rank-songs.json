@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T06:12:54.239Z",
+  "updatedAt": "2026-08-15T06:13:05.816Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -411,7 +411,9 @@
         "#ff97ee",
         "#ffc4ff"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 80
+      },
       "songs": [
         {
           "name": "ドーナツホール 2024",
