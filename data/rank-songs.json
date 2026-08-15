@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T06:20:23.346Z",
+  "updatedAt": "2026-08-15T06:22:13.428Z",
   "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -203,22 +203,13 @@
       },
       "songs": [
         {
-          "name": "パレットには君がいっぱい",
-          "composer": "椎名もた",
-          "arranger": "椎名もた",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": "/api/jacket?n=jacket_s_214",
-          "musicId": 214
-        },
-        {
-          "name": "SToRY",
-          "composer": "DECO*27",
-          "arranger": "堀江 晶太(kemu)",
+          "name": "ラブカ？",
+          "composer": "柊キライ",
+          "arranger": "柊キライ",
           "difficulty": "master",
           "level": 29,
-          "jacket": "/api/jacket?n=jacket_s_574",
-          "musicId": 574
+          "jacket": "/api/jacket?n=jacket_s_260",
+          "musicId": 260
         },
         {
           "name": "メルト",
@@ -228,6 +219,15 @@
           "level": 29,
           "jacket": "/api/jacket?n=jacket_s_047",
           "musicId": 47
+        },
+        {
+          "name": "リレイアウター",
+          "composer": "稲葉曇",
+          "arranger": "稲葉曇",
+          "difficulty": "master",
+          "level": 30,
+          "jacket": "/api/jacket?n=jacket_s_435",
+          "musicId": 435
         }
       ],
       "_placeholder": 3,
