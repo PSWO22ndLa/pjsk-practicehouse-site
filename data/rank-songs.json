@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T06:08:11.103Z",
+  "updatedAt": "2026-08-15T06:09:35.372Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -368,7 +368,9 @@
         "#ff97ee",
         "#ffc4ff"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 70
+      },
       "songs": [
         {
           "name": "snooze",
@@ -378,6 +380,24 @@
           "level": 33,
           "jacket": "/api/jacket?n=jacket_s_554",
           "musicId": 554
+        },
+        {
+          "name": "ぼくらの16bit戦争",
+          "composer": "sasakure.UK",
+          "arranger": "sasakure.UK(Gt 佐々木秀尚 Ba 二家本亮介(有形ランペイジ))",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_249",
+          "musicId": 249
+        },
+        {
+          "name": "トレジャーガーデン",
+          "composer": "Ponchi♪",
+          "arranger": "Ponchi♪",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_686",
+          "musicId": 686
         }
       ],
       "_placeholder": 4,
