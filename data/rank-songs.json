@@ -1,0 +1,1693 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-15T01:53:08.670Z",
+  "updatedBy": "extract-rules.mjs",
+  "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
+  "tiers": {
+    "bronze": {
+      "page": "rank-bronze.html",
+      "label": "青銅",
+      "badge": "public/images/ranks/bronze.webp",
+      "gradient": [
+        "#8e5513",
+        "#b86e18"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "嬢王",
+          "composer": "八王子P",
+          "arranger": "八王子P",
+          "difficulty": "hard",
+          "level": 24,
+          "jacket": "public/images/jackets/bronze-1.webp",
+          "musicId": null
+        },
+        {
+          "name": "だんだん早くなる",
+          "composer": "40㍍P",
+          "arranger": "40㍍P",
+          "difficulty": "expert",
+          "level": 24,
+          "jacket": "public/images/jackets/bronze-2.webp",
+          "musicId": null
+        },
+        {
+          "name": "ロストエンファウンド",
+          "composer": "sasakure.UK",
+          "arranger": "sasakure.UK",
+          "difficulty": "expert",
+          "level": 25,
+          "jacket": "public/images/jackets/bronze-3.webp",
+          "musicId": null
+        }
+      ],
+      "order": 1
+    },
+    "silver": {
+      "page": "rank-silver.html",
+      "label": "白銀",
+      "badge": "public/images/ranks/silver.webp",
+      "gradient": [
+        "#909090",
+        "#bbbbbb"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 3,
+      "order": 2
+    },
+    "gold": {
+      "page": "rank-gold.html",
+      "label": "黃金",
+      "badge": "public/images/ranks/gold.webp",
+      "gradient": [
+        "#f6ff43",
+        "#ffff57"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 3,
+      "order": 3
+    },
+    "platinum1": {
+      "page": "rank-platinum1.html",
+      "label": "白金I",
+      "badge": "public/images/ranks/platinum.webp",
+      "gradient": [
+        "#b8e4ff",
+        "#efffff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 3,
+      "order": 4
+    },
+    "platinum2": {
+      "page": "rank-platinum2.html",
+      "label": "白金II",
+      "badge": "public/images/ranks/platinum.webp",
+      "gradient": [
+        "#b8e4ff",
+        "#efffff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 3,
+      "order": 5
+    },
+    "diamond1": {
+      "page": "rank-diamond1.html",
+      "label": "鑽石I",
+      "badge": "public/images/ranks/diamond.webp",
+      "gradient": [
+        "#44ffcd",
+        "#58ffff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 3,
+      "order": 6
+    },
+    "diamond2": {
+      "page": "rank-diamond2.html",
+      "label": "鑽石II",
+      "badge": "public/images/ranks/diamond.webp",
+      "gradient": [
+        "#44ffcd",
+        "#58ffff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 3,
+      "order": 7
+    },
+    "master1": {
+      "page": "rank-master1.html",
+      "label": "大師I",
+      "badge": "public/images/ranks/master.webp",
+      "gradient": [
+        "#ff97ee",
+        "#ffc4ff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 4,
+      "order": 8
+    },
+    "master2": {
+      "page": "rank-master2.html",
+      "label": "大師II",
+      "badge": "public/images/ranks/master.webp",
+      "gradient": [
+        "#ff97ee",
+        "#ffc4ff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 4,
+      "order": 9
+    },
+    "master3": {
+      "page": "rank-master3.html",
+      "label": "大師III",
+      "badge": "public/images/ranks/master.webp",
+      "gradient": [
+        "#ff97ee",
+        "#ffc4ff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 4,
+      "order": 10
+    },
+    "peak-unlock": {
+      "page": "rank-peak-unlock.html",
+      "label": "巔峰解鎖任務",
+      "badge": "public/images/ranks/peak.webp",
+      "gradient": [
+        "#ff0000",
+        "#ff0000"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 1,
+      "order": 11
+    },
+    "peak1": {
+      "page": "rank-peak1.html",
+      "label": "巔峰I",
+      "badge": "public/images/ranks/peak.webp",
+      "gradient": [
+        "#ff0000",
+        "#ff0000"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 4,
+      "order": 12
+    },
+    "peak2": {
+      "page": "rank-peak2.html",
+      "label": "巔峰II",
+      "badge": "public/images/ranks/peak.webp",
+      "gradient": [
+        "#ff0000",
+        "#ff0000"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 4,
+      "order": 13
+    },
+    "peak3": {
+      "page": "rank-peak3.html",
+      "label": "巔峰III",
+      "badge": "public/images/ranks/peak.webp",
+      "gradient": [
+        "#ff0000",
+        "#ff0000"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 4,
+      "order": 14
+    },
+    "demigod1": {
+      "page": "rank-demigod1.html",
+      "label": "亞神I",
+      "badge": "public/images/ranks/demigod.webp",
+      "gradient": [
+        "#fffb9e",
+        "#ffffcd"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 4,
+      "order": 15
+    },
+    "demigod2": {
+      "page": "rank-demigod2.html",
+      "label": "亞神II",
+      "badge": "public/images/ranks/demigod.webp",
+      "gradient": [
+        "#fffb9e",
+        "#ffffcd"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 4,
+      "order": 16
+    },
+    "demigod3": {
+      "page": "rank-demigod3.html",
+      "label": "亞神III",
+      "badge": "public/images/ranks/demigod.webp",
+      "gradient": [
+        "#fffb9e",
+        "#ffffcd"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 4,
+      "order": 17
+    },
+    "god1": {
+      "page": "rank-god1.html",
+      "label": "神I",
+      "badge": "public/images/ranks/god.webp",
+      "gradient": [
+        "#ffad00",
+        "#ffe000"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 18
+    },
+    "god2": {
+      "page": "rank-god2.html",
+      "label": "神II",
+      "badge": "public/images/ranks/god.webp",
+      "gradient": [
+        "#ffad00",
+        "#ffe000"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 19
+    },
+    "god3": {
+      "page": "rank-god3.html",
+      "label": "神III",
+      "badge": "public/images/ranks/god.webp",
+      "gradient": [
+        "#ffad00",
+        "#ffe000"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 20
+    },
+    "revelation-unlock": {
+      "page": "rank-revelation-unlock.html",
+      "label": "天啟解鎖任務",
+      "badge": "public/images/ranks/revelation.png",
+      "gradient": [
+        "#b4c7ff",
+        "#eaffff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 1,
+      "order": 21
+    },
+    "revelation1": {
+      "page": "rank-revelation1.html",
+      "label": "天啟I",
+      "badge": "public/images/ranks/revelation.png",
+      "gradient": [
+        "#b4c7ff",
+        "#eaffff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 22
+    },
+    "revelation2": {
+      "page": "rank-revelation2.html",
+      "label": "天啟II",
+      "badge": "public/images/ranks/revelation.png",
+      "gradient": [
+        "#b4c7ff",
+        "#eaffff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 23
+    },
+    "revelation3": {
+      "page": "rank-revelation3.html",
+      "label": "天啟III",
+      "badge": "public/images/ranks/revelation.png",
+      "gradient": [
+        "#b4c7ff",
+        "#eaffff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 24
+    },
+    "godmaker1": {
+      "page": "rank-godmaker1.html",
+      "label": "創神I",
+      "badge": "public/images/ranks/godmaker.png",
+      "gradient": [
+        "#6800ff",
+        "#8700ff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 25
+    },
+    "godmaker2": {
+      "page": "rank-godmaker2.html",
+      "label": "創神II",
+      "badge": "public/images/ranks/godmaker.png",
+      "gradient": [
+        "#6800ff",
+        "#8700ff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 26
+    },
+    "godmaker3": {
+      "page": "rank-godmaker3.html",
+      "label": "創神III",
+      "badge": "public/images/ranks/godmaker.png",
+      "gradient": [
+        "#6800ff",
+        "#8700ff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 27
+    },
+    "infinity-unlock": {
+      "page": "rank-infinity-unlock.html",
+      "label": "無限挑戰解鎖任務",
+      "badge": "public/images/ranks/infinity.png",
+      "gradient": [
+        "#dbb7ff",
+        "#ffedff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 1,
+      "order": 28
+    },
+    "infinity": {
+      "page": "rank-infinity.html",
+      "label": "Infinity",
+      "badge": "public/images/ranks/infinity.png",
+      "gradient": [
+        "#dbb7ff",
+        "#ffedff"
+      ],
+      "rules": {
+        "hp": 100,
+        "damage": {
+          "perfect": 0,
+          "great": 1,
+          "good": 2,
+          "bad": 3,
+          "miss": 3
+        },
+        "special": ""
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 29
+    }
+  }
+}

@@ -19,3 +19,15 @@ _build/
 fix-*.mjs
 _backup/
 _build/
+
+# local recon
+recon.mjs
+recon-report.md
+slice1.md
+slice2.md
+slice3.md
+check-rank.mjs
+rank-audit.md
+remove-sega.mjs
+load-env.ps1
+gen-env.mjs

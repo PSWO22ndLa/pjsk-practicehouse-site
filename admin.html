@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>段位曲目管理 - 練習屋</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@500;800&display=swap" rel="stylesheet">
+<style>
+  /* 配色沿用段位頁的深色卡片，讓管理端和玩家看到的畫面是同一個世界。
+     強調色不是固定值 —— 選中哪個段位，介面就換成那個段位自己的漸層。 */
+  :root {
+    --bg: #131318;
+    --surface: #1e1e24;
+    --surface-2: #26262e;
+    --line: #33333d;
+    --text: #e9e9f0;
+    --muted: #8b8b9c;
+    --accent-a: #6b6b7a;
+    --accent-b: #8b8b9c;
+    --danger: #e05263;
+    --ok: #3fb984;
+    --radius: 8px;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.5 ui-sans-serif, system-ui, "Segoe UI", "Noto Sans TC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 2px solid #9a9aff; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ---------- 頂列 ---------- */
+  .topbar {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 20;
+  }
+  /* 選中段位的漸層條：一眼確認正在編輯哪一個 */
+  .topbar::before {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px;
+    background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  }
+  .brand { font-family: "M PLUS 1p", sans-serif; font-weight: 800; font-size: 17px; letter-spacing: .02em; }
+  .brand span { color: var(--muted); font-weight: 500; margin-left: 8px; font-size: 13px; }
+  .spacer { flex: 1; }
+  .who { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+  .who img { width: 26px; height: 26px; border-radius: 50%; }
+
+  .btn {
+    background: var(--surface-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 8px 14px; transition: background .15s, border-color .15s;
+  }
+  .btn:hover { background: #30303a; }
+  .btn-primary { background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); border: none; color: #10101a; font-weight: 700; }
+  .btn-primary:disabled { opacity: .35; cursor: not-allowed; }
+  .btn-ghost { background: none; border-color: transparent; color: var(--muted); }
+  .btn-sm { padding: 4px 9px; font-size: 13px; }
+
+  /* ---------- 版面 ---------- */
+  .app { display: grid; grid-template-columns: 232px minmax(0,1fr) 380px; height: calc(100vh - 55px); }
+  .pane { overflow-y: auto; padding: 16px; }
+  .pane + .pane { border-left: 1px solid var(--line); }
+  .pane h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 0 0 12px; font-weight: 600; }
+
+  /* ---------- 段位清單 ---------- */
+  .tier { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+          background: none; border: none; border-radius: var(--radius); padding: 8px 10px; margin-bottom: 2px; }
+  .tier:hover { background: var(--surface); }
+  .tier[aria-current="true"] { background: var(--surface-2); }
+  .swatch { width: 4px; align-self: stretch; min-height: 26px; border-radius: 2px; flex-shrink: 0; }
+  .tier-name { font-family: "M PLUS 1p", sans-serif; font-weight: 500; flex: 1; }
+  .tier-count { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .tier-count.warn { color: #e0a244; }
+
+  /* ---------- 已指定曲目 ---------- */
+  .assigned { display: flex; flex-direction: column; gap: 8px; }
+  .row { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--line);
+         border-radius: var(--radius); padding: 10px; }
+  .row img { width: 48px; height: 48px; border-radius: 5px; object-fit: cover; background: var(--surface-2); flex-shrink: 0; }
+  .row-main { flex: 1; min-width: 0; }
+  .row-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row-sub { color: var(--muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  select.diff { background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
+  .lv { font-variant-numeric: tabular-nums; font-weight: 700; min-width: 30px; text-align: center; }
+  .lv.unknown { color: var(--danger); }
+  .row-actions { display: flex; gap: 2px; }
+
+  /* ---------- 曲庫 ---------- */
+  .search { width: 100%; background: var(--surface); border: 1px solid var(--line);
+            border-radius: var(--radius); padding: 10px 12px; margin-bottom: 10px; }
+  .search::placeholder { color: var(--muted); }
+  .hit { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+         background: none; border: none; border-radius: 6px; padding: 6px; }
+  .hit:hover { background: var(--surface); }
+  .hit img { width: 38px; height: 38px; border-radius: 4px; object-fit: cover; background: var(--surface-2); flex-shrink: 0; }
+  .hit-main { flex: 1; min-width: 0; }
+  .hit-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 14px; }
+  .hit-sub { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* ---------- 規則編輯 ---------- */
+  .rules { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+           padding: 14px 16px; margin-bottom: 18px; }
+  .rules-grid { display: grid; grid-template-columns: 86px 84px 1fr; gap: 8px 12px; align-items: center; }
+  .rules-grid label { color: var(--muted); font-size: 13px; }
+  .num { background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px;
+         padding: 6px 8px; width: 100%; font-variant-numeric: tabular-nums; }
+  /* 沿用預設時把值淡化，一眼分得出哪些是這個段位特別設定過的 */
+  .num.inherited { color: var(--muted); font-style: italic; }
+  .inherit-tag { color: var(--muted); font-size: 12px; }
+  .inherit-tag.custom { color: #e0a244; font-style: normal; }
+  .rules-sep { grid-column: 1 / -1; border-top: 1px solid var(--line); margin: 4px 0 2px; }
+  .rules-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .rules-head strong { font-size: 14px; }
+  textarea.special { grid-column: 2 / -1; background: var(--surface-2); border: 1px solid var(--line);
+                     border-radius: 6px; padding: 8px; min-height: 56px; resize: vertical; width: 100%; }
+
+  .empty { color: var(--muted); padding: 28px 8px; text-align: center; line-height: 1.7; }
+  .status { padding: 6px 12px; border-radius: var(--radius); font-size: 13px; }
+  .status.err { background: rgba(224,82,99,.14); color: #ff9aa6; }
+  .status.ok { background: rgba(63,185,132,.14); color: #7fe0b5; }
+
+  /* ---------- 登入閘門 ---------- */
+  .gate { display: grid; place-items: center; height: 100vh; text-align: center; padding: 24px; }
+  .gate-card { max-width: 380px; }
+  .gate h1 { font-family: "M PLUS 1p", sans-serif; font-size: 24px; margin: 0 0 10px; }
+  .gate p { color: var(--muted); margin: 0 0 22px; }
+  .hidden { display: none !important; }
+
+  @media (max-width: 1000px) {
+    .app { grid-template-columns: 1fr; height: auto; }
+    .pane + .pane { border-left: none; border-top: 1px solid var(--line); }
+    .pane { max-height: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 未登入 / 無權限 -->
+<div id="gate" class="gate hidden">
+  <div class="gate-card">
+    <h1 id="gateTitle">段位曲目管理</h1>
+    <p id="gateMsg">這個頁面只開放給委員。用 Discord 登入後會自動確認你的身分組。</p>
+    <a class="btn btn-primary" id="gateBtn" href="/api/auth/login?next=/admin.html">用 Discord 登入</a>
+  </div>
+</div>
+
+<!-- 主介面 -->
+<div id="app" class="hidden">
+  <header class="topbar">
+    <div class="brand">段位曲目管理<span id="tierHint">未選段位</span></div>
+    <div class="spacer"></div>
+    <div id="status" class="status"></div>
+    <button class="btn btn-primary" id="saveBtn" disabled>儲存變更</button>
+    <div class="who">
+      <img id="meAvatar" alt="" hidden>
+      <span id="meName"></span>
+      <a class="btn btn-ghost btn-sm" href="/api/auth/logout">登出</a>
+    </div>
+  </header>
+
+  <div class="app">
+    <nav class="pane" aria-label="段位">
+      <h2>段位</h2>
+      <div id="tierList"></div>
+    </nav>
+
+    <section class="pane" aria-label="段位設定">
+      <h2 id="assignedHead">指定曲目</h2>
+      <div id="rules" class="rules hidden"></div>
+      <div id="assigned" class="assigned"></div>
+      <div id="assignedEmpty" class="empty hidden">這個段位還沒有指定曲目。<br>從右邊的曲庫搜尋並點選加入。</div>
+    </section>
+
+    <aside class="pane" aria-label="曲庫">
+      <h2>曲庫 <span id="catalogCount" style="text-transform:none;letter-spacing:0"></span></h2>
+      <input id="search" class="search" type="search" placeholder="搜尋曲名、中文名、作曲者" autocomplete="off">
+      <div id="results"></div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  const DIFF_ORDER = ['easy', 'normal', 'hard', 'expert', 'master', 'append'];
+  const DIFF_LABEL = { easy: 'EASY', normal: 'NORMAL', hard: 'HARD', expert: 'EXPERT', master: 'MASTER', append: 'APPEND' };
+  const JUDGES = ['perfect', 'great', 'good', 'bad', 'miss'];
+  const JUDGE_LABEL = { perfect: 'PERFECT', great: 'GREAT', good: 'GOOD', bad: 'BAD', miss: 'MISS' };
+
+  // 舊資料沒有 defaults 時的退路。值取自 29 支頁面原本共用的設定。
+  const BUILTIN_DEFAULTS = { hp: 100, damage: { perfect: 0, great: 1, good: 2, bad: 3, miss: 3 }, special: '' };
+  const DEFAULTS_ID = '__defaults';
+
+  const $ = (id) => document.getElementById(id);
+  const state = {
+    songs: [],          // 曲庫（唯讀）
+    byTitle: new Map(), // 曲名 -> 曲庫項目，用來補 level / jacket
+    doc: null,          // rank-songs 內容
+    sha: null,          // 樂觀鎖
+    tierId: null,
+    dirty: false,
+  };
+
+  // ---------- 工具 ----------
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function setStatus(msg, kind = '') {
+    const el = $('status');
+    el.textContent = msg || '';
+    el.className = 'status' + (kind ? ' ' + kind : '');
+  }
+
+  function markDirty(on = true) {
+    state.dirty = on;
+    $('saveBtn').disabled = !on;
+  }
+
+  window.addEventListener('beforeunload', (e) => {
+    if (state.dirty) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  // ---------- 啟動 ----------
+  async function boot() {
+    let me;
+    try {
+      me = await (await fetch('/api/auth/me', { credentials: 'same-origin' })).json();
+    } catch {
+      return showGate('連不上伺服器', '請重新整理再試一次。');
+    }
+
+    if (!me.loggedIn) return showGate('段位曲目管理', '這個頁面只開放給委員。用 Discord 登入後會自動確認你的身分組。');
+    if (!me.admin) {
+      return showGate('沒有編輯權限',
+        `你以 ${me.user.name} 的身分登入了，但這個帳號沒有委員身分組。如果這不對，請找管理員確認。`, true);
+    }
+
+    $('meName').textContent = me.user.name;
+    if (me.user.avatar) { $('meAvatar').src = me.user.avatar; $('meAvatar').hidden = false; }
+
+    $('gate').classList.add('hidden');
+    $('app').classList.remove('hidden');
+
+    await Promise.all([loadCatalog(), loadConfig()]);
+    renderTiers();
+    bindSearch();
+    $('saveBtn').addEventListener('click', save);
+  }
+
+  function showGate(title, msg, showLogout = false) {
+    $('gateTitle').textContent = title;
+    $('gateMsg').textContent = msg;
+    if (showLogout) {
+      $('gateBtn').textContent = '換一個帳號登入';
+      $('gateBtn').href = '/api/auth/logout';
+    }
+    $('gate').classList.remove('hidden');
+    $('app').classList.add('hidden');
+  }
+
+  async function loadCatalog() {
+    const r = await fetch('/data/songs.json');
+    if (!r.ok) { setStatus('曲庫載入失敗', 'err'); return; }
+    const d = await r.json();
+    state.songs = d.songs || [];
+    for (const s of state.songs) state.byTitle.set(s.title, s);
+    $('catalogCount').textContent = `(${state.songs.length})`;
+  }
+
+  async function loadConfig() {
+    const r = await fetch('/api/rank-songs', { credentials: 'same-origin' });
+    if (!r.ok) { setStatus('設定載入失敗', 'err'); return; }
+    const d = await r.json();
+    state.doc = d.content || { version: 1, tiers: {} };
+    state.sha = d.sha;
+    normalize();
+  }
+
+  /**
+   * 讓資料進入「預設 + 覆寫」的形態：
+   * 補上 defaults，並把與預設相同的段位設定清掉 —— 留著會讓每個段位
+   * 看起來都被客製過，之後改預設值也不會生效。
+   */
+  function normalize() {
+    if (!state.doc.defaults) {
+      state.doc.defaults = JSON.parse(JSON.stringify(BUILTIN_DEFAULTS));
+    }
+    const dflt = state.doc.defaults;
+    for (const t of Object.values(state.doc.tiers || {})) {
+      if (!t.rules) continue;
+      if (t.rules.hp === dflt.hp) delete t.rules.hp;
+      if (t.rules.damage) {
+        for (const j of JUDGES) {
+          if (t.rules.damage[j] === dflt.damage[j]) delete t.rules.damage[j];
+        }
+        if (!Object.keys(t.rules.damage).length) delete t.rules.damage;
+      }
+      if (t.rules.special === '') delete t.rules.special;
+    }
+  }
+
+  const effective = (tier, key) =>
+    (tier?.rules?.[key] ?? state.doc.defaults[key]);
+  const effectiveDamage = (tier, j) =>
+    (tier?.rules?.damage?.[j] ?? state.doc.defaults.damage[j]);
+
+  // ---------- 段位清單 ----------
+  function renderTiers() {
+    const wrap = $('tierList');
+    wrap.innerHTML = '';
+
+    // 全域預設放最上面，改一次影響所有沒有覆寫的段位
+    const df = document.createElement('button');
+    df.className = 'tier';
+    df.setAttribute('aria-current', String(state.tierId === DEFAULTS_ID));
+    df.innerHTML =
+      '<span class="swatch" style="background:linear-gradient(180deg,#6b6b7a,#8b8b9c)"></span>' +
+      '<span class="tier-name">全域預設</span>' +
+      `<span class="tier-count">${state.doc.defaults?.hp ?? '?'}</span>`;
+    df.addEventListener('click', () => selectTier(DEFAULTS_ID));
+    wrap.appendChild(df);
+
+    const ids = Object.keys(state.doc.tiers || {})
+      // order 是資料的一部分；沒有 order 的排最後，維持原有相對順序
+      .sort((a, b) => (state.doc.tiers[a].order ?? 9999) - (state.doc.tiers[b].order ?? 9999));
+    if (!ids.length) {
+      wrap.innerHTML = '<div class="empty">還沒有段位資料。<br>先在本機跑 extract-songs.mjs 產生 data/rank-songs.json 並 commit。</div>';
+      return;
+    }
+    for (const id of ids) {
+      const t = state.doc.tiers[id];
+      const g = Array.isArray(t.gradient) && t.gradient.length ? t.gradient : ['#6b6b7a', '#8b8b9c'];
+      const n = (t.songs || []).length;
+      const unknown = (t.songs || []).filter((s) => s.level == null).length;
+      const overridden = !!(t.rules && (t.rules.hp != null || t.rules.damage || t.rules.special));
+
+      const b = document.createElement('button');
+      b.className = 'tier';
+      b.setAttribute('aria-current', String(id === state.tierId));
+      b.innerHTML =
+        `<span class="swatch" style="background:linear-gradient(180deg,${esc(g[0])},${esc(g[1] || g[0])})"></span>` +
+        `<span class="tier-name">${esc(t.label || id)}${overridden ? ' <span class="inherit-tag custom">•</span>' : ''}</span>` +
+        `<span class="tier-count${unknown ? ' warn' : ''}">${n}</span>`;
+      b.addEventListener('click', () => selectTier(id));
+      wrap.appendChild(b);
+    }
+  }
+
+  function selectTier(id) {
+    state.tierId = id;
+
+    if (id === DEFAULTS_ID) {
+      document.documentElement.style.setProperty('--accent-a', '#6b6b7a');
+      document.documentElement.style.setProperty('--accent-b', '#8b8b9c');
+      $('tierHint').textContent = '全域預設';
+      $('assignedHead').textContent = '全域預設規則';
+      renderTiers();
+      renderRules();
+      renderAssigned();
+      return;
+    }
+
+    const t = state.doc.tiers[id];
+    const g = Array.isArray(t.gradient) && t.gradient.length ? t.gradient : ['#6b6b7a', '#8b8b9c'];
+    document.documentElement.style.setProperty('--accent-a', g[0]);
+    document.documentElement.style.setProperty('--accent-b', g[1] || g[0]);
+    $('tierHint').textContent = t.label || id;
+    $('assignedHead').textContent = `${t.label || id} 的設定`;
+    renderTiers();
+    renderRules();
+    renderAssigned();
+  }
+
+  // ---------- 規則編輯 ----------
+  function renderRules() {
+    const box = $('rules');
+    if (!state.tierId) { box.classList.add('hidden'); return; }
+    box.classList.remove('hidden');
+    box.innerHTML = '';
+
+    const isDefaults = state.tierId === DEFAULTS_ID;
+    const tier = isDefaults ? null : state.doc.tiers[state.tierId];
+    const dflt = state.doc.defaults;
+
+    const head = document.createElement('div');
+    head.className = 'rules-head';
+    head.innerHTML = isDefaults
+      ? '<strong>全域預設</strong><span class="inherit-tag">所有沒有另外設定的段位都套用這裡的值</span>'
+      : '<strong>段位規則</strong><span class="inherit-tag">留空＝沿用全域預設</span>';
+    box.appendChild(head);
+
+    const grid = document.createElement('div');
+    grid.className = 'rules-grid';
+
+    // 取值 / 設值：defaults 直接寫 doc.defaults，tier 寫 tier.rules（空值就刪掉，代表繼承）
+    const readVal = (key) => isDefaults ? dflt[key] : tier.rules?.[key];
+    const writeVal = (key, v) => {
+      if (isDefaults) { dflt[key] = v; return; }
+      if (!tier.rules) tier.rules = {};
+      if (v == null) delete tier.rules[key]; else tier.rules[key] = v;
+    };
+    const readDmg = (j) => isDefaults ? dflt.damage[j] : tier.rules?.damage?.[j];
+    const writeDmg = (j, v) => {
+      if (isDefaults) { dflt.damage[j] = v; return; }
+      if (!tier.rules) tier.rules = {};
+      if (!tier.rules.damage) tier.rules.damage = {};
+      if (v == null) delete tier.rules.damage[j]; else tier.rules.damage[j] = v;
+      if (!Object.keys(tier.rules.damage).length) delete tier.rules.damage;
+    };
+
+    function numRow(label, get, set, fallback, min, max) {
+      const lb = document.createElement('label');
+      lb.textContent = label;
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.className = 'num';
+      input.min = String(min); input.max = String(max);
+      input.setAttribute('aria-label', label);
+      const cur = get();
+      input.value = cur == null ? '' : String(cur);
+      if (!isDefaults) input.placeholder = String(fallback);
+      input.classList.toggle('inherited', !isDefaults && cur == null);
+      lb.htmlFor = input.id = 'r_' + label.replace(/\W/g, '');
+
+      const tag = document.createElement('span');
+      tag.className = 'inherit-tag' + (!isDefaults && cur != null ? ' custom' : '');
+      tag.textContent = isDefaults ? '' : (cur == null ? '沿用預設' : '已覆寫');
+
+      input.addEventListener('change', () => {
+        const raw = input.value.trim();
+        if (raw === '') {
+          if (isDefaults) { input.value = String(fallback); return; } // 預設值不可空
+          set(null);
+        } else {
+          const n = Number(raw);
+          if (!Number.isInteger(n) || n < min || n > max) {
+            setStatus(`${label} 必須是 ${min}-${max} 的整數`, 'err');
+            input.value = cur == null ? '' : String(cur);
+            return;
+          }
+          set(n);
+        }
+        markDirty(); renderRules(); renderTiers();
+      });
+
+      grid.append(lb, input, tag);
+    }
+
+    numRow('血量', () => readVal('hp'), (v) => writeVal('hp', v), dflt.hp, 1, 9999);
+
+    const sep = document.createElement('div');
+    sep.className = 'rules-sep';
+    grid.appendChild(sep);
+
+    for (const j of JUDGES) {
+      numRow(JUDGE_LABEL[j], () => readDmg(j), (v) => writeDmg(j, v), dflt.damage[j], 0, 999);
+    }
+
+    const sep2 = document.createElement('div');
+    sep2.className = 'rules-sep';
+    grid.appendChild(sep2);
+
+    const slb = document.createElement('label');
+    slb.textContent = '特殊規則';
+    const ta = document.createElement('textarea');
+    ta.className = 'special';
+    ta.maxLength = 500;
+    ta.placeholder = isDefaults ? '所有段位共通的補充說明（可留空）' : (dflt.special || '（無）');
+    ta.value = readVal('special') ?? '';
+    ta.setAttribute('aria-label', '特殊規則');
+    ta.addEventListener('change', () => {
+      const v = ta.value.trim();
+      writeVal('special', v === '' ? (isDefaults ? '' : null) : v);
+      markDirty(); renderTiers();
+    });
+    grid.append(slb, ta);
+
+    box.appendChild(grid);
+
+    if (!isDefaults) {
+      const has = tier.rules && (tier.rules.hp != null || tier.rules.damage || tier.rules.special);
+      if (has) {
+        const reset = document.createElement('button');
+        reset.className = 'btn btn-ghost btn-sm';
+        reset.textContent = '全部恢復預設';
+        reset.style.marginTop = '10px';
+        reset.addEventListener('click', () => {
+          delete tier.rules;
+          markDirty(); renderRules(); renderTiers();
+        });
+        box.appendChild(reset);
+      }
+    }
+  }
+
+  // ---------- 已指定曲目 ----------
+  function currentSongs() {
+    const t = state.doc.tiers[state.tierId];
+    if (!t.songs) t.songs = [];
+    return t.songs;
+  }
+
+  function renderAssigned() {
+    const wrap = $('assigned');
+    wrap.innerHTML = '';
+    if (!state.tierId) {
+      $('assignedEmpty').classList.remove('hidden');
+      $('assignedEmpty').textContent = '從左邊選一個段位開始編輯。';
+      return;
+    }
+    if (state.tierId === DEFAULTS_ID) {
+      $('assignedEmpty').classList.add('hidden');
+      return;
+    }
+    const songs = currentSongs();
+    $('assignedEmpty').classList.toggle('hidden', songs.length > 0);
+    $('assignedEmpty').innerHTML = '這個段位還沒有指定曲目。<br>從右邊的曲庫搜尋並點選加入。';
+
+    songs.forEach((s, i) => {
+      const cat = state.byTitle.get(s.name);
+      const avail = cat ? DIFF_ORDER.filter((d) => cat.levels?.[d] != null) : DIFF_ORDER;
+
+      const row = document.createElement('div');
+      row.className = 'row';
+
+      const jacket = s.jacket || cat?.jacket || '';
+      const sub = cat
+        ? [cat.titleZh, cat.composer].filter(Boolean).join(' · ')
+        : '⚠️ 不在曲庫，等級與曲繪要手動確認';
+
+      row.innerHTML =
+        (jacket ? `<img src="${esc(jacket)}" alt="" loading="lazy">` : '<img alt="">') +
+        `<div class="row-main">
+           <div class="row-title">${esc(s.name)}</div>
+           <div class="row-sub">${esc(sub)}</div>
+         </div>`;
+
+      const sel = document.createElement('select');
+      sel.className = 'diff';
+      sel.setAttribute('aria-label', `${s.name} 的難度`);
+      for (const d of avail) {
+        const o = document.createElement('option');
+        o.value = d;
+        o.textContent = DIFF_LABEL[d];
+        o.selected = d === s.difficulty;
+        sel.appendChild(o);
+      }
+      sel.addEventListener('change', () => {
+        s.difficulty = sel.value;
+        s.level = cat?.levels?.[sel.value] ?? null;
+        markDirty(); renderAssigned(); renderTiers();
+      });
+      row.appendChild(sel);
+
+      const lv = document.createElement('span');
+      lv.className = 'lv' + (s.level == null ? ' unknown' : '');
+      lv.textContent = s.level ?? '?';
+      lv.title = s.level == null ? '曲庫查不到等級' : '';
+      row.appendChild(lv);
+
+      const acts = document.createElement('div');
+      acts.className = 'row-actions';
+      acts.appendChild(iconBtn('↑', '往上移', () => move(i, -1), i === 0));
+      acts.appendChild(iconBtn('↓', '往下移', () => move(i, 1), i === songs.length - 1));
+      acts.appendChild(iconBtn('✕', '移除', () => {
+        songs.splice(i, 1); markDirty(); renderAssigned(); renderTiers();
+      }));
+      row.appendChild(acts);
+
+      wrap.appendChild(row);
+    });
+  }
+
+  function iconBtn(label, title, fn, disabled = false) {
+    const b = document.createElement('button');
+    b.className = 'btn btn-ghost btn-sm';
+    b.textContent = label;
+    b.title = title;
+    b.setAttribute('aria-label', title);
+    b.disabled = disabled;
+    b.addEventListener('click', fn);
+    return b;
+  }
+
+  function move(i, delta) {
+    const songs = currentSongs();
+    const j = i + delta;
+    if (j < 0 || j >= songs.length) return;
+    [songs[i], songs[j]] = [songs[j], songs[i]];
+    markDirty(); renderAssigned();
+  }
+
+  // ---------- 曲庫搜尋 ----------
+  function bindSearch() {
+    let timer;
+    $('search').addEventListener('input', (e) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => renderResults(e.target.value.trim()), 130);
+    });
+    renderResults('');
+  }
+
+  function renderResults(q) {
+    const wrap = $('results');
+    wrap.innerHTML = '';
+    if (!q) {
+      wrap.innerHTML = '<div class="empty">輸入關鍵字搜尋曲目。</div>';
+      return;
+    }
+    const lower = q.toLowerCase();
+    const hits = state.songs.filter((s) =>
+      s.title.toLowerCase().includes(lower) ||
+      (s.titleZh && s.titleZh.toLowerCase().includes(lower)) ||
+      (s.composer && s.composer.toLowerCase().includes(lower))
+    ).slice(0, 60);
+
+    if (!hits.length) {
+      wrap.innerHTML = `<div class="empty">找不到符合「${esc(q)}」的曲目。</div>`;
+      return;
+    }
+
+    for (const s of hits) {
+      const b = document.createElement('button');
+      b.className = 'hit';
+      const lvText = DIFF_ORDER.filter((d) => s.levels?.[d] != null)
+        .map((d) => `${DIFF_LABEL[d][0]}${s.levels[d]}`).join(' ');
+      b.innerHTML =
+        `<img src="${esc(s.jacket)}" alt="" loading="lazy">` +
+        `<span class="hit-main">
+           <span class="hit-title">${esc(s.title)}${s.titleZh ? ` <span style="color:var(--muted)">${esc(s.titleZh)}</span>` : ''}</span>
+           <span class="hit-sub">${esc(lvText)}</span>
+         </span>`;
+      b.addEventListener('click', () => addSong(s));
+      wrap.appendChild(b);
+    }
+  }
+
+  function addSong(cat) {
+    if (!state.tierId || state.tierId === DEFAULTS_ID) {
+      setStatus('先從左邊選一個段位', 'err'); return;
+    }
+    const songs = currentSongs();
+    // 預設挑最高難度：段位挑戰基本上都打 master / append
+    const avail = DIFF_ORDER.filter((d) => cat.levels?.[d] != null);
+    const diff = avail.includes('master') ? 'master' : (avail[avail.length - 1] || 'master');
+    songs.push({
+      name: cat.title,
+      composer: cat.composer,
+      arranger: cat.arranger,
+      difficulty: diff,
+      level: cat.levels?.[diff] ?? null,
+      jacket: cat.jacket,
+      musicId: cat.id,
+    });
+    markDirty(); renderAssigned(); renderTiers();
+    setStatus(`已加入 ${cat.title}`, 'ok');
+    setTimeout(() => setStatus(''), 1800);
+  }
+
+  // ---------- 儲存 ----------
+  async function save() {
+    $('saveBtn').disabled = true;
+    setStatus('儲存中...');
+    try {
+      const r = await fetch('/api/rank-songs', {
+        method: 'PUT',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: state.doc, sha: state.sha }),
+      });
+      const d = await r.json().catch(() => ({}));
+
+      if (r.status === 409) {
+        setStatus('別人剛改過這份設定，請重新整理後再存一次', 'err');
+        $('saveBtn').disabled = false;
+        return;
+      }
+      if (r.status === 400 && d.errs) {
+        setStatus(`資料有問題：${d.errs.slice(0, 2).join('；')}`, 'err');
+        $('saveBtn').disabled = false;
+        return;
+      }
+      if (!r.ok) {
+        setStatus(`儲存失敗（${d.error || r.status}）`, 'err');
+        $('saveBtn').disabled = false;
+        return;
+      }
+
+      state.sha = d.sha;
+      markDirty(false);
+      setStatus('已儲存，網站約一分鐘後更新', 'ok');
+      setTimeout(() => setStatus(''), 5000);
+    } catch (e) {
+      setStatus('連線失敗，變更還在頁面上，可以再按一次儲存', 'err');
+      $('saveBtn').disabled = false;
+    }
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>
