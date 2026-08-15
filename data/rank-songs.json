@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:05:04.172Z",
+  "updatedAt": "2026-08-15T05:11:41.509Z",
   "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -136,34 +136,36 @@
         "#b8e4ff",
         "#efffff"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 200
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "生きる",
+          "composer": "水野あつ",
+          "arranger": "水野あつ",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 27,
+          "jacket": "/api/jacket?n=jacket_s_644",
+          "musicId": 644
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "ドレミファロンド",
+          "composer": "40mP",
+          "arranger": "40mP",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 27,
+          "jacket": "/api/jacket?n=jacket_s_603",
+          "musicId": 603
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "ウミユリ海底譚",
+          "composer": "n-buna",
+          "arranger": "n-buna",
           "difficulty": "master",
           "level": 28,
-          "jacket": null,
-          "musicId": null
+          "jacket": "/api/jacket?n=jacket_s_075",
+          "musicId": 75
         }
       ],
       "_placeholder": 3,
