@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>挑戰動態 - 段位挑戰</title>
+<meta name="description" content="Project Sekai 練習屋段位挑戰的最新動態，依時間排序。">
+<link rel="canonical" href="https://pjsk-practicehouse-site.vercel.app/activity.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Project Sekai 練習屋">
+<meta property="og:title" content="挑戰動態 - 段位挑戰">
+<meta property="og:description" content="Project Sekai 練習屋段位挑戰的最新動態，依時間排序。">
+<style>
+  /* 與 leaderboard.html、段位挑戰頁同一組深色視覺 */
+  :root {
+    --bg: #0f1420;
+    --panel: rgba(30, 30, 38, 0.95);
+    --line: rgba(255, 255, 255, 0.08);
+    --text: #e9e9f0;
+    --muted: #8b8b9c;
+    --gold: #ffd76a;
+    --pass: #7fd6a8;
+    --fail: #e08a92;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: linear-gradient(160deg, #0f1420 0%, #161d2e 100%);
+    color: var(--text);
+    font: 15px/1.6 "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .back-button {
+    position: fixed; top: 24px; left: 24px;
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; z-index: 50; transition: background .2s;
+  }
+  .back-button:hover { background: rgba(255,255,255,0.16); }
+  .back-button::before { content: '←'; font-size: 22px; color: #fff; font-weight: 700; }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 90px 20px 60px; }
+  h1 {
+    font-size: 34px; font-weight: 900; margin: 0 0 6px; text-align: center;
+    color: var(--gold); text-shadow: 0 2px 20px rgba(255, 215, 106, 0.25);
+  }
+  .sub { text-align: center; color: var(--muted); margin: 0 0 26px; font-size: 14px; }
+
+  .filters { display: flex; gap: 8px; justify-content: center; margin-bottom: 22px; flex-wrap: wrap; }
+  .chip {
+    background: rgba(255,255,255,0.06); border: 1px solid var(--line);
+    color: var(--muted); border-radius: 20px; padding: 6px 16px;
+    font: inherit; font-size: 13px; cursor: pointer; transition: all .15s;
+  }
+  .chip:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+  .chip[aria-pressed="true"] { background: rgba(255, 215, 106, 0.16); border-color: rgba(255,215,106,.4); color: var(--gold); }
+
+  .feed { display: flex; flex-direction: column; gap: 10px; }
+  .day-label { color: var(--muted); font-size: 12px; letter-spacing: .08em; margin: 18px 0 2px; }
+  .day-label:first-child { margin-top: 0; }
+
+  .item {
+    display: flex; align-items: center; gap: 15px;
+    background: var(--panel); border: 1px solid var(--line);
+    border-left: 3px solid transparent; border-radius: 8px; padding: 13px 18px;
+  }
+  .item.pass { border-left-color: var(--pass); }
+  .item.fail { border-left-color: var(--fail); }
+  .item.me { background: rgba(255, 215, 106, 0.07); }
+  .badge { width: 42px; height: 42px; flex-shrink: 0; }
+  .badge img { width: 100%; height: 100%; object-fit: contain; }
+  .main { flex: 1; min-width: 0; }
+  .line1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .who { font-weight: 700; }
+  .line2 { color: var(--muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .result { font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .result.pass { color: var(--pass); }
+  .result.fail { color: var(--fail); }
+
+  .empty { color: var(--muted); text-align: center; padding: 60px 20px; line-height: 1.9; }
+  .hidden { display: none !important; }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 80px 14px 40px; }
+    h1 { font-size: 26px; }
+    .item { gap: 12px; padding: 11px 14px; }
+    .badge { width: 34px; height: 34px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="rank-challenge.html" class="back-button" title="返回段位挑戰"></a>
+
+<div class="wrap">
+  <h1>挑戰動態</h1>
+  <p class="sub" id="sub">載入中…</p>
+
+  <div class="filters">
+    <button class="chip" id="fAll" aria-pressed="true">全部</button>
+    <button class="chip" id="fPass" aria-pressed="false">只看通過</button>
+    <button class="chip" id="fMine" aria-pressed="false" hidden>只看我的</button>
+  </div>
+
+  <div class="feed" id="feed"></div>
+  <div class="empty hidden" id="empty">還沒有任何挑戰紀錄。</div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  const state = { tiers: {}, records: [], meId: null, onlyPass: false, onlyMine: false };
+
+  async function getJSON(url) {
+    const r = await fetch(url, { cache: 'no-cache' });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
+  }
+
+  async function boot() {
+    try {
+      const [t, rec] = await Promise.all([
+        getJSON('data/rank-songs.json'),
+        getJSON('data/challenge-records.json').catch(() => ({ records: [] })),
+      ]);
+      state.tiers = t.tiers || {};
+      state.records = rec.records || [];
+    } catch {
+      $('sub').textContent = '資料載入失敗，請重新整理';
+      return;
+    }
+
+    try {
+      const me = await (await fetch('/api/auth/me', { credentials: 'same-origin' })).json();
+      if (me.loggedIn) { state.meId = me.user.id; $('fMine').hidden = false; }
+    } catch { /* 未登入不影響動態顯示 */ }
+
+    $('fAll').addEventListener('click', () => setFilter(false, false));
+    $('fPass').addEventListener('click', () => setFilter(true, state.onlyMine));
+    $('fMine').addEventListener('click', () => setFilter(state.onlyPass, !state.onlyMine));
+
+    render();
+  }
+
+  function setFilter(onlyPass, onlyMine) {
+    state.onlyPass = onlyPass;
+    state.onlyMine = onlyMine;
+    $('fAll').setAttribute('aria-pressed', String(!onlyPass && !onlyMine));
+    $('fPass').setAttribute('aria-pressed', String(onlyPass));
+    $('fMine').setAttribute('aria-pressed', String(onlyMine));
+    render();
+  }
+
+  function render() {
+    const rows = state.records
+      .filter((r) => (!state.onlyPass || r.passed) && (!state.onlyMine || r.userId === state.meId))
+      // 日期相同時保持登記順序的反向，讓最新登記的排前面
+      .map((r, i) => ({ ...r, _i: i }))
+      .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')) || (b._i - a._i));
+
+    $('sub').textContent = rows.length
+      ? `共 ${rows.length} 筆紀錄`
+      : '';
+    $('empty').classList.toggle('hidden', rows.length > 0);
+
+    const feed = $('feed');
+    feed.innerHTML = '';
+    let lastDay = null;
+
+    for (const r of rows) {
+      if (r.date !== lastDay) {
+        lastDay = r.date;
+        const d = document.createElement('div');
+        d.className = 'day-label';
+        d.textContent = r.date || '日期未填';
+        feed.appendChild(d);
+      }
+
+      const t = state.tiers[r.tier] || {};
+      const mine = r.userId === state.meId;
+      const el = document.createElement('div');
+      el.className = `item ${r.passed ? 'pass' : 'fail'}${mine ? ' me' : ''}`;
+      el.innerHTML =
+        `<div class="badge">${t.badge ? `<img src="${esc(t.badge)}" alt="" loading="lazy">` : ''}</div>` +
+        `<div class="main">
+           <div class="line1"><span class="who">${esc(r.name || '未命名玩家')}</span>${mine ? '（你）' : ''} 挑戰 ${esc(t.label || r.tier)}</div>
+           ${r.note ? `<div class="line2">${esc(r.note)}</div>` : ''}
+         </div>` +
+        `<div class="result ${r.passed ? 'pass' : 'fail'}">${r.passed ? '通過' : '未通過'}</div>`;
+      feed.appendChild(el);
+    }
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>

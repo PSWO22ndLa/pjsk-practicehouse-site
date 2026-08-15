@@ -21,7 +21,9 @@
 <link rel="stylesheet" href="main.css">
 <style>
   /* 段位挑戰頁面 - 暗色系 */
-  .rank-challenge-page {
+  body { margin: 0; background: #1a1a2e; }
+
+  
     min-height: 100vh;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     padding: 100px 0 60px;
@@ -114,9 +116,32 @@
     box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
   }
 
-  .leaderboard-button::before {
-    content: '🏆 ';
+  .challenge-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
   }
+
+  /* 兩個按鈕並排後單顆變窄，padding 跟著收斂 */
+  .challenge-actions .leaderboard-button {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+
+  /* 次要動作：同樣的形狀，低一階的視覺重量 */
+  .leaderboard-button.secondary {
+    background: rgba(255, 255, 255, 0.06);
+    color: #e9e9f0;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .leaderboard-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.18);
+  }
+
 
   /* 右側 - 段位列表 */
   .rank-list-container {
@@ -352,7 +377,10 @@
         <p class="rank-subtitle">目前挑戰成功之最高段位</p>
         <h2 class="rank-name-display" id="highestRankName">初心者</h2>
 
-        <a href="leaderboard.html" class="leaderboard-button">查看排行榜</a>
+        <div class="challenge-actions">
+          <a href="leaderboard.html" class="leaderboard-button">排行榜</a>
+          <a href="activity.html" class="leaderboard-button secondary">挑戰動態</a>
+        </div>
       </div>
 
       <!-- 右側 - 段位列表 -->
@@ -746,5 +774,6 @@
     // 頁面載入時執行
     loadHighestRank();
   </script>
+  <script src="challenge-status.js" defer></script>
 </body>
 </html>

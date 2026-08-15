@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>排行榜 - 段位挑戰</title>
+<meta name="description" content="Project Sekai 練習屋段位挑戰排行榜，依最高通過段位排名。">
+<link rel="canonical" href="https://pjsk-practicehouse-site.vercel.app/leaderboard.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Project Sekai 練習屋">
+<meta property="og:title" content="排行榜 - 段位挑戰">
+<meta property="og:description" content="Project Sekai 練習屋段位挑戰排行榜，依最高通過段位排名。">
+<style>
+  /* 沿用段位挑戰頁的深色視覺，讓兩頁看起來是同一組功能 */
+  :root {
+    --bg: #0f1420;
+    --panel: rgba(30, 30, 38, 0.95);
+    --line: rgba(255, 255, 255, 0.08);
+    --text: #e9e9f0;
+    --muted: #8b8b9c;
+    --gold: #ffd76a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: linear-gradient(160deg, #0f1420 0%, #161d2e 100%);
+    color: var(--text);
+    font: 15px/1.6 "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .back-button {
+    position: fixed; top: 24px; left: 24px;
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; z-index: 50; transition: background .2s;
+  }
+  .back-button:hover { background: rgba(255,255,255,0.16); }
+  .back-button::before { content: '←'; font-size: 22px; color: #fff; font-weight: 700; }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 90px 20px 60px; }
+  h1 {
+    font-size: 34px; font-weight: 900; margin: 0 0 6px; text-align: center;
+    color: var(--gold); text-shadow: 0 2px 20px rgba(255, 215, 106, 0.25);
+  }
+  .sub { text-align: center; color: var(--muted); margin: 0 0 34px; font-size: 14px; }
+
+  .board { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 20px; border-bottom: 1px solid var(--line);
+  }
+  .row:last-child { border-bottom: none; }
+  .row.me { background: rgba(255, 215, 106, 0.07); }
+  .rank-no {
+    min-width: 42px; font-size: 18px; font-weight: 800;
+    color: var(--muted); font-variant-numeric: tabular-nums;
+  }
+  .row:nth-child(1) .rank-no { color: var(--gold); }
+  .row:nth-child(2) .rank-no { color: #cfd6e0; }
+  .row:nth-child(3) .rank-no { color: #d2a06a; }
+  .badge { width: 46px; height: 46px; flex-shrink: 0; }
+  .badge img { width: 100%; height: 100%; object-fit: contain; }
+  .who { flex: 1; min-width: 0; }
+  .who-name { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .who-sub { color: var(--muted); font-size: 13px; }
+  .tier { text-align: right; }
+  .tier-label { font-weight: 700; }
+  .tier-date { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+  .empty { color: var(--muted); text-align: center; padding: 60px 20px; line-height: 1.9; }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 80px 14px 40px; }
+    h1 { font-size: 26px; }
+    .row { gap: 12px; padding: 12px 14px; }
+    .badge { width: 38px; height: 38px; }
+    .who-sub { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<a href="rank-challenge.html" class="back-button" title="返回段位挑戰"></a>
+
+<div class="wrap">
+  <h1>段位挑戰排行榜</h1>
+  <p class="sub" id="sub">載入中…</p>
+  <div class="board" id="board"></div>
+  <div class="empty hidden" id="empty">還沒有任何通過紀錄。</div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  async function getJSON(url) {
+    const r = await fetch(url, { cache: 'no-cache' });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
+  }
+
+  async function boot() {
+    let tiers = {}, records = [], meId = null;
+
+    try {
+      const [t, rec] = await Promise.all([
+        getJSON('data/rank-songs.json'),
+        getJSON('data/challenge-records.json').catch(() => ({ records: [] })),
+      ]);
+      tiers = t.tiers || {};
+      records = rec.records || [];
+    } catch {
+      $('sub').textContent = '資料載入失敗，請重新整理';
+      return;
+    }
+
+    try {
+      const me = await (await fetch('/api/auth/me', { credentials: 'same-origin' })).json();
+      if (me.loggedIn) meId = me.user.id;
+    } catch { /* 未登入不影響排行榜顯示 */ }
+
+    // 每人取 order 最大的通過紀錄
+    const best = new Map();
+    for (const r of records) {
+      if (!r.passed) continue;
+      const o = tiers[r.tier]?.order ?? -1;
+      const prev = best.get(r.userId);
+      if (!prev || o > prev.order || (o === prev.order && String(r.date || '') < String(prev.date || ''))) {
+        best.set(r.userId, { ...r, order: o });
+      }
+    }
+
+    // 段位高者在前；同段位則先達成者在前
+    const list = [...best.values()].sort((a, b) =>
+      (b.order - a.order) || String(a.date || '').localeCompare(String(b.date || '')));
+
+    if (!list.length) {
+      $('sub').textContent = '';
+      $('empty').classList.remove('hidden');
+      return;
+    }
+
+    $('sub').textContent = `共 ${list.length} 位挑戰者`;
+
+    const board = $('board');
+    board.innerHTML = list.map((e, i) => {
+      const t = tiers[e.tier] || {};
+      return `
+      <div class="row${e.userId === meId ? ' me' : ''}">
+        <div class="rank-no">${i + 1}</div>
+        <div class="badge">${t.badge ? `<img src="${esc(t.badge)}" alt="" loading="lazy">` : ''}</div>
+        <div class="who">
+          <div class="who-name">${esc(e.name || '未命名玩家')}${e.userId === meId ? '（你）' : ''}</div>
+          <div class="who-sub">${esc(t.label || e.tier)}</div>
+        </div>
+        <div class="tier">
+          <div class="tier-label">${esc(t.label || e.tier)}</div>
+          <div class="tier-date">${esc(e.date || '')}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>

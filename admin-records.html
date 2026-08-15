@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>挑戰紀錄登記 - 練習屋</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Montserrat:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* 與 admin.html、main.css 同一套設計語彙：白底、細線分隔、Lora 標題。 */
+  :root {
+    --bg: #ffffff;
+    --ink: #1c1c1e;
+    --muted: #7b7b82;
+    --line: #e7e7ea;
+    --field: #fafafb;
+    --hover: #f4f4f6;
+    --danger: #b3261e;
+    --pass: #1f6f43;
+    --serif: "Lora", "Noto Serif TC", Georgia, serif;
+    --sans: "Montserrat", "Noto Sans TC", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 2px solid #1c1c1e; outline-offset: 2px; }
+
+  .topbar {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 24px; border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; background: var(--bg); z-index: 10;
+  }
+  .brand { font-family: var(--serif); font-weight: 600; font-size: 18px; }
+  .brand a { color: var(--muted); font-family: var(--sans); font-size: 13px; margin-left: 12px; text-decoration: none; }
+  .brand a:hover { color: var(--ink); text-decoration: underline; }
+  .spacer { flex: 1; }
+  .who { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+  .who img { width: 26px; height: 26px; border-radius: 50%; }
+
+  .btn { background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 8px 16px; }
+  .btn:hover { background: var(--hover); border-color: #d3d3d8; }
+  .btn-primary { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 500; }
+  .btn-primary:hover { background: #000; }
+  .btn-primary:disabled { opacity: .3; cursor: not-allowed; background: var(--ink); }
+  .btn-ghost { background: none; border-color: transparent; color: var(--muted); }
+  .btn-ghost:hover { background: var(--hover); color: var(--ink); }
+  .btn-sm { padding: 4px 10px; font-size: 13px; }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  h2 { font-family: var(--sans); font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); margin: 0 0 14px; font-weight: 600; }
+
+  /* 新增表單 */
+  .form { border: 1px solid var(--line); background: var(--field); padding: 18px 20px; margin-bottom: 28px; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px 16px; align-items: end; }
+  .fld { display: flex; flex-direction: column; gap: 5px; }
+  .fld label { font-size: 12px; color: var(--muted); }
+  .fld input, .fld select { background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 8px 9px; width: 100%; }
+  .form-actions { display: flex; gap: 10px; align-items: center; margin-top: 14px; }
+
+  /* 篩選 */
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
+  .filters input, .filters select { background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 7px 9px; }
+
+  /* 表格 */
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+  td { padding: 10px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  td.id { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
+  .tag { font-size: 12px; font-weight: 600; }
+  .tag.pass { color: var(--pass); }
+  .tag.fail { color: var(--danger); }
+  .empty { color: var(--muted); padding: 40px 8px; text-align: center; }
+  .status { font-size: 13px; padding: 6px 12px; }
+  .status.err { color: var(--danger); }
+
+  .gate { display: grid; place-items: center; height: 100vh; text-align: center; padding: 24px; }
+  .gate h1 { font-family: var(--serif); font-size: 26px; font-weight: 600; margin: 0 0 12px; }
+  .gate p { color: var(--muted); margin: 0 0 24px; line-height: 1.8; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate hidden">
+  <div>
+    <h1 id="gateTitle">挑戰紀錄登記</h1>
+    <p id="gateMsg">這個頁面只開放給委員。用 Discord 登入後會自動確認你的身分組。</p>
+    <a class="btn btn-primary" id="gateBtn" href="/api/auth/login?next=/admin-records.html">用 Discord 登入</a>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <header class="topbar">
+    <div class="brand">挑戰紀錄登記<a href="/admin.html">切換到段位曲目管理</a></div>
+    <div class="spacer"></div>
+    <div id="status" class="status"></div>
+    <button class="btn btn-primary" id="saveBtn" disabled>儲存變更</button>
+    <div class="who">
+      <img id="meAvatar" alt="" hidden>
+      <span id="meName"></span>
+      <a class="btn btn-ghost btn-sm" href="/api/auth/logout">登出</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <h2>新增紀錄</h2>
+    <div class="form">
+      <div class="form-grid">
+        <div class="fld">
+          <label for="fUserId">Discord ID</label>
+          <input id="fUserId" inputmode="numeric" placeholder="右鍵使用者 → 複製使用者 ID">
+        </div>
+        <div class="fld">
+          <label for="fName">顯示名稱</label>
+          <input id="fName" placeholder="用於排行榜顯示">
+        </div>
+        <div class="fld">
+          <label for="fTier">段位</label>
+          <select id="fTier"></select>
+        </div>
+        <div class="fld">
+          <label for="fPassed">結果</label>
+          <select id="fPassed">
+            <option value="true">通過</option>
+            <option value="false">未通過</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label for="fDate">日期</label>
+          <input id="fDate" type="date">
+        </div>
+        <div class="fld">
+          <label for="fNote">備註</label>
+          <input id="fNote" maxlength="300" placeholder="可留空">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="addBtn">新增</button>
+        <span class="status" id="formMsg"></span>
+      </div>
+    </div>
+
+    <h2>已登記 <span id="count" style="text-transform:none;letter-spacing:0"></span></h2>
+    <div class="filters">
+      <input id="qName" placeholder="搜尋名稱或 ID" style="min-width:220px">
+      <select id="qTier"><option value="">所有段位</option></select>
+      <select id="qPassed">
+        <option value="">通過與未通過</option>
+        <option value="true">只看通過</option>
+        <option value="false">只看未通過</option>
+      </select>
+    </div>
+    <table>
+      <thead>
+        <tr><th>日期</th><th>玩家</th><th>Discord ID</th><th>段位</th><th>結果</th><th>備註</th><th></th></tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div id="empty" class="empty hidden">還沒有任何紀錄。</div>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  const state = { doc: null, sha: null, tiers: {}, dirty: false };
+
+  function setStatus(msg, kind = '') {
+    $('status').textContent = msg || '';
+    $('status').className = 'status' + (kind ? ' ' + kind : '');
+  }
+  function formMsg(msg, kind = '') {
+    $('formMsg').textContent = msg || '';
+    $('formMsg').className = 'status' + (kind ? ' ' + kind : '');
+  }
+  function markDirty(on = true) { state.dirty = on; $('saveBtn').disabled = !on; }
+  window.addEventListener('beforeunload', (e) => { if (state.dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+  async function boot() {
+    let me;
+    try { me = await (await fetch('/api/auth/me', { credentials: 'same-origin' })).json(); }
+    catch { return gate('連不上伺服器', '請重新整理再試一次。'); }
+
+    if (!me.loggedIn) return gate('挑戰紀錄登記', '這個頁面只開放給委員。用 Discord 登入後會自動確認你的身分組。');
+    if (!me.admin) return gate('沒有編輯權限', `你以 ${me.user.name} 的身分登入了，但這個帳號沒有委員身分組。`, true);
+
+    $('meName').textContent = me.user.name;
+    if (me.user.avatar) { $('meAvatar').src = me.user.avatar; $('meAvatar').hidden = false; }
+    $('gate').classList.add('hidden');
+    $('app').classList.remove('hidden');
+
+    await Promise.all([loadTiers(), loadRecords()]);
+    fillTierSelects();
+    render();
+
+    $('fDate').value = new Date().toISOString().slice(0, 10);
+    $('addBtn').addEventListener('click', addRecord);
+    $('saveBtn').addEventListener('click', save);
+    for (const id of ['qName', 'qTier', 'qPassed']) $(id).addEventListener('input', render);
+  }
+
+  function gate(title, msg, logout = false) {
+    $('gateTitle').textContent = title;
+    $('gateMsg').textContent = msg;
+    if (logout) { $('gateBtn').textContent = '換一個帳號登入'; $('gateBtn').href = '/api/auth/logout'; }
+    $('gate').classList.remove('hidden');
+    $('app').classList.add('hidden');
+  }
+
+  async function loadTiers() {
+    try {
+      const d = await (await fetch('/data/rank-songs.json')).json();
+      state.tiers = d.tiers || {};
+    } catch { setStatus('段位清單載入失敗', 'err'); }
+  }
+
+  async function loadRecords() {
+    try {
+      const r = await fetch('/api/challenge-records', { credentials: 'same-origin' });
+      if (!r.ok) throw new Error();
+      const d = await r.json();
+      state.doc = d.content || { version: 1, records: [] };
+      state.sha = d.sha;
+    } catch { setStatus('紀錄載入失敗', 'err'); state.doc = { version: 1, records: [] }; }
+  }
+
+  // 段位依 order 排，跟段位頁與管理端一致
+  function tierList() {
+    return Object.entries(state.tiers)
+      .sort((a, b) => (a[1].order ?? 9999) - (b[1].order ?? 9999));
+  }
+
+  function fillTierSelects() {
+    const opts = tierList().map(([id, t]) => `<option value="${esc(id)}">${esc(t.label || id)}</option>`).join('');
+    $('fTier').innerHTML = opts;
+    $('qTier').innerHTML = '<option value="">所有段位</option>' + opts;
+  }
+
+  const tierLabel = (id) => state.tiers[id]?.label || id;
+
+  function addRecord() {
+    const userId = $('fUserId').value.trim();
+    const name = $('fName').value.trim();
+    const tier = $('fTier').value;
+    const passed = $('fPassed').value === 'true';
+    const date = $('fDate').value;
+    const note = $('fNote').value.trim();
+
+    if (!/^\d{5,25}$/.test(userId)) return formMsg('Discord ID 必須是一串數字', 'err');
+    if (!tier) return formMsg('請選段位', 'err');
+    if (!date) return formMsg('請選日期', 'err');
+
+    state.doc.records.push({
+      id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2)),
+      userId, name: name || null, tier, passed, date, note: note || null,
+    });
+
+    // 名稱與 ID 留著，方便同一個人連續登記多個段位
+    $('fNote').value = '';
+    formMsg(`已加入 ${name || userId} 的 ${tierLabel(tier)}`, '');
+    markDirty(); render();
+  }
+
+  function render() {
+    const q = $('qName').value.trim().toLowerCase();
+    const qt = $('qTier').value;
+    const qp = $('qPassed').value;
+
+    const all = state.doc?.records || [];
+    const rows = all.filter((r) => {
+      if (qt && r.tier !== qt) return false;
+      if (qp && String(r.passed) !== qp) return false;
+      if (q && !((r.name || '').toLowerCase().includes(q) || r.userId.includes(q))) return false;
+      return true;
+    }).sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+
+    $('count').textContent = `(${rows.length}${rows.length !== all.length ? ' / ' + all.length : ''})`;
+    $('empty').classList.toggle('hidden', all.length > 0);
+
+    const tbody = $('rows');
+    tbody.innerHTML = '';
+    for (const r of rows) {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        `<td>${esc(r.date || '')}</td>` +
+        `<td>${esc(r.name || '(未填)')}</td>` +
+        `<td class="id">${esc(r.userId)}</td>` +
+        `<td>${esc(tierLabel(r.tier))}</td>` +
+        `<td><span class="tag ${r.passed ? 'pass' : 'fail'}">${r.passed ? '通過' : '未通過'}</span></td>` +
+        `<td>${esc(r.note || '')}</td>`;
+      const td = document.createElement('td');
+      const del = document.createElement('button');
+      del.className = 'btn btn-ghost btn-sm';
+      del.textContent = '刪除';
+      del.addEventListener('click', () => {
+        if (!confirm(`刪除 ${r.name || r.userId} 的「${tierLabel(r.tier)}」紀錄？`)) return;
+        state.doc.records = state.doc.records.filter((x) => x.id !== r.id);
+        markDirty(); render();
+      });
+      td.appendChild(del);
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+    }
+  }
+
+  async function save() {
+    $('saveBtn').disabled = true;
+    setStatus('儲存中…');
+    try {
+      const r = await fetch('/api/challenge-records', {
+        method: 'PUT',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: state.doc, sha: state.sha }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (r.status === 409) { setStatus('別人剛改過，請重新整理後再存', 'err'); $('saveBtn').disabled = false; return; }
+      if (r.status === 400 && d.errs) { setStatus(`資料有問題：${d.errs.slice(0, 2).join('；')}`, 'err'); $('saveBtn').disabled = false; return; }
+      if (!r.ok) { setStatus(`儲存失敗（${d.error || r.status}）`, 'err'); $('saveBtn').disabled = false; return; }
+      state.sha = d.sha;
+      markDirty(false);
+      setStatus('已儲存');
+      setTimeout(() => setStatus(''), 4000);
+    } catch {
+      setStatus('連線失敗，變更還在頁面上，可以再按一次', 'err');
+      $('saveBtn').disabled = false;
+    }
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>
