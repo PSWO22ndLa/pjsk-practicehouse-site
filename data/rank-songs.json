@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T16:14:08.955Z",
+  "updatedAt": "2026-08-15T16:16:11.023Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -328,7 +328,8 @@
         "#ffc4ff"
       ],
       "rules": {
-        "hp": 60
+        "hp": 80,
+        "special": "88☆彡 扣血：0.5-3-5-5\nSan値直葬 扣血：2-3-3-5"
       },
       "songs": [
         {
