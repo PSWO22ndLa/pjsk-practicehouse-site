@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T06:18:44.515Z",
+  "updatedAt": "2026-08-15T06:20:23.346Z",
   "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -157,31 +157,31 @@
       },
       "songs": [
         {
-          "name": "生きる",
-          "composer": "水野あつ",
-          "arranger": "水野あつ",
-          "difficulty": "master",
-          "level": 27,
-          "jacket": "/api/jacket?n=jacket_s_644",
-          "musicId": 644
-        },
-        {
-          "name": "ドレミファロンド",
-          "composer": "40mP",
-          "arranger": "40mP",
-          "difficulty": "master",
-          "level": 27,
-          "jacket": "/api/jacket?n=jacket_s_603",
-          "musicId": 603
-        },
-        {
-          "name": "ウミユリ海底譚",
-          "composer": "n-buna",
-          "arranger": "n-buna",
+          "name": "パレットには君がいっぱい",
+          "composer": "椎名もた",
+          "arranger": "椎名もた",
           "difficulty": "master",
           "level": 28,
-          "jacket": "/api/jacket?n=jacket_s_075",
-          "musicId": 75
+          "jacket": "/api/jacket?n=jacket_s_214",
+          "musicId": 214
+        },
+        {
+          "name": "モニタリング",
+          "composer": "DECO*27",
+          "arranger": "DECO*27 & Hayato Yamamoto",
+          "difficulty": "master",
+          "level": 29,
+          "jacket": "/api/jacket?n=jacket_s_628",
+          "musicId": 628
+        },
+        {
+          "name": "Leia - Remind",
+          "composer": "ゆよゆっぺ",
+          "arranger": "ゆよゆっぺ",
+          "difficulty": "master",
+          "level": 29,
+          "jacket": "/api/jacket?n=jacket_s_085",
+          "musicId": 85
         }
       ],
       "_placeholder": 3,
