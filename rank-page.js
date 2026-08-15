@@ -67,7 +67,7 @@
 
     tabs.innerHTML = songs.map((s, i) => `
       <div class="song-tab ${i === 0 ? 'active' : ''}" data-song="${i}" role="button" tabindex="0" aria-label="${esc(s.name)}">
-        ${s.jacket ? `<img src="${esc(s.jacket)}" alt="${esc(s.name)}" loading="lazy">` : '<div class="song-tab-placeholder">🎵</div>'}
+        ${s.jacket ? `<img src="${esc(s.jacket)}" alt="${esc(s.name)}" loading="lazy">` : '<div class="song-tab-placeholder"></div>'}
       </div>
     `).join('');
 
@@ -81,7 +81,7 @@
       return `
       <div class="song-display ${i === 0 ? 'active' : ''}" data-song="${i}">
         <div class="song-jacket-large">
-          ${s.jacket ? `<img src="${esc(s.jacket)}" alt="${esc(s.name)}" loading="lazy">` : '🎵'}
+          ${s.jacket ? `<img src="${esc(s.jacket)}" alt="${esc(s.name)}" loading="lazy">` : ''}
         </div>
         <h2 class="song-name-large">${esc(s.name)}</h2>
         ${meta.length ? `<div class="song-meta-large">${meta.map(([k, v]) => `
@@ -170,4 +170,51 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
+
+  // ---------- 預約 ----------
+  // 走 /api/reserve -> Discord Webhook。未登入先導去登入，回來停在同一頁。
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-reserve], .reserve-btn');
+    if (!btn) return;
+    e.preventDefault();
+
+    const tierId = document.body.dataset.tier;
+    if (!tierId) return;
+
+    let me;
+    try {
+      me = await (await fetch('/api/auth/me', { credentials: 'same-origin' })).json();
+    } catch {
+      alert('連線失敗，請稍後再試');
+      return;
+    }
+    if (!me.loggedIn) {
+      location.href = '/api/auth/login?next=' + encodeURIComponent(location.pathname);
+      return;
+    }
+
+    const note = prompt('要補充什麼嗎？（可留空，例如方便的時段）', '');
+    if (note === null) return; // 按取消
+
+    const orig = btn.textContent;
+    btn.textContent = '送出中…';
+    btn.style.pointerEvents = 'none';
+    try {
+      const r = await fetch('/api/reserve', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier: tierId, note }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (r.ok) alert('已送出預約，委員會在 Discord 與你聯繫');
+      else if (r.status === 429) alert(d.message || '太頻繁了，請稍後再試');
+      else alert('送出失敗，請稍後再試');
+    } catch {
+      alert('連線失敗，請稍後再試');
+    } finally {
+      btn.textContent = orig;
+      btn.style.pointerEvents = '';
+    }
+  });
 })();
