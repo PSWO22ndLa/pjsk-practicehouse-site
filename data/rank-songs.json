@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:43:18.854Z",
+  "updatedAt": "2026-08-15T05:44:40.718Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -683,7 +683,7 @@
       ],
       "rules": {
         "hp": 120,
-        "special": "0.0000034扣血×2\n超ナイト・オブ・ナイツ great不扣分"
+        "special": "0.0000034 扣分×2\nSan值直葬 great不扣分"
       },
       "songs": [
         {
@@ -714,13 +714,13 @@
           "musicId": 447
         },
         {
-          "name": "超ナイト・オブ・ナイツ",
-          "composer": "ZUN（上海アリス幻樂団）",
-          "arranger": "ビートまりお×まろん",
+          "name": "SAN値直葬",
+          "composer": "STEAKA",
+          "arranger": "STEAKA",
           "difficulty": "append",
           "level": 36,
-          "jacket": "/api/jacket?n=jacket_s_622",
-          "musicId": 622
+          "jacket": "/api/jacket?n=jacket_s_647",
+          "musicId": 647
         }
       ],
       "_placeholder": 4,
