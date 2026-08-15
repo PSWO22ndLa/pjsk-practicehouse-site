@@ -1,0 +1,1468 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-15T14:35:19.056Z",
+  "updatedBy": "La.",
+  "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
+  "tiers": {
+    "bronze": {
+      "page": "rank-bronze.html",
+      "label": "青銅",
+      "badge": "public/images/ranks/bronze.webp",
+      "gradient": [
+        "#8e5513",
+        "#b86e18"
+      ],
+      "rules": {
+        "damage": {
+          "miss": 3
+        },
+        "hp": 200
+      },
+      "songs": [
+        {
+          "name": "お気に召すまま",
+          "composer": "Eve",
+          "arranger": "Numa",
+          "difficulty": "expert",
+          "level": 24,
+          "jacket": "/api/jacket?n=jacket_s_106",
+          "musicId": 106
+        },
+        {
+          "name": "アコトバ",
+          "composer": "原口沙輔",
+          "arranger": "原口沙輔",
+          "difficulty": "expert",
+          "level": 24,
+          "jacket": "/api/jacket?n=jacket_s_483",
+          "musicId": 483
+        },
+        {
+          "name": "嬢王",
+          "composer": "八王子P",
+          "arranger": "八王子P",
+          "difficulty": "hard",
+          "level": 24,
+          "jacket": "public/images/jackets/bronze-1.webp",
+          "musicId": null
+        }
+      ],
+      "order": 1
+    },
+    "silver": {
+      "page": "rank-silver.html",
+      "label": "白銀",
+      "badge": "public/images/ranks/silver.webp",
+      "gradient": [
+        "#909090",
+        "#bbbbbb"
+      ],
+      "rules": {
+        "hp": 175,
+        "damage": {
+          "miss": 3
+        }
+      },
+      "songs": [
+        {
+          "name": "エゴロック",
+          "composer": "すりぃ",
+          "arranger": "すりぃ",
+          "difficulty": "expert",
+          "level": 25,
+          "jacket": "/api/jacket?n=jacket_s_225",
+          "musicId": 225
+        },
+        {
+          "name": "独りんぼエンヴィー",
+          "composer": "koyori",
+          "arranger": "koyori",
+          "difficulty": "master",
+          "level": 26,
+          "jacket": "/api/jacket?n=jacket_s_074",
+          "musicId": 74
+        },
+        {
+          "name": "悪魔の踊り方",
+          "composer": "キタニタツヤ",
+          "arranger": "-",
+          "difficulty": "expert",
+          "level": 26,
+          "jacket": "/api/jacket?n=jacket_s_133",
+          "musicId": 133
+        }
+      ],
+      "_placeholder": 3,
+      "order": 2
+    },
+    "gold": {
+      "page": "rank-gold.html",
+      "label": "黃金",
+      "badge": "public/images/ranks/gold.webp",
+      "gradient": [
+        "#f6ff43",
+        "#ffff57"
+      ],
+      "rules": {
+        "hp": 150,
+        "damage": {
+          "miss": 3
+        }
+      },
+      "songs": [
+        {
+          "name": "ドレミファロンド",
+          "composer": "40mP",
+          "arranger": "40mP",
+          "difficulty": "master",
+          "level": 27,
+          "jacket": "/api/jacket?n=jacket_s_603",
+          "musicId": 603
+        },
+        {
+          "name": "私は、私達は",
+          "composer": "Guiano",
+          "arranger": "Guiano",
+          "difficulty": "master",
+          "level": 27,
+          "jacket": "/api/jacket?n=jacket_s_287",
+          "musicId": 287
+        },
+        {
+          "name": "帝国少女",
+          "composer": "R Sound Design",
+          "arranger": "R Sound Design",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": "/api/jacket?n=jacket_s_262",
+          "musicId": 262
+        }
+      ],
+      "_placeholder": 3,
+      "order": 3
+    },
+    "platinum1": {
+      "page": "rank-platinum1.html",
+      "label": "白金I",
+      "badge": "public/images/ranks/platinum.webp",
+      "gradient": [
+        "#b8e4ff",
+        "#efffff"
+      ],
+      "rules": {
+        "hp": 125,
+        "damage": {
+          "miss": 3
+        }
+      },
+      "songs": [
+        {
+          "name": "パレットには君がいっぱい",
+          "composer": "椎名もた",
+          "arranger": "椎名もた",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": "/api/jacket?n=jacket_s_214",
+          "musicId": 214
+        },
+        {
+          "name": "モニタリング",
+          "composer": "DECO*27",
+          "arranger": "DECO*27 & Hayato Yamamoto",
+          "difficulty": "master",
+          "level": 29,
+          "jacket": "/api/jacket?n=jacket_s_628",
+          "musicId": 628
+        },
+        {
+          "name": "Leia - Remind",
+          "composer": "ゆよゆっぺ",
+          "arranger": "ゆよゆっぺ",
+          "difficulty": "master",
+          "level": 29,
+          "jacket": "/api/jacket?n=jacket_s_085",
+          "musicId": 85
+        }
+      ],
+      "_placeholder": 3,
+      "order": 4
+    },
+    "platinum2": {
+      "page": "rank-platinum2.html",
+      "label": "白金II",
+      "badge": "public/images/ranks/platinum.webp",
+      "gradient": [
+        "#b8e4ff",
+        "#efffff"
+      ],
+      "rules": {
+        "damage": {
+          "miss": 3
+        },
+        "hp": 100
+      },
+      "songs": [
+        {
+          "name": "ラブカ？",
+          "composer": "柊キライ",
+          "arranger": "柊キライ",
+          "difficulty": "master",
+          "level": 29,
+          "jacket": "/api/jacket?n=jacket_s_260",
+          "musicId": 260
+        },
+        {
+          "name": "メルト",
+          "composer": "ryo",
+          "arranger": "ryo",
+          "difficulty": "master",
+          "level": 29,
+          "jacket": "/api/jacket?n=jacket_s_047",
+          "musicId": 47
+        },
+        {
+          "name": "リレイアウター",
+          "composer": "稲葉曇",
+          "arranger": "稲葉曇",
+          "difficulty": "master",
+          "level": 30,
+          "jacket": "/api/jacket?n=jacket_s_435",
+          "musicId": 435
+        }
+      ],
+      "_placeholder": 3,
+      "order": 5
+    },
+    "diamond1": {
+      "page": "rank-diamond1.html",
+      "label": "鑽石I",
+      "badge": "public/images/ranks/diamond.webp",
+      "gradient": [
+        "#44ffcd",
+        "#58ffff"
+      ],
+      "rules": {
+        "hp": 75
+      },
+      "songs": [
+        {
+          "name": "イガク",
+          "composer": "原口沙輔",
+          "arranger": "原口沙輔",
+          "difficulty": "master",
+          "level": 31,
+          "jacket": "/api/jacket?n=jacket_s_515",
+          "musicId": 515
+        },
+        {
+          "name": "ヘイヴン",
+          "composer": "煮ル果実",
+          "arranger": "煮ル果実",
+          "difficulty": "master",
+          "level": 30,
+          "jacket": "/api/jacket?n=jacket_s_508",
+          "musicId": 508
+        },
+        {
+          "name": "imaginary love story",
+          "composer": "Synthion",
+          "arranger": "Synthion",
+          "difficulty": "master",
+          "level": 31,
+          "jacket": "/api/jacket?n=jacket_s_420",
+          "musicId": 420
+        }
+      ],
+      "_placeholder": 3,
+      "order": 6
+    },
+    "diamond2": {
+      "page": "rank-diamond2.html",
+      "label": "鑽石II",
+      "badge": "public/images/ranks/diamond.webp",
+      "gradient": [
+        "#44ffcd",
+        "#58ffff"
+      ],
+      "rules": {
+        "hp": 50
+      },
+      "songs": [
+        {
+          "name": "オーバーライド",
+          "composer": "吉田夜世",
+          "arranger": "吉田夜世",
+          "difficulty": "master",
+          "level": 31,
+          "jacket": "/api/jacket?n=jacket_s_521",
+          "musicId": 521
+        },
+        {
+          "name": "フィクサー",
+          "composer": "ぬゆり",
+          "arranger": "ぬゆり",
+          "difficulty": "master",
+          "level": 32,
+          "jacket": "/api/jacket?n=jacket_s_183",
+          "musicId": 183
+        },
+        {
+          "name": "ヒバナ -Reloaded-",
+          "composer": "DECO*27",
+          "arranger": "Rockwell",
+          "difficulty": "master",
+          "level": 32,
+          "jacket": "/api/jacket?n=jacket_s_006",
+          "musicId": 6
+        }
+      ],
+      "_placeholder": 3,
+      "order": 7
+    },
+    "master1": {
+      "page": "rank-master1.html",
+      "label": "大師I",
+      "badge": "public/images/ranks/master.webp",
+      "gradient": [
+        "#ff97ee",
+        "#ffc4ff"
+      ],
+      "rules": {
+        "hp": 60
+      },
+      "songs": [
+        {
+          "name": "88☆彡",
+          "composer": "まらしぃ、堀江晶太(kemu)",
+          "arranger": "堀江晶太(kemu)",
+          "difficulty": "append",
+          "level": 32,
+          "jacket": "/api/jacket?n=jacket_s_224",
+          "musicId": 224
+        },
+        {
+          "name": "SAN値直葬",
+          "composer": "STEAKA",
+          "arranger": "STEAKA",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_647",
+          "musicId": 647
+        },
+        {
+          "name": "超ナイト・オブ・ナイツ",
+          "composer": "ZUN（上海アリス幻樂団）",
+          "arranger": "ビートまりお×まろん",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_622",
+          "musicId": 622
+        }
+      ],
+      "_placeholder": 4,
+      "order": 8
+    },
+    "master2": {
+      "page": "rank-master2.html",
+      "label": "大師II",
+      "badge": "public/images/ranks/master.webp",
+      "gradient": [
+        "#ff97ee",
+        "#ffc4ff"
+      ],
+      "rules": {
+        "hp": 70
+      },
+      "songs": [
+        {
+          "name": "snooze",
+          "composer": "wotaku",
+          "arranger": "wotaku",
+          "difficulty": "append",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_554",
+          "musicId": 554
+        },
+        {
+          "name": "ぼくらの16bit戦争",
+          "composer": "sasakure.UK",
+          "arranger": "sasakure.UK(Gt 佐々木秀尚 Ba 二家本亮介(有形ランペイジ))",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_249",
+          "musicId": 249
+        },
+        {
+          "name": "トレジャーガーデン",
+          "composer": "Ponchi♪",
+          "arranger": "Ponchi♪",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_686",
+          "musicId": 686
+        }
+      ],
+      "_placeholder": 4,
+      "order": 9
+    },
+    "master3": {
+      "page": "rank-master3.html",
+      "label": "大師III",
+      "badge": "public/images/ranks/master.webp",
+      "gradient": [
+        "#ff97ee",
+        "#ffc4ff"
+      ],
+      "rules": {
+        "hp": 80
+      },
+      "songs": [
+        {
+          "name": "ドーナツホール 2024",
+          "composer": "ハチ",
+          "arranger": "ハチ",
+          "difficulty": "append",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_220",
+          "musicId": 220
+        },
+        {
+          "name": "ゴーストルール",
+          "composer": "DECO*27",
+          "arranger": "Naoki Itai(MUSIC FOR MUSIC)",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_199",
+          "musicId": 199
+        },
+        {
+          "name": "メモリア",
+          "composer": "Aira",
+          "arranger": "Aira",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_488",
+          "musicId": 488
+        }
+      ],
+      "_placeholder": 4,
+      "order": 10
+    },
+    "peak-unlock": {
+      "page": "rank-peak-unlock.html",
+      "label": "巔峰解鎖任務",
+      "badge": "public/images/ranks/peak.webp",
+      "gradient": [
+        "#ff0000",
+        "#ff0000"
+      ],
+      "rules": {
+        "hp": 60,
+        "special": "每日僅有三次挑戰機會"
+      },
+      "songs": [
+        {
+          "name": "ÅMARA(大未来電脳)",
+          "composer": "sasakure.UK",
+          "arranger": "sasakure.UK",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_285",
+          "musicId": 285
+        }
+      ],
+      "_placeholder": 1,
+      "order": 11
+    },
+    "peak1": {
+      "page": "rank-peak1.html",
+      "label": "巔峰I",
+      "badge": "public/images/ranks/peak.webp",
+      "gradient": [
+        "#ff0000",
+        "#ff0000"
+      ],
+      "rules": {
+        "hp": 100
+      },
+      "songs": [
+        {
+          "name": "プラネットヒーロー",
+          "composer": "打打だいず",
+          "arranger": "打打だいず",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_588",
+          "musicId": 588
+        },
+        {
+          "name": "Iなんです",
+          "composer": "れるりり",
+          "arranger": "tepe",
+          "difficulty": "append",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_304",
+          "musicId": 304
+        },
+        {
+          "name": "メモリア",
+          "composer": "Aira",
+          "arranger": "Aira",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_488",
+          "musicId": 488
+        }
+      ],
+      "_placeholder": 4,
+      "order": 12
+    },
+    "peak2": {
+      "page": "rank-peak2.html",
+      "label": "巔峰II",
+      "badge": "public/images/ranks/peak.webp",
+      "gradient": [
+        "#ff0000",
+        "#ff0000"
+      ],
+      "rules": {
+        "hp": 100
+      },
+      "songs": [
+        {
+          "name": "初音天地開闢神話",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "master",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_186",
+          "musicId": 186
+        },
+        {
+          "name": "プロトディスコ",
+          "composer": "ぬゆり",
+          "arranger": "-",
+          "difficulty": "append",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_561",
+          "musicId": 561
+        },
+        {
+          "name": "0.0000034",
+          "composer": "むさぬりゆ",
+          "arranger": "むさぬりゆ",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_691",
+          "musicId": 691
+        }
+      ],
+      "_placeholder": 4,
+      "order": 13
+    },
+    "peak3": {
+      "page": "rank-peak3.html",
+      "label": "巔峰III",
+      "badge": "public/images/ranks/peak.webp",
+      "gradient": [
+        "#ff0000",
+        "#ff0000"
+      ],
+      "rules": {
+        "hp": 120
+      },
+      "songs": [
+        {
+          "name": "ダイジョブですか？",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_487",
+          "musicId": 487
+        },
+        {
+          "name": "東京テディベア",
+          "composer": "Neru",
+          "arranger": "Neru",
+          "difficulty": "append",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_396",
+          "musicId": 396
+        },
+        {
+          "name": "初音ミクの激唱",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_131",
+          "musicId": 131
+        }
+      ],
+      "_placeholder": 4,
+      "order": 14
+    },
+    "demigod1": {
+      "page": "rank-demigod1.html",
+      "label": "亞神I",
+      "badge": "public/images/ranks/demigod.webp",
+      "gradient": [
+        "#fffb9e",
+        "#ffffcd"
+      ],
+      "rules": {
+        "hp": 80,
+        "special": "メモリア扣血×2\nsage great不扣分"
+      },
+      "songs": [
+        {
+          "name": "メモリア",
+          "composer": "Aira",
+          "arranger": "Aira",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_488",
+          "musicId": 488
+        },
+        {
+          "name": "CHAOS",
+          "composer": "Æsir",
+          "arranger": "KIVΛ",
+          "difficulty": "append",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_744",
+          "musicId": 744
+        },
+        {
+          "name": "IMAWANOKIWA",
+          "composer": "いよわ",
+          "arranger": "いよわ",
+          "difficulty": "append",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_584",
+          "musicId": 584
+        },
+        {
+          "name": "Sage",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_448",
+          "musicId": 448
+        }
+      ],
+      "_placeholder": 4,
+      "order": 15
+    },
+    "demigod2": {
+      "page": "rank-demigod2.html",
+      "label": "亞神II",
+      "badge": "public/images/ranks/demigod.webp",
+      "gradient": [
+        "#fffb9e",
+        "#ffffcd"
+      ],
+      "rules": {
+        "hp": 120,
+        "special": "0.0000034 扣分×2\nSan值直葬 great不扣分"
+      },
+      "songs": [
+        {
+          "name": "0.0000034",
+          "composer": "むさぬりゆ",
+          "arranger": "むさぬりゆ",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_691",
+          "musicId": 691
+        },
+        {
+          "name": "初音ミクの消失",
+          "composer": "cosMo@暴走P",
+          "arranger": "-",
+          "difficulty": "master",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_049",
+          "musicId": 49
+        },
+        {
+          "name": "folern",
+          "composer": "ぬゆり",
+          "arranger": "ぬゆり",
+          "difficulty": "append",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_447",
+          "musicId": 447
+        },
+        {
+          "name": "SAN値直葬",
+          "composer": "STEAKA",
+          "arranger": "STEAKA",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_647",
+          "musicId": 647
+        }
+      ],
+      "_placeholder": 4,
+      "order": 16
+    },
+    "demigod3": {
+      "page": "rank-demigod3.html",
+      "label": "亞神III",
+      "badge": "public/images/ranks/demigod.webp",
+      "gradient": [
+        "#fffb9e",
+        "#ffffcd"
+      ],
+      "rules": {
+        "special": "初音ミクの激唱 扣分×2\n生命性シンドロウム ANiMA great扣分減半",
+        "hp": 150
+      },
+      "songs": [
+        {
+          "name": "初音ミクの激唱",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_131",
+          "musicId": 131
+        },
+        {
+          "name": "マシンガンポエムドール",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "master",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_176",
+          "musicId": 176
+        },
+        {
+          "name": "ANiMA",
+          "composer": "xi",
+          "arranger": "xi",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_745",
+          "musicId": 745
+        },
+        {
+          "name": "生命性シンドロウム",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_543",
+          "musicId": 543
+        }
+      ],
+      "_placeholder": 4,
+      "order": 17
+    },
+    "god1": {
+      "page": "rank-god1.html",
+      "label": "神I",
+      "badge": "public/images/ranks/god.webp",
+      "gradient": [
+        "#ffad00",
+        "#ffe000"
+      ],
+      "rules": {
+        "hp": 150,
+        "damage": {
+          "miss": 3
+        },
+        "special": "What's up? Pop! 扣血： 0-3-4-5"
+      },
+      "songs": [
+        {
+          "name": "生命性シンドロウム",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_543",
+          "musicId": 543
+        },
+        {
+          "name": "嬢王",
+          "composer": "八王子P",
+          "arranger": "八王子P",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_465",
+          "musicId": 465
+        },
+        {
+          "name": "初音ミクの消失",
+          "composer": "cosMo@暴走P",
+          "arranger": "-",
+          "difficulty": "master",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_049",
+          "musicId": 49
+        },
+        {
+          "name": "怪獣になりたい",
+          "composer": "Sakuzyo",
+          "arranger": "Sakuzyo",
+          "difficulty": "master",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_671",
+          "musicId": 671
+        },
+        {
+          "name": "ANiMA",
+          "composer": "xi",
+          "arranger": "xi",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_745",
+          "musicId": 745
+        }
+      ],
+      "_placeholder": 5,
+      "order": 18
+    },
+    "god2": {
+      "page": "rank-god2.html",
+      "label": "神II",
+      "badge": "public/images/ranks/god.webp",
+      "gradient": [
+        "#ffad00",
+        "#ffe000"
+      ],
+      "rules": {
+        "special": "Don't Fight the Music 扣血：2-3-5-5\nメモリア 扣血：2-3-3-3\nMarbleBlue 扣血：0.5-2-3-5\nSage 扣血： 2-4-6-10",
+        "hp": 140
+      },
+      "songs": [
+        {
+          "name": "the EmpErroR",
+          "composer": "sasakure.UK",
+          "arranger": "sasakure.UK",
+          "difficulty": "master",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_163",
+          "musicId": 163
+        },
+        {
+          "name": "メモリア",
+          "composer": "Aira",
+          "arranger": "Aira",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_488",
+          "musicId": 488
+        },
+        {
+          "name": "Don't Fight The Music",
+          "composer": "黒魔",
+          "arranger": "黒魔",
+          "difficulty": "master",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_164",
+          "musicId": 164
+        },
+        {
+          "name": "MarbleBlue.",
+          "composer": "みそみぃる",
+          "arranger": "Ponchi♪",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_449",
+          "musicId": 449
+        },
+        {
+          "name": "Sage",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_448",
+          "musicId": 448
+        }
+      ],
+      "_placeholder": 5,
+      "order": 19
+    },
+    "god3": {
+      "page": "rank-god3.html",
+      "label": "神III",
+      "badge": "public/images/ranks/god.webp",
+      "gradient": [
+        "#ffad00",
+        "#ffe000"
+      ],
+      "rules": {
+        "special": "怪獣になりだい 扣血： 0-2-3-3\nヤミナベ 扣血：0.3-2-3-5",
+        "hp": 130,
+        "damage": {
+          "great": 2
+        }
+      },
+      "songs": [
+        {
+          "name": "SAN値直葬",
+          "composer": "STEAKA",
+          "arranger": "STEAKA",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_647",
+          "musicId": 647
+        },
+        {
+          "name": "怪獣になりたい",
+          "composer": "Sakuzyo",
+          "arranger": "Sakuzyo",
+          "difficulty": "append",
+          "level": 38,
+          "jacket": "/api/jacket?n=jacket_s_671",
+          "musicId": 671
+        },
+        {
+          "name": "嬢王",
+          "composer": "八王子P",
+          "arranger": "八王子P",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_465",
+          "musicId": 465
+        },
+        {
+          "name": "生命性シンドロウム",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_543",
+          "musicId": 543
+        },
+        {
+          "name": "ヤミナベ!!!!",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "master",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_329",
+          "musicId": 329
+        }
+      ],
+      "_placeholder": 5,
+      "order": 20
+    },
+    "revelation-unlock": {
+      "page": "rank-revelation-unlock.html",
+      "label": "天啟解鎖任務",
+      "badge": "public/images/ranks/revelation.png",
+      "gradient": [
+        "#b4c7ff",
+        "#eaffff"
+      ],
+      "rules": {
+        "damage": {
+          "great": 0,
+          "good": 2,
+          "bad": 3,
+          "miss": 5
+        },
+        "hp": 50,
+        "special": "一日僅能挑戰二次"
+      },
+      "songs": [
+        {
+          "name": "ヤミナベ!!!!",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "master",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_329",
+          "musicId": 329
+        }
+      ],
+      "_placeholder": 1,
+      "order": 21
+    },
+    "revelation1": {
+      "page": "rank-revelation1.html",
+      "label": "天啟I",
+      "badge": "public/images/ranks/revelation.png",
+      "gradient": [
+        "#b4c7ff",
+        "#eaffff"
+      ],
+      "rules": {
+        "hp": 110,
+        "special": "Sage 扣血： 3-6-9-15\nANiMA 扣血：2-4-6-10"
+      },
+      "songs": [
+        {
+          "name": "ダイジョブですか？",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_487",
+          "musicId": 487
+        },
+        {
+          "name": "人生",
+          "composer": "gcmstyle（アンメルツP）",
+          "arranger": "gcmstyle（アンメルツP）",
+          "difficulty": "master",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_370",
+          "musicId": 370
+        },
+        {
+          "name": "Sage",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_448",
+          "musicId": 448
+        },
+        {
+          "name": "What's up? Pop!",
+          "composer": "Capchii",
+          "arranger": "Capchii",
+          "difficulty": "master",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_315",
+          "musicId": 315
+        },
+        {
+          "name": "ANiMA",
+          "composer": "xi",
+          "arranger": "xi",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_745",
+          "musicId": 745
+        }
+      ],
+      "_placeholder": 5,
+      "order": 22
+    },
+    "revelation2": {
+      "page": "rank-revelation2.html",
+      "label": "天啟II",
+      "badge": "public/images/ranks/revelation.png",
+      "gradient": [
+        "#b4c7ff",
+        "#eaffff"
+      ],
+      "rules": {
+        "hp": 105
+      },
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 23
+    },
+    "revelation3": {
+      "page": "rank-revelation3.html",
+      "label": "天啟III",
+      "badge": "public/images/ranks/revelation.png",
+      "gradient": [
+        "#b4c7ff",
+        "#eaffff"
+      ],
+      "rules": {},
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 24
+    },
+    "godmaker1": {
+      "page": "rank-godmaker1.html",
+      "label": "創神I",
+      "badge": "public/images/ranks/godmaker.png",
+      "gradient": [
+        "#6800ff",
+        "#8700ff"
+      ],
+      "rules": {},
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 25
+    },
+    "godmaker2": {
+      "page": "rank-godmaker2.html",
+      "label": "創神II",
+      "badge": "public/images/ranks/godmaker.png",
+      "gradient": [
+        "#6800ff",
+        "#8700ff"
+      ],
+      "rules": {},
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 26
+    },
+    "godmaker3": {
+      "page": "rank-godmaker3.html",
+      "label": "創神III",
+      "badge": "public/images/ranks/godmaker.png",
+      "gradient": [
+        "#6800ff",
+        "#8700ff"
+      ],
+      "rules": {},
+      "songs": [
+        {
+          "name": "曲目1",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目2",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目3",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目4",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        },
+        {
+          "name": "曲目5",
+          "composer": "作曲者",
+          "arranger": "編曲者",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": null,
+          "musicId": null
+        }
+      ],
+      "_placeholder": 5,
+      "order": 27
+    },
+    "infinity-unlock": {
+      "page": "rank-infinity-unlock.html",
+      "label": "無限挑戰解鎖任務",
+      "badge": "public/images/ranks/infinity.png",
+      "gradient": [
+        "#dbb7ff",
+        "#ffedff"
+      ],
+      "rules": {
+        "hp": 30,
+        "damage": {
+          "great": 2,
+          "good": 3,
+          "bad": 5,
+          "miss": 5
+        },
+        "special": "一日僅能挑戰一次"
+      },
+      "songs": [
+        {
+          "name": "怪獣になりたい",
+          "composer": "Sakuzyo",
+          "arranger": "Sakuzyo",
+          "difficulty": "append",
+          "level": 38,
+          "jacket": "/api/jacket?n=jacket_s_671",
+          "musicId": 671
+        }
+      ],
+      "_placeholder": 1,
+      "order": 28
+    },
+    "infinity": {
+      "page": "rank-infinity.html",
+      "label": "Infinity",
+      "badge": "public/images/ranks/infinity.png",
+      "gradient": [
+        "#dbb7ff",
+        "#ffedff"
+      ],
+      "rules": {
+        "hp": 70,
+        "damage": {
+          "great": 2,
+          "good": 3,
+          "bad": 5
+        },
+        "special": "Marbleblue.扣血規則\n3-5-5-5"
+      },
+      "songs": [
+        {
+          "name": "ヤミナベ!!!!",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "master",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_329",
+          "musicId": 329
+        },
+        {
+          "name": "MarbleBlue.",
+          "composer": "みそみぃる",
+          "arranger": "Ponchi♪",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_449",
+          "musicId": 449
+        },
+        {
+          "name": "What's up? Pop!",
+          "composer": "Capchii",
+          "arranger": "Capchii",
+          "difficulty": "master",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_315",
+          "musicId": 315
+        },
+        {
+          "name": "ダイジョブですか？",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_487",
+          "musicId": 487
+        },
+        {
+          "name": "初音狂奏曲第01番「彗惺」",
+          "composer": "よみぃ",
+          "arranger": "よみぃ",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_755",
+          "musicId": 755
+        },
+        {
+          "name": "怪獣になりたい",
+          "composer": "Sakuzyo",
+          "arranger": "Sakuzyo",
+          "difficulty": "append",
+          "level": 38,
+          "jacket": "/api/jacket?n=jacket_s_671",
+          "musicId": 671
+        }
+      ],
+      "_placeholder": 5,
+      "order": 29
+    }
+  },
+  "defaults": {
+    "hp": 250,
+    "damage": {
+      "perfect": 0,
+      "great": 1,
+      "good": 2,
+      "bad": 3,
+      "miss": 5
+    },
+    "special": ""
+  }
+}

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>段位挑戰介紹 - Project Sekai 練習屋</title>
+<meta name="description" content="段位挑戰是什麼、血量規則怎麼算、如何預約參加。從青銅到 Infinity，一步步驗證自己的實力。">
+<link rel="canonical" href="https://pjsk-practicehouse-site.vercel.app/rank-about.html">
+<meta name="theme-color" content="#1a1a2e">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Project Sekai 練習屋">
+<meta property="og:title" content="段位挑戰介紹 - Project Sekai 練習屋">
+<meta property="og:description" content="段位挑戰是什麼、血量規則怎麼算、如何預約參加。從青銅到 Infinity，一步步驗證自己的實力。">
+<meta property="og:url" content="https://pjsk-practicehouse-site.vercel.app/rank-about.html">
+<style>
+  /* 沿用段位挑戰頁的深色視覺，讓整組功能看起來是同一個世界 */
+  :root {
+    --gold: #ffd76a;
+    --text: #e9e9f0;
+    --muted: #9a9aae;
+    --panel: rgba(30, 30, 38, 0.92);
+    --line: rgba(255, 255, 255, 0.09);
+    --pass: #7fd6a8;
+    --warn: #e0a244;
+    --fail: #e08a92;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 55%, #0f3460 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    font: 16px/1.85 "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  .back-button {
+    position: fixed; top: 22px; left: 22px;
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; z-index: 50; transition: background .2s;
+  }
+  .back-button:hover { background: rgba(255,255,255,0.18); }
+  .back-button::before { content: '←'; font-size: 22px; color: #fff; font-weight: 700; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 96px 22px 80px; }
+
+  .lede { text-align: center; margin-bottom: 60px; }
+  .lede h1 {
+    font-size: clamp(30px, 6vw, 44px); font-weight: 900; margin: 0 0 18px;
+    color: var(--gold); text-shadow: 0 3px 26px rgba(255, 215, 106, 0.3);
+    letter-spacing: .02em;
+  }
+  .lede p { font-size: 17px; color: var(--muted); margin: 0 auto; max-width: 34em; }
+
+  section { margin-bottom: 54px; }
+  h2 {
+    font-size: 21px; font-weight: 800; margin: 0 0 18px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  }
+  h3 { font-size: 16px; font-weight: 700; margin: 26px 0 10px; color: var(--gold); }
+  p { margin: 0 0 14px; }
+  .muted { color: var(--muted); font-size: 14px; }
+
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 22px 26px; }
+  .card + .card { margin-top: 14px; }
+
+  /* 扣血對照 */
+  .dmg { display: grid; grid-template-columns: auto 1fr auto; gap: 9px 16px; align-items: center; margin: 4px 0 0; }
+  .dmg dt { font-weight: 700; font-size: 14px; }
+  .dmg .bar { height: 5px; background: rgba(255,255,255,0.09); border-radius: 3px; }
+  .dmg .bar span { display: block; height: 100%; border-radius: 3px; }
+  .dmg dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; min-width: 3em; }
+
+  ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+  ol.steps > li {
+    counter-increment: s; position: relative;
+    padding: 0 0 22px 46px; border-left: 1px solid var(--line); margin-left: 15px;
+  }
+  ol.steps > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  ol.steps > li::before {
+    content: counter(s);
+    position: absolute; left: -16px; top: -2px;
+    width: 31px; height: 31px; border-radius: 50%;
+    background: #1a1a2e; border: 1px solid var(--gold); color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  ol.steps strong { display: block; margin-bottom: 3px; }
+
+  .path { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0 0; }
+  .path span {
+    border: 1px solid var(--line); border-radius: 20px;
+    padding: 4px 13px; font-size: 13px; color: var(--muted);
+  }
+  .path span.gate { border-color: rgba(255, 215, 106, .45); color: var(--gold); }
+
+  .note { border-left: 2px solid var(--warn); padding-left: 16px; margin: 18px 0 0; color: var(--muted); font-size: 14px; }
+
+  .cta { text-align: center; margin-top: 66px; }
+  .cta a {
+    display: inline-block; padding: 15px 42px; margin: 6px;
+    border: 2px solid var(--gold); border-radius: 4px;
+    background: rgba(255, 215, 0, 0.14); color: var(--gold);
+    font-size: 17px; font-weight: 700; text-decoration: none;
+    transition: all .25s ease;
+  }
+  .cta a:hover { background: var(--gold); color: #1a1a2e; box-shadow: 0 0 30px rgba(255, 215, 0, .45); }
+  .cta a.secondary {
+    background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.32); color: var(--text);
+  }
+  .cta a.secondary:hover { background: rgba(255,255,255,0.16); color: #fff; box-shadow: 0 0 24px rgba(255,255,255,.18); }
+
+  @media (max-width: 560px) {
+    body { font-size: 15px; }
+    .wrap { padding: 84px 16px 60px; }
+    .card { padding: 18px 18px; }
+    section { margin-bottom: 42px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-button" title="返回首頁"></a>
+
+<div class="wrap">
+
+  <div class="lede">
+    <h1>段位挑戰</h1>
+    <p>由委員現場監督的實力驗證。在指定曲目與血量限制下完成挑戰，通過即取得該段位。從青銅一路到 Infinity，每一階都是可以被證明的進步。</p>
+  </div>
+
+  <section>
+    <h2>血量怎麼算</h2>
+    <div class="card">
+      <p>每個段位有一條血量，<strong>所有指定曲目共用</strong>，不會每首重置。判定失誤會扣血，血量歸零即挑戰失敗。</p>
+
+      <h3>預設扣血</h3>
+      <dl class="dmg">
+        <dt style="background:linear-gradient(80deg,#46ffa9,#b3c1ff,#ff4fb8,#feffb5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">PERFECT</dt>
+        <dd style="grid-column:3">−0</dd>
+        <dt style="color:#ff6ceb">GREAT</dt>
+        <dd style="grid-column:3;color:#ff6ceb">−1</dd>
+        <dt style="color:#48cef0">GOOD</dt>
+        <dd style="grid-column:3;color:#48cef0">−2</dd>
+        <dt style="color:#4dee47">BAD</dt>
+        <dd style="grid-column:3;color:#4dee47">−3</dd>
+        <dt style="color:#999">MISS</dt>
+        <dd style="grid-column:3;color:#999">−5</dd>
+      </dl>
+
+      <div class="note">
+        各段位可以覆寫這組數值，部分曲目還有專屬的扣血規則。<strong>曲目規則優先於段位規則</strong>，段位規則優先於預設值。實際數字以各段位頁面為準。
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>段位怎麼走</h2>
+    <p>從青銅開始，依序往上。中間有三個<strong>解鎖任務</strong>，必須先通過才能挑戰後面的段位。</p>
+
+    <div class="path">
+      <span>青銅</span><span>白銀</span><span>黃金</span>
+      <span>白金 I–II</span><span>鑽石 I–II</span><span>大師 I–III</span>
+      <span class="gate">巔峰解鎖任務</span><span>巔峰 I–III</span>
+      <span>亞神 I–III</span><span>神 I–III</span>
+      <span class="gate">天啟解鎖任務</span><span>天啟 I–III</span>
+      <span>創神 I–III</span>
+      <span class="gate">無限挑戰解鎖任務</span><span>Infinity</span>
+    </div>
+
+    <div class="note">
+      解鎖任務是單曲、低血量的關卡，並且<strong>有每日次數限制</strong>：巔峰每日三次、天啟每日兩次、無限每日一次。一般段位沒有次數限制，失敗後可以重新預約。
+    </div>
+  </section>
+
+  <section>
+    <h2>怎麼參加</h2>
+    <ol class="steps">
+      <li>
+        <strong>用 Discord 登入</strong>
+        <span class="muted">登入後才能預約，也才能在排行榜上對應到你的紀錄。</span>
+      </li>
+      <li>
+        <strong>挑你要挑戰的段位</strong>
+        <span class="muted">段位頁面會列出指定曲目、難度、血量與該段位的特殊規則。先確認自己打得動再預約。</span>
+      </li>
+      <li>
+        <strong>按「立即預約」</strong>
+        <span class="muted">系統會在 Discord 通知委員，附上你選的段位與備註。可以填方便的時段。</span>
+      </li>
+      <li>
+        <strong>進語音頻道挑戰</strong>
+        <span class="muted">委員安排時間後，在語音頻道分享畫面或手元，全程監督完成指定曲目。</span>
+      </li>
+      <li>
+        <strong>結果登記</strong>
+        <span class="muted">委員審核後登記通過與否，紀錄會出現在挑戰動態，通過的段位會反映在排行榜上。</span>
+      </li>
+    </ol>
+  </section>
+
+  <div class="cta">
+    <a href="rank-challenge.html">開始挑戰</a>
+    <a href="leaderboard.html" class="secondary">看排行榜</a>
+  </div>
+
+</div>
+</body>
+</html>
