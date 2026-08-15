@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:17:40.597Z",
+  "updatedAt": "2026-08-15T05:28:29.990Z",
   "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -195,34 +195,39 @@
         "#b8e4ff",
         "#efffff"
       ],
-      "rules": {},
+      "rules": {
+        "damage": {
+          "miss": 3
+        },
+        "hp": 100
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "パレットには君がいっぱい",
+          "composer": "椎名もた",
+          "arranger": "椎名もた",
           "difficulty": "master",
           "level": 28,
-          "jacket": null,
-          "musicId": null
+          "jacket": "/api/jacket?n=jacket_s_214",
+          "musicId": 214
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "SToRY",
+          "composer": "DECO*27",
+          "arranger": "堀江 晶太(kemu)",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 29,
+          "jacket": "/api/jacket?n=jacket_s_574",
+          "musicId": 574
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "メルト",
+          "composer": "ryo",
+          "arranger": "ryo",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 29,
+          "jacket": "/api/jacket?n=jacket_s_047",
+          "musicId": 47
         }
       ],
       "_placeholder": 3,
