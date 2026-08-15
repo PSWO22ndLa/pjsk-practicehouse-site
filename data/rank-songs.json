@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:40:23.366Z",
+  "updatedAt": "2026-08-15T05:43:18.854Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -734,43 +734,46 @@
         "#fffb9e",
         "#ffffcd"
       ],
-      "rules": {},
+      "rules": {
+        "special": "初音ミクの激唱 扣分×2\n生命性シンドロウム ANiMA great扣分減半",
+        "hp": 150
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "初音ミクの激唱",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_131",
+          "musicId": 131
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "マシンガンポエムドール",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_176",
+          "musicId": 176
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "ANiMA",
+          "composer": "xi",
+          "arranger": "xi",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_745",
+          "musicId": 745
         },
         {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "生命性シンドロウム",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_543",
+          "musicId": 543
         }
       ],
       "_placeholder": 4,
