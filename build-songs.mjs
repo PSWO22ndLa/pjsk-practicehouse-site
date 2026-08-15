@@ -18,7 +18,6 @@ import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 
 const BASE = 'https://raw.githubusercontent.com/Sekai-World/sekai-master-db-diff/main';
-const JACKET_BASE = 'https://storage.sekai.best/sekai-jp-assets/music/jacket';
 
 const argv = process.argv.slice(2);
 const zhArg = argv[argv.indexOf('--zh') + 1];
@@ -69,8 +68,8 @@ const songs = musics
       composer: m.composer ?? null,
       arranger: m.arranger ?? null,
       lyricist: m.lyricist ?? null,
-      // 曲繪走官方 CDN，不需要本站託管；<img> 不受 CORS 限制
-      jacket: `${JACKET_BASE}/${m.assetbundleName}/${m.assetbundleName}.webp`,
+      // 上游 CDN 有 hotlink 防護，瀏覽器直連一律 403，所以走本站代理
+      jacket: `/api/jacket?n=${encodeURIComponent(m.assetbundleName)}`,
       levels: d.levels,
       notes: d.notes,
     };

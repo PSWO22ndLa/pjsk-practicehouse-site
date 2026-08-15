@@ -166,6 +166,17 @@ function loadUser(){
    登入 / 等級 / 稱號（沿用原本的 Discord OAuth + Railway API）
    =================================================================== */
 const API_URL='https://labotcode-production.up.railway.app';
+
+/* bot API 目前只在本機執行，線上必定連不到。
+   統一包一層短 timeout，讓失敗快速且不影響頁面其他部分。 */
+async function botFetch(path, opts){
+  const ctrl=new AbortController();
+  const timer=setTimeout(()=>ctrl.abort(), 3000);
+  try{
+    return await fetch(API_URL+path, Object.assign({signal:ctrl.signal}, opts||{}));
+  } finally { clearTimeout(timer); }
+}
+
 let currentUser=null, userTitles=[], equippedTitles=[null,null,null], editingSlot=null;
 
 const TITLE_DATABASE={
@@ -284,7 +295,7 @@ function openTitleModal(slot){
 function closeTitleModal(){$('titleModal').classList.remove('active');editingSlot=null;}
 async function equipTitle(id,slot){
   try{
-    const r=await fetch(`${API_URL}/api/titles?userId=${currentUser.id}&action=equip`,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({titleId:id,slot})});
+    const r=await botFetch(`/api/titles?userId=${currentUser.id}&action=equip`,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({titleId:id,slot})});
     const d=await r.json();
     if(d.success){equippedTitles=d.equippedTitles;renderEquipped();closeTitleModal();}
     else alert(d.message||'裝備失敗');
@@ -297,7 +308,7 @@ async function equipTitle(id,slot){
 async function unequipTitle(slot){
   if(!confirm('確定要卸下這個稱號嗎？'))return;
   try{
-    const r=await fetch(`${API_URL}/api/titles?userId=${currentUser.id}&action=unequip`,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({slot})});
+    const r=await botFetch(`/api/titles?userId=${currentUser.id}&action=unequip`,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({slot})});
     const d=await r.json();
     if(d.success){equippedTitles=d.equippedTitles;renderEquipped();}
   }catch(e){equippedTitles[slot]=null;renderEquipped();}
@@ -307,7 +318,7 @@ async function unequipTitle(slot){
 async function loadUserTitles(userId){
   if(!userId)return;
   try{
-    const r=await fetch(`${API_URL}/api/user/${userId}/titles`,{credentials:'include'});
+    const r=await botFetch(`/api/user/${userId}/titles`,{credentials:'include'});
     const d=await r.json();
     if(d){
       userTitles=d.specialTitles||userTitles||[];
@@ -321,7 +332,7 @@ async function refreshProfileData(){
   if(!currentUser)return;
   const btn=$('refreshBtn'); if(btn){btn.disabled=true;btn.textContent='更新中…';}
   try{
-    const r=await fetch(`${API_URL}/api/user/${currentUser.id}/titles`);
+    const r=await botFetch(`/api/user/${currentUser.id}/titles`);
     const d=await r.json();
     if(d){
       currentUser.messageCount=d.messageCount??currentUser.messageCount??0;
@@ -338,16 +349,15 @@ async function refreshProfileData(){
 
 /* 登入 / 登出 */
 function loginWithDiscord(){
-  const clientId='1407405904000979045';
-  const redirectUri='https://pjsk-practicehouse-site.vercel.app/api/auth/callback';
-  const scope='identify guilds.members.read';
-  location.href=`https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}`;
+  // state 與 redirect_uri 都交給伺服器，前端不再持有這些細節
+  location.href='/api/auth/login?next='+encodeURIComponent(location.pathname);
 }
 function logout(){
   if(!confirm('確定要登出嗎？'))return;
   localStorage.removeItem('discordUser');
   currentUser=null;userTitles=[];equippedTitles=[null,null,null];
-  updateAuthUI();navigateTo('home');
+  // cookie 是 HttpOnly，只能由伺服器清除
+  location.href='/api/auth/logout';
 }
 
 /* 事件接線 */
@@ -363,14 +373,30 @@ $('drawerAuth').onclick=(e)=>{e.preventDefault();currentUser?logout():loginWithD
 
 /* 初始化：解析 OAuth 回傳 / 還原登入狀態 */
 (async function authInit(){
-  // URL 不再作為登入憑據：?userData= 任何人都能偽造，且會進入瀏覽器歷史與伺服器 log。
-  // 後端改用 HttpOnly cookie 後，這裡應改成 fetch('/api/auth/status') 取得登入狀態。
   const params=new URLSearchParams(location.search);
-  if(params.get('login')){
-    if(params.get('login')==='failed')alert('登入失敗，請重試');
-    history.replaceState({},document.title,location.pathname);
+  if(params.get('login')==='failed')alert('登入失敗，請重試');
+  if(params.get('login'))history.replaceState({},document.title,location.pathname);
+
+  // 登入狀態一律以伺服器為準；localStorage 只當快取，不當憑據
+  try{
+    const d=await (await fetch('/api/auth/me',{credentials:'same-origin'})).json();
+    if(d.loggedIn){
+      const cached=loadUser();
+      // 保留快取裡的 messageCount / achievements，避免每次重整先閃一次空白
+      currentUser=Object.assign({},
+        (cached&&cached.id===d.user.id)?cached:{},
+        {id:d.user.id,username:d.user.name,avatar:d.user.avatar});
+      saveUser(currentUser);
+    }else{
+      currentUser=null;
+      localStorage.removeItem('discordUser');
+    }
+  }catch(e){
+    console.warn('登入狀態查詢失敗，退回本機快取',e);
+    currentUser=loadUser();
   }
-  currentUser=loadUser();
-  if(currentUser)await loadUserTitles(currentUser.id);
+
   updateAuthUI();
+  // 稱號資料來自 bot，不 await —— 有就補上，沒有也不擋登入狀態顯示
+  if(currentUser)loadUserTitles(currentUser.id);
 })();

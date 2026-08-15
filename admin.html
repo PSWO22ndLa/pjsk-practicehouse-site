@@ -163,7 +163,7 @@
     <div id="status" class="status"></div>
     <button class="btn btn-primary" id="saveBtn" disabled>儲存變更</button>
     <div class="who">
-      <img id="meAvatar" alt="" hidden>
+      <img referrerpolicy="no-referrer" id="meAvatar" alt="" hidden>
       <span id="meName"></span>
       <a class="btn btn-ghost btn-sm" href="/api/auth/logout">登出</a>
     </div>
@@ -541,7 +541,7 @@
         : '⚠️ 不在曲庫，等級與曲繪要手動確認';
 
       row.innerHTML =
-        (jacket ? `<img src="${esc(jacket)}" alt="" loading="lazy">` : '<img alt="">') +
+        (jacket ? `<img referrerpolicy="no-referrer" src="${esc(jacket)}" alt="" loading="lazy">` : '<img referrerpolicy="no-referrer" alt="">') +
         `<div class="row-main">
            <div class="row-title">${esc(s.name)}</div>
            <div class="row-sub">${esc(sub)}</div>
@@ -637,7 +637,7 @@
       const lvText = DIFF_ORDER.filter((d) => s.levels?.[d] != null)
         .map((d) => `${DIFF_LABEL[d][0]}${s.levels[d]}`).join(' ');
       b.innerHTML =
-        `<img src="${esc(s.jacket)}" alt="" loading="lazy">` +
+        `<img referrerpolicy="no-referrer" src="${esc(s.jacket)}" alt="" loading="lazy">` +
         `<span class="hit-main">
            <span class="hit-title">${esc(s.title)}${s.titleZh ? ` <span style="color:var(--muted)">${esc(s.titleZh)}</span>` : ''}</span>
            <span class="hit-sub">${esc(lvText)}</span>
