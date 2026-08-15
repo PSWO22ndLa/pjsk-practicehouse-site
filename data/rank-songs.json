@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:31:27.113Z",
+  "updatedAt": "2026-08-15T05:31:40.861Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -597,6 +597,15 @@
           "level": 34,
           "jacket": "/api/jacket?n=jacket_s_487",
           "musicId": 487
+        },
+        {
+          "name": "東京テディベア",
+          "composer": "Neru",
+          "arranger": "Neru",
+          "difficulty": "append",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_396",
+          "musicId": 396
         }
       ],
       "_placeholder": 4,
