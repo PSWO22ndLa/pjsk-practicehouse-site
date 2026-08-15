@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T14:33:44.905Z",
+  "updatedAt": "2026-08-15T14:35:19.056Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -1056,7 +1056,9 @@
         "#b4c7ff",
         "#eaffff"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 105
+      },
       "songs": [
         {
           "name": "曲目1",
@@ -1384,7 +1386,7 @@
         "#ffedff"
       ],
       "rules": {
-        "hp": 50,
+        "hp": 70,
         "damage": {
           "great": 2,
           "good": 3,
@@ -1410,6 +1412,15 @@
           "level": 37,
           "jacket": "/api/jacket?n=jacket_s_449",
           "musicId": 449
+        },
+        {
+          "name": "What's up? Pop!",
+          "composer": "Capchii",
+          "arranger": "Capchii",
+          "difficulty": "master",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_315",
+          "musicId": 315
         },
         {
           "name": "ダイジョブですか？",
