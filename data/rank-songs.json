@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T10:27:24.857Z",
-  "updatedBy": "La.",
+  "updatedAt": "2026-08-15T11:15:17.786Z",
+  "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -818,8 +818,8 @@
           "name": "ANiMA",
           "composer": "xi",
           "arranger": "xi",
-          "difficulty": "master",
-          "level": 33,
+          "difficulty": "append",
+          "level": 36,
           "jacket": "/api/jacket?n=jacket_s_745",
           "musicId": 745
         }
