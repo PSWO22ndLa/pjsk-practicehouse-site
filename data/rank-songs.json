@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:30:38.504Z",
+  "updatedAt": "2026-08-15T05:30:42.225Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -559,8 +559,8 @@
           "name": "プロトディスコ",
           "composer": "ぬゆり",
           "arranger": "-",
-          "difficulty": "master",
-          "level": 32,
+          "difficulty": "append",
+          "level": 34,
           "jacket": "/api/jacket?n=jacket_s_561",
           "musicId": 561
         }
