@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T14:30:21.359Z",
+  "updatedAt": "2026-08-15T14:33:44.905Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -994,52 +994,55 @@
         "#b4c7ff",
         "#eaffff"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 110,
+        "special": "Sage 扣血： 3-6-9-15\nANiMA 扣血：2-4-6-10"
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "ダイジョブですか？",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_487",
+          "musicId": 487
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "人生",
+          "composer": "gcmstyle（アンメルツP）",
+          "arranger": "gcmstyle（アンメルツP）",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_370",
+          "musicId": 370
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "Sage",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_448",
+          "musicId": 448
         },
         {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "What's up? Pop!",
+          "composer": "Capchii",
+          "arranger": "Capchii",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_315",
+          "musicId": 315
         },
         {
-          "name": "曲目5",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "ANiMA",
+          "composer": "xi",
+          "arranger": "xi",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_745",
+          "musicId": 745
         }
       ],
       "_placeholder": 5,
