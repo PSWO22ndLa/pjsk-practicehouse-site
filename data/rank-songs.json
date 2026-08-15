@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:28:29.990Z",
-  "updatedBy": "雪貓喵喵",
+  "updatedAt": "2026-08-15T05:29:39.246Z",
+  "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -499,43 +499,36 @@
         "#ff0000",
         "#ff0000"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 100
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "プラネットヒーロー",
+          "composer": "打打だいず",
+          "arranger": "打打だいず",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_588",
+          "musicId": 588
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "Iなんです",
+          "composer": "れるりり",
+          "arranger": "tepe",
+          "difficulty": "append",
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_304",
+          "musicId": 304
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "メモリア",
+          "composer": "Aira",
+          "arranger": "Aira",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_488",
+          "musicId": 488
         }
       ],
       "_placeholder": 4,
