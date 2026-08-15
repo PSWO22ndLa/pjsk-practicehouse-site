@@ -395,7 +395,7 @@
   }
 </style>
 </head>
-<body>
+<body data-tier="godmaker1">
   <a href="rank-challenge.html" class="back-button"></a>
 
   <div class="rank-detail-page">
@@ -403,7 +403,7 @@
       <div class="detail-header">
         <div class="rank-title-area">
           <div class="rank-badge">
-            <img src="public/images/ranks/godmaker.png" alt="創神I" onerror="this.parentElement.innerHTML='🥈'">
+            <img src="public/images/ranks/godmaker.png" alt="創神I">
           </div>
           <h1 class="rank-title">創神I</h1>
         </div>
@@ -415,11 +415,11 @@
           <h2 class="rules-title">段位規則</h2>
           <div class="rule-item">
             <div class="rule-label">曲目數量</div>
-            <div class="rule-value">5 首</div>
+            <div class="rule-value" data-rule="songCount">5 首</div>
           </div>
           <div class="rule-item">
             <div class="rule-label">血量</div>
-            <div class="rule-value limit">100</div>
+            <div class="rule-value limit" data-rule="hp">100</div>
           </div>
           
           <!-- 血量扣法說明 -->
@@ -428,56 +428,10 @@
               📊 血量扣法
             </h3>
             <div style="background: rgba(40, 40, 40, 0.8); border-radius: 8px; padding: 20px;">
-              <div style="display: grid; gap: 12px;">
-                <!-- PERFECT -->
-                <div style="display: flex; align-items: center; gap: 15px;">
-                  <div style="min-width: 100px; font-size: 14px; font-weight: 700; background: linear-gradient(80deg, #46ffa9 0%, #b3c1ff 33%, #ff4fb8 66%, #feffb5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                    PERFECT
-                  </div>
-                  <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; position: relative;">
-                    <div style="width: 0%; height: 100%; background: linear-gradient(90deg, #46ffa9, #b3c1ff, #ff4fb8, #feffb5); border-radius: 3px;"></div>
-                  </div>
-                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #46ffa9;">-0</div>
-                </div>
-                
-                <!-- GREAT -->
-                <div style="display: flex; align-items: center; gap: 15px;">
-                  <div style="min-width: 100px; font-size: 14px; font-weight: 700; color: #ff6ceb;">GREAT</div>
-                  <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; position: relative;">
-                    <div style="width: 10%; height: 100%; background: #ff6ceb; border-radius: 3px;"></div>
-                  </div>
-                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #ff6ceb;">-1</div>
-                </div>
-                
-                <!-- GOOD -->
-                <div style="display: flex; align-items: center; gap: 15px;">
-                  <div style="min-width: 100px; font-size: 14px; font-weight: 700; color: #48cef0;">GOOD</div>
-                  <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; position: relative;">
-                    <div style="width: 20%; height: 100%; background: #48cef0; border-radius: 3px;"></div>
-                  </div>
-                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #48cef0;">-2</div>
-                </div>
-                
-                <!-- BAD -->
-                <div style="display: flex; align-items: center; gap: 15px;">
-                  <div style="min-width: 100px; font-size: 14px; font-weight: 700; color: #4dee47;">BAD</div>
-                  <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; position: relative;">
-                    <div style="width: 30%; height: 100%; background: #4dee47; border-radius: 3px;"></div>
-                  </div>
-                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #4dee47;">-3</div>
-                </div>
-                
-                <!-- MISS -->
-                <div style="display: flex; align-items: center; gap: 15px;">
-                  <div style="min-width: 100px; font-size: 14px; font-weight: 700; color: #999;">MISS</div>
-                  <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; position: relative;">
-                    <div style="width: 30%; height: 100%; background: #999; border-radius: 3px;"></div>
-                  </div>
-                  <div style="min-width: 60px; text-align: right; font-size: 14px; font-weight: 700; color: #999;">-3</div>
-                </div>
-              </div>
+              <div style="display: grid; gap: 12px;" data-rule="damage"></div>
             </div>
           </div>
+          <div class="rule-item" data-rule="special" style="display:none"></div>
 
           <!-- 立即預約按鈕 -->
           <a href="booking.html" target="_blank" style="
@@ -494,7 +448,7 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
           " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">
-            📅 立即預約
+            立即預約
           </a>
         </div>
 
@@ -503,57 +457,6 @@
     </div>
   </div>
 
-  <script>
-    const songs = [
-      { name: '曲目1', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
-      { name: '曲目2', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
-      { name: '曲目3', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
-      { name: '曲目4', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null },
-      { name: '曲目5', composer: '作曲者', arranger: '編曲者', difficulty: 'MASTER', level: 28, jacket: null }
-    ];
-
-    // 生成小曲繪標籤
-    document.getElementById('songTabs').innerHTML = songs.map((song, i) => `
-      <div class="song-tab ${i === 0 ? 'active' : ''}" data-song="${i}">
-        ${song.jacket ? `<img src="${song.jacket}" alt="${song.name}">` : `<div class="song-tab-placeholder">🎵</div>`}
-      </div>
-    `).join('');
-
-    // 生成曲目顯示區
-    document.getElementById('songsSection').innerHTML = songs.map((song, i) => `
-      <div class="song-display ${i === 0 ? 'active' : ''}" data-song="${i}">
-        <div class="song-jacket-large">
-          ${song.jacket ? `<img src="${song.jacket}" alt="${song.name}">` : '🎵'}
-        </div>
-        <h2 class="song-name-large">${song.name}</h2>
-        <div class="song-meta-large">
-          <div class="song-meta-item-large">
-            <span class="song-meta-label-large">作曲:</span>
-            <span>${song.composer}</span>
-          </div>
-          <div class="song-meta-item-large">
-            <span class="song-meta-label-large">編曲:</span>
-            <span>${song.arranger}</span>
-          </div>
-        </div>
-        <div class="song-difficulty-large">
-          <div class="difficulty-badge ${song.difficulty.toLowerCase()}">
-            ${song.difficulty} ${song.level}
-          </div>
-        </div>
-      </div>
-    `).join('');
-
-    // 切換曲目
-    document.querySelectorAll('.song-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        const songIndex = tab.dataset.song;
-        document.querySelectorAll('.song-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        document.querySelectorAll('.song-display').forEach(d => d.classList.remove('active'));
-        document.querySelector(`.song-display[data-song="${songIndex}"]`).classList.add('active');
-      });
-    });
-  </script>
+  <script src="rank-page.js" defer></script>
 </body>
 </html>

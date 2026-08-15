@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T01:53:08.670Z",
-  "updatedBy": "extract-rules.mjs",
+  "updatedAt": "2026-08-15T04:20:49.742Z",
+  "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -12,17 +12,7 @@
         "#8e5513",
         "#b86e18"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "嬢王",
@@ -62,17 +52,7 @@
         "#909090",
         "#bbbbbb"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -113,17 +93,7 @@
         "#f6ff43",
         "#ffff57"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -164,17 +134,7 @@
         "#b8e4ff",
         "#efffff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -215,17 +175,7 @@
         "#b8e4ff",
         "#efffff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -266,17 +216,7 @@
         "#44ffcd",
         "#58ffff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -317,17 +257,7 @@
         "#44ffcd",
         "#58ffff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -368,17 +298,7 @@
         "#ff97ee",
         "#ffc4ff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -428,17 +348,7 @@
         "#ff97ee",
         "#ffc4ff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -488,17 +398,7 @@
         "#ff97ee",
         "#ffc4ff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -548,26 +448,16 @@
         "#ff0000",
         "#ff0000"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "Sage",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_448",
+          "musicId": 448
         }
       ],
       "_placeholder": 1,
@@ -581,17 +471,7 @@
         "#ff0000",
         "#ff0000"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -641,17 +521,7 @@
         "#ff0000",
         "#ff0000"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -701,17 +571,7 @@
         "#ff0000",
         "#ff0000"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -761,17 +621,7 @@
         "#fffb9e",
         "#ffffcd"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -821,17 +671,7 @@
         "#fffb9e",
         "#ffffcd"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -881,17 +721,7 @@
         "#fffb9e",
         "#ffffcd"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -941,17 +771,7 @@
         "#ffad00",
         "#ffe000"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1010,17 +830,7 @@
         "#ffad00",
         "#ffe000"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1079,17 +889,7 @@
         "#ffad00",
         "#ffe000"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1148,17 +948,7 @@
         "#b4c7ff",
         "#eaffff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1181,17 +971,7 @@
         "#b4c7ff",
         "#eaffff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1250,17 +1030,7 @@
         "#b4c7ff",
         "#eaffff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1319,17 +1089,7 @@
         "#b4c7ff",
         "#eaffff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1388,17 +1148,7 @@
         "#6800ff",
         "#8700ff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1457,17 +1207,7 @@
         "#6800ff",
         "#8700ff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1526,17 +1266,7 @@
         "#6800ff",
         "#8700ff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1595,17 +1325,7 @@
         "#dbb7ff",
         "#ffedff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1628,17 +1348,7 @@
         "#dbb7ff",
         "#ffedff"
       ],
-      "rules": {
-        "hp": 100,
-        "damage": {
-          "perfect": 0,
-          "great": 1,
-          "good": 2,
-          "bad": 3,
-          "miss": 3
-        },
-        "special": ""
-      },
+      "rules": {},
       "songs": [
         {
           "name": "曲目1",
@@ -1689,5 +1399,16 @@
       "_placeholder": 5,
       "order": 29
     }
+  },
+  "defaults": {
+    "hp": 250,
+    "damage": {
+      "perfect": 0,
+      "great": 1,
+      "good": 2,
+      "bad": 3,
+      "miss": 5
+    },
+    "special": ""
   }
 }
