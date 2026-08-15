@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T06:13:05.816Z",
-  "updatedBy": "萌忻MongXin",
+  "updatedAt": "2026-08-15T06:13:29.635Z",
+  "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -83,13 +83,13 @@
           "musicId": 74
         },
         {
-          "name": "Voices",
-          "composer": "ゆよゆっぺ",
-          "arranger": "ゆよゆっぺ",
+          "name": "悪魔の踊り方",
+          "composer": "キタニタツヤ",
+          "arranger": "-",
           "difficulty": "expert",
-          "level": 25,
-          "jacket": "/api/jacket?n=jacket_s_236",
-          "musicId": 236
+          "level": 26,
+          "jacket": "/api/jacket?n=jacket_s_133",
+          "musicId": 133
         }
       ],
       "_placeholder": 3,
