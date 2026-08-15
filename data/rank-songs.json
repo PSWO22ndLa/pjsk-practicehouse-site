@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:34:46.870Z",
+  "updatedAt": "2026-08-15T05:35:29.664Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -629,7 +629,7 @@
         "#ffffcd"
       ],
       "rules": {
-        "hp": 100
+        "hp": 120
       },
       "songs": [
         {
@@ -649,6 +649,15 @@
           "level": 35,
           "jacket": "/api/jacket?n=jacket_s_584",
           "musicId": 584
+        },
+        {
+          "name": "怪獣になりたい",
+          "composer": "Sakuzyo",
+          "arranger": "Sakuzyo",
+          "difficulty": "master",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_671",
+          "musicId": 671
         }
       ],
       "_placeholder": 4,
