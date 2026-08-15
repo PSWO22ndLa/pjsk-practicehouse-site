@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:29:58.617Z",
+  "updatedAt": "2026-08-15T05:30:06.680Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -542,7 +542,9 @@
         "#ff0000",
         "#ff0000"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 100
+      },
       "songs": [],
       "_placeholder": 4,
       "order": 13
