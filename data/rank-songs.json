@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:11:41.509Z",
-  "updatedBy": "雪貓喵喵",
+  "updatedAt": "2026-08-15T05:13:59.980Z",
+  "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -453,7 +453,7 @@
         "#ff0000"
       ],
       "rules": {
-        "hp": 50,
+        "hp": 60,
         "special": "每日僅有三次挑戰機會"
       },
       "songs": [
