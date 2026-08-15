@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:35:29.664Z",
+  "updatedAt": "2026-08-15T05:40:02.453Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -629,9 +629,19 @@
         "#ffffcd"
       ],
       "rules": {
-        "hp": 120
+        "hp": 80,
+        "special": "メモリア扣血×2"
       },
       "songs": [
+        {
+          "name": "メモリア",
+          "composer": "Aira",
+          "arranger": "Aira",
+          "difficulty": "master",
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_488",
+          "musicId": 488
+        },
         {
           "name": "CHAOS",
           "composer": "Æsir",
@@ -649,15 +659,6 @@
           "level": 35,
           "jacket": "/api/jacket?n=jacket_s_584",
           "musicId": 584
-        },
-        {
-          "name": "怪獣になりたい",
-          "composer": "Sakuzyo",
-          "arranger": "Sakuzyo",
-          "difficulty": "master",
-          "level": 35,
-          "jacket": "/api/jacket?n=jacket_s_671",
-          "musicId": 671
         }
       ],
       "_placeholder": 4,
@@ -671,43 +672,46 @@
         "#fffb9e",
         "#ffffcd"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 120,
+        "special": "0.0000034扣血×2\n超ナイト・オブ・ナイツ great不扣分"
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "0.0000034",
+          "composer": "むさぬりゆ",
+          "arranger": "むさぬりゆ",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_691",
+          "musicId": 691
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "初音ミクの消失",
+          "composer": "cosMo@暴走P",
+          "arranger": "-",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_049",
+          "musicId": 49
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "folern",
+          "composer": "ぬゆり",
+          "arranger": "ぬゆり",
+          "difficulty": "append",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_447",
+          "musicId": 447
         },
         {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "超ナイト・オブ・ナイツ",
+          "composer": "ZUN（上海アリス幻樂団）",
+          "arranger": "ビートまりお×まろん",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_622",
+          "musicId": 622
         }
       ],
       "_placeholder": 4,
