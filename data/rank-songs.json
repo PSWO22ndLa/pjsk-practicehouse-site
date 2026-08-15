@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T08:22:31.577Z",
-  "updatedBy": "雪貓喵喵",
+  "updatedAt": "2026-08-15T10:27:24.857Z",
+  "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -457,7 +457,7 @@
         "#ff0000"
       ],
       "rules": {
-        "hp": 70,
+        "hp": 60,
         "special": "每日僅有三次挑戰機會"
       },
       "songs": [
@@ -770,52 +770,58 @@
         "#ffad00",
         "#ffe000"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 150,
+        "damage": {
+          "miss": 3
+        },
+        "special": "What's up? Pop! 扣血： 0-3-4-5"
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "生命性シンドロウム",
+          "composer": "かめりあ",
+          "arranger": "かめりあ",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_543",
+          "musicId": 543
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "嬢王",
+          "composer": "八王子P",
+          "arranger": "八王子P",
+          "difficulty": "append",
+          "level": 36,
+          "jacket": "/api/jacket?n=jacket_s_465",
+          "musicId": 465
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "初音ミクの消失",
+          "composer": "cosMo@暴走P",
+          "arranger": "-",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_049",
+          "musicId": 49
         },
         {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "What's up? Pop!",
+          "composer": "Capchii",
+          "arranger": "Capchii",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_315",
+          "musicId": 315
         },
         {
-          "name": "曲目5",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "ANiMA",
+          "composer": "xi",
+          "arranger": "xi",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_745",
+          "musicId": 745
         }
       ],
       "_placeholder": 5,
