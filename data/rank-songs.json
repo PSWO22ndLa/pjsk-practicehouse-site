@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T16:26:11.569Z",
+  "updatedAt": "2026-08-15T16:27:56.360Z",
   "updatedBy": "Karl_hsiao",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -1188,9 +1188,9 @@
         "#8700ff"
       ],
       "rules": {
-        "hp": 150,
+        "hp": 100,
         "damage": {
-          "great": 3,
+          "great": 2,
           "good": 5,
           "miss": 5,
           "bad": 5
@@ -1198,49 +1198,49 @@
       },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "メモリア",
+          "composer": "Aira",
+          "arranger": "Aira",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_488",
+          "musicId": 488
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "ヤミナベ!!!!",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_329",
+          "musicId": 329
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "MarbleBlue.",
+          "composer": "みそみぃる",
+          "arranger": "Ponchi♪",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_449",
+          "musicId": 449
         },
         {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "初音狂奏曲第01番「彗惺」",
+          "composer": "よみぃ",
+          "arranger": "よみぃ",
+          "difficulty": "append",
+          "level": 37,
+          "jacket": "/api/jacket?n=jacket_s_755",
+          "musicId": 755
         },
         {
-          "name": "曲目5",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "怪獣になりたい",
+          "composer": "Sakuzyo",
+          "arranger": "Sakuzyo",
+          "difficulty": "append",
+          "level": 38,
+          "jacket": "/api/jacket?n=jacket_s_671",
+          "musicId": 671
         }
       ],
       "_placeholder": 5,
