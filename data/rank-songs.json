@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T04:49:34.935Z",
-  "updatedBy": "La.",
+  "updatedAt": "2026-08-15T04:57:07.814Z",
+  "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -57,31 +57,31 @@
       "rules": {},
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "エゴロック",
+          "composer": "すりぃ",
+          "arranger": "すりぃ",
+          "difficulty": "expert",
+          "level": 25,
+          "jacket": "/api/jacket?n=jacket_s_225",
+          "musicId": 225
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "25時の情熱",
+          "composer": "カンザキイオリ",
+          "arranger": "カンザキイオリ",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 25,
+          "jacket": "/api/jacket?n=jacket_s_409",
+          "musicId": 409
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "Voices",
+          "composer": "ゆよゆっぺ",
+          "arranger": "ゆよゆっぺ",
+          "difficulty": "expert",
+          "level": 25,
+          "jacket": "/api/jacket?n=jacket_s_236",
+          "musicId": 236
         }
       ],
       "_placeholder": 3,
