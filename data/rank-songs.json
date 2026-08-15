@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T14:19:35.069Z",
+  "updatedAt": "2026-08-15T14:21:26.982Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -1330,16 +1330,25 @@
         "#dbb7ff",
         "#ffedff"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 30,
+        "damage": {
+          "great": 2,
+          "good": 3,
+          "bad": 5,
+          "miss": 5
+        },
+        "special": "一日僅能挑戰一次"
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "怪獣になりたい",
+          "composer": "Sakuzyo",
+          "arranger": "Sakuzyo",
+          "difficulty": "append",
+          "level": 38,
+          "jacket": "/api/jacket?n=jacket_s_671",
+          "musicId": 671
         }
       ],
       "_placeholder": 1,
@@ -1354,7 +1363,7 @@
         "#ffedff"
       ],
       "rules": {
-        "hp": 30,
+        "hp": 50,
         "damage": {
           "great": 2,
           "good": 3,
