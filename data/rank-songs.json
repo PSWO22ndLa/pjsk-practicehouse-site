@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T06:14:55.485Z",
-  "updatedBy": "萌忻MongXin",
+  "updatedAt": "2026-08-15T06:18:44.515Z",
+  "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -111,15 +111,6 @@
       },
       "songs": [
         {
-          "name": "相生",
-          "composer": "やいり",
-          "arranger": "やいり",
-          "difficulty": "master",
-          "level": 26,
-          "jacket": "/api/jacket?n=jacket_s_351",
-          "musicId": 351
-        },
-        {
           "name": "ドレミファロンド",
           "composer": "40mP",
           "arranger": "40mP",
@@ -129,13 +120,22 @@
           "musicId": 603
         },
         {
-          "name": "blender",
-          "composer": "こめだわら×R Sound Design",
-          "arranger": "こめだわら×R Sound Design",
+          "name": "私は、私達は",
+          "composer": "Guiano",
+          "arranger": "Guiano",
           "difficulty": "master",
           "level": 27,
-          "jacket": "/api/jacket?n=jacket_s_404",
-          "musicId": 404
+          "jacket": "/api/jacket?n=jacket_s_287",
+          "musicId": 287
+        },
+        {
+          "name": "帝国少女",
+          "composer": "R Sound Design",
+          "arranger": "R Sound Design",
+          "difficulty": "master",
+          "level": 28,
+          "jacket": "/api/jacket?n=jacket_s_262",
+          "musicId": 262
         }
       ],
       "_placeholder": 3,
