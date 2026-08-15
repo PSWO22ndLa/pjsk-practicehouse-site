@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:15:24.148Z",
+  "updatedAt": "2026-08-15T05:16:18.644Z",
   "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -12,7 +12,12 @@
         "#8e5513",
         "#b86e18"
       ],
-      "rules": {},
+      "rules": {
+        "damage": {
+          "miss": 3
+        },
+        "hp": 200
+      },
       "songs": [
         {
           "name": "お気に召すまま",
