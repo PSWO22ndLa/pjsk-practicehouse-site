@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T04:37:23.179Z",
-  "updatedBy": "La.",
+  "updatedAt": "2026-08-15T04:47:39.793Z",
+  "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -12,8 +12,28 @@
         "#8e5513",
         "#b86e18"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 300
+      },
       "songs": [
+        {
+          "name": "お気に召すまま",
+          "composer": "Eve",
+          "arranger": "Numa",
+          "difficulty": "expert",
+          "level": 24,
+          "jacket": "/api/jacket?n=jacket_s_106",
+          "musicId": 106
+        },
+        {
+          "name": "アコトバ",
+          "composer": "原口沙輔",
+          "arranger": "原口沙輔",
+          "difficulty": "expert",
+          "level": 24,
+          "jacket": "/api/jacket?n=jacket_s_483",
+          "musicId": 483
+        },
         {
           "name": "嬢王",
           "composer": "八王子P",
@@ -21,24 +41,6 @@
           "difficulty": "hard",
           "level": 24,
           "jacket": "public/images/jackets/bronze-1.webp",
-          "musicId": null
-        },
-        {
-          "name": "だんだん早くなる",
-          "composer": "40㍍P",
-          "arranger": "40㍍P",
-          "difficulty": "expert",
-          "level": 24,
-          "jacket": "public/images/jackets/bronze-2.webp",
-          "musicId": null
-        },
-        {
-          "name": "ロストエンファウンド",
-          "composer": "sasakure.UK",
-          "arranger": "sasakure.UK",
-          "difficulty": "expert",
-          "level": 25,
-          "jacket": "public/images/jackets/bronze-3.webp",
           "musicId": null
         }
       ],
@@ -1356,8 +1358,7 @@
         "damage": {
           "great": 2,
           "good": 3,
-          "bad": 5,
-          "miss": 5
+          "bad": 5
         },
         "special": "Marbleblue.扣血規則\n3-5-5-5"
       },
