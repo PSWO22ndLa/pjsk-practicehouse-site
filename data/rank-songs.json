@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:44:40.718Z",
-  "updatedBy": "萌忻MongXin",
+  "updatedAt": "2026-08-15T05:47:29.873Z",
+  "updatedBy": "雪貓喵喵",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
     "bronze": {
@@ -241,34 +241,40 @@
         "#44ffcd",
         "#58ffff"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 75,
+        "damage": {
+          "good": 3,
+          "bad": 5
+        }
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "ブループラネット",
+          "composer": "DECO*27",
+          "arranger": "Rockwell ",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 30,
+          "jacket": "/api/jacket?n=jacket_s_357",
+          "musicId": 357
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "ヘイヴン",
+          "composer": "煮ル果実",
+          "arranger": "煮ル果実",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 30,
+          "jacket": "/api/jacket?n=jacket_s_508",
+          "musicId": 508
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "パラソルサイダー",
+          "composer": "岩見 陸",
+          "arranger": "ナナホシ管弦楽団",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 30,
+          "jacket": "/api/jacket?n=jacket_s_264",
+          "musicId": 264
         }
       ],
       "_placeholder": 3,
