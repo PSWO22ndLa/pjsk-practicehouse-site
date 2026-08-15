@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T06:01:14.633Z",
+  "updatedAt": "2026-08-15T06:04:15.884Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -325,43 +325,36 @@
         "#ff97ee",
         "#ffc4ff"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 60
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "name": "88☆彡",
+          "composer": "まらしぃ、堀江晶太(kemu)",
+          "arranger": "堀江晶太(kemu)",
+          "difficulty": "append",
+          "level": 32,
+          "jacket": "/api/jacket?n=jacket_s_224",
+          "musicId": 224
         },
         {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "SAN値直葬",
+          "composer": "STEAKA",
+          "arranger": "STEAKA",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_647",
+          "musicId": 647
         },
         {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "超ナイト・オブ・ナイツ",
+          "composer": "ZUN（上海アリス幻樂団）",
+          "arranger": "ビートまりお×まろん",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 33,
+          "jacket": "/api/jacket?n=jacket_s_622",
+          "musicId": 622
         }
       ],
       "_placeholder": 4,
