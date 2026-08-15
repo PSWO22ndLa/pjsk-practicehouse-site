@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T05:31:01.131Z",
+  "updatedAt": "2026-08-15T05:31:27.113Z",
   "updatedBy": "萌忻MongXin",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -585,43 +585,18 @@
         "#ff0000",
         "#ff0000"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 120
+      },
       "songs": [
         {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
+          "name": "ダイジョブですか？",
+          "composer": "cosMo@暴走P",
+          "arranger": "cosMo@暴走P",
           "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+          "level": 34,
+          "jacket": "/api/jacket?n=jacket_s_487",
+          "musicId": 487
         }
       ],
       "_placeholder": 4,
