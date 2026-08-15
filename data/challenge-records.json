@@ -1,16 +1,6 @@
 {
   "version": 1,
-  "records": [
-    {
-      "id": "a99e3b09-5e12-4ccc-be36-3f3b1284fb64",
-      "userId": "962734551350800436",
-      "name": "La.",
-      "tier": "god1",
-      "passed": true,
-      "date": "2026-08-15",
-      "note": null
-    }
-  ],
+  "records": [],
   "updatedAt": "2026-08-15T09:20:55.897Z",
   "updatedBy": "La."
 }
