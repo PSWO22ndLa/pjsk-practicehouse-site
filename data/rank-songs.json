@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T16:22:25.708Z",
+  "updatedAt": "2026-08-15T16:23:09.452Z",
   "updatedBy": "Karl_hsiao",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -1187,7 +1187,15 @@
         "#6800ff",
         "#8700ff"
       ],
-      "rules": {},
+      "rules": {
+        "hp": 150,
+        "damage": {
+          "great": 3,
+          "good": 5,
+          "miss": 5,
+          "bad": 5
+        }
+      },
       "songs": [
         {
           "name": "曲目1",
@@ -1305,54 +1313,16 @@
         "#6800ff",
         "#8700ff"
       ],
-      "rules": {},
-      "songs": [
-        {
-          "name": "曲目1",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
+      "rules": {
+        "damage": {
+          "great": 5,
+          "good": 5,
+          "bad": 5,
+          "miss": 5
         },
-        {
-          "name": "曲目2",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目3",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目4",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        },
-        {
-          "name": "曲目5",
-          "composer": "作曲者",
-          "arranger": "編曲者",
-          "difficulty": "master",
-          "level": 28,
-          "jacket": null,
-          "musicId": null
-        }
-      ],
+        "special": "（準度大挑戰）"
+      },
+      "songs": [],
       "_placeholder": 5,
       "order": 27
     },
