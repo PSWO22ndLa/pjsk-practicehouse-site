@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-15T16:29:26.470Z",
+  "updatedAt": "2026-08-16T01:07:13.921Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -1254,7 +1254,7 @@
         "#8700ff"
       ],
       "rules": {
-        "hp": 80,
+        "hp": 100,
         "damage": {
           "great": 3,
           "good": 5,
@@ -1327,7 +1327,7 @@
           "bad": 5
         },
         "special": "（準度大挑戰）",
-        "hp": 70
+        "hp": 80
       },
       "songs": [
         {
