@@ -78,6 +78,18 @@
   .dmg .bar span { display: block; height: 100%; border-radius: 3px; }
   .dmg dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; min-width: 3em; }
 
+  /* 介面預覽：讓人先看到點進去長什麼樣，再讀流程 */
+  figure.shot { margin: 0 0 34px; }
+  figure.shot img {
+    display: block; width: 100%; height: auto;
+    border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, .35);
+  }
+  figure.shot figcaption {
+    margin-top: 10px; text-align: center;
+    color: var(--muted); font-size: 13px;
+  }
+
   ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
   ol.steps > li {
     counter-increment: s; position: relative;
@@ -182,6 +194,14 @@
 
   <section>
     <h2>怎麼參加</h2>
+
+    <figure class="shot">
+      <img src="public/images/rank-preview.png"
+           alt="段位挑戰頁面：左側顯示目前最高段位，右側是可挑戰的段位清單"
+           loading="lazy" width="1900" height="907">
+      <figcaption>段位挑戰頁面。左側是你目前的最高段位，右側選段位進去看指定曲目與規則。</figcaption>
+    </figure>
+
     <ol class="steps">
       <li>
         <strong>用 Discord 登入</strong>
