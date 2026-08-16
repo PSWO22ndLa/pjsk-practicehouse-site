@@ -1,6 +1,40 @@
 {
   "version": 1,
-  "records": [],
-  "updatedAt": "2026-08-15T09:20:55.897Z",
-  "updatedBy": "La."
+  "records": [
+    {
+      "id": "57f4f72e-8486-43c6-9cc4-fb3ef8841fc4",
+      "userId": "594670165967241216",
+      "name": "蠍蠍サソリ",
+      "tier": "diamond1",
+      "passed": true,
+      "date": "2026-08-16",
+      "note": null,
+      "scores": [
+        {
+          "name": "イガク",
+          "great": 14,
+          "good": 0,
+          "bad": 0,
+          "miss": 0
+        },
+        {
+          "name": "ヘイヴン",
+          "great": 2,
+          "good": 0,
+          "bad": 0,
+          "miss": 0
+        },
+        {
+          "name": "imaginary love story",
+          "great": 15,
+          "good": 5,
+          "bad": 1,
+          "miss": 1
+        }
+      ],
+      "remainingHp": 26
+    }
+  ],
+  "updatedAt": "2026-08-16T13:03:54.113Z",
+  "updatedBy": "雪貓喵喵"
 }
