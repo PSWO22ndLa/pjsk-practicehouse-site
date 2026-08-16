@@ -176,6 +176,18 @@ function validate(doc) {
         errs.push(`${at}: level 超出範圍`);
       }
       if (s.jacket != null && typeof s.jacket !== 'string') errs.push(`${at}: jacket 型別錯誤`);
+
+      // 曲目專屬扣血：段位規則的例外。允許小數（實際規則有 0.5 這種值）
+      if (s.damage != null) {
+        if (typeof s.damage !== 'object') { errs.push(`${at}: damage 不是物件`); return; }
+        for (const k of Object.keys(s.damage)) {
+          if (!JUDGES.includes(k)) { errs.push(`${at}: 未知判定 ${k}`); continue; }
+          const v = s.damage[k];
+          if (typeof v !== 'number' || !Number.isFinite(v) || v < 0 || v > 999) {
+            errs.push(`${at}: damage.${k} 超出範圍`);
+          }
+        }
+      }
     });
   }
   return errs;

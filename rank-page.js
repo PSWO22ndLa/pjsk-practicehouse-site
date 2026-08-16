@@ -14,6 +14,8 @@
 
   const DATA_URL = 'data/rank-songs.json';
   const JUDGES = ['perfect', 'great', 'good', 'bad', 'miss'];
+  // 曲目專屬扣血不含 perfect（恆為 0）
+  const SONG_JUDGES = ['great', 'good', 'bad', 'miss'];
   const JUDGE_LABEL = { perfect: 'PERFECT', great: 'GREAT', good: 'GOOD', bad: 'BAD', miss: 'MISS' };
   // 判定色沿用原本頁面的配色
   const JUDGE_COLOR = {
@@ -77,6 +79,12 @@
         s.composer ? ['作曲', s.composer] : null,
         s.arranger ? ['編曲', s.arranger] : null,
       ].filter(Boolean);
+
+      // 專屬扣血是這首的例外，跟段位規則不同，一定要讓玩家看到
+      const od = s.damage && SONG_JUDGES.some((j) => s.damage[j] != null)
+        ? SONG_JUDGES.map((j) => s.damage[j] ?? '–').join(' / ')
+        : null;
+      if (od) meta.push(['專屬扣血', `GREAT / GOOD / BAD / MISS　${od}`]);
 
       return `
       <div class="song-display ${i === 0 ? 'active' : ''}" data-song="${i}">

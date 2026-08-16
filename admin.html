@@ -108,6 +108,20 @@
   .lv.unknown { color: var(--danger); }
   .row-actions { display: flex; gap: 2px; }
 
+  /* 曲目專屬扣血：段位規則的例外，展開才顯示 */
+  .song-ovr { display: none; padding: 8px 4px 12px 62px; border-bottom: 1px solid var(--line); }
+  .song-ovr.open { display: block; }
+  .song-ovr-hint { color: var(--muted); font-size: 12px; margin: 0 0 7px; }
+  .song-ovr-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .song-ovr .jd { display: flex; align-items: center; gap: 4px; }
+  .song-ovr .jd label { font-size: 11px; color: var(--muted); width: 26px; }
+  .song-ovr .jd input {
+    width: 54px; background: var(--bg); border: 1px solid var(--line); border-radius: 2px;
+    padding: 5px 6px; font-variant-numeric: tabular-nums; text-align: right;
+  }
+  .song-ovr .jd input.inherited { color: var(--muted); }
+  .dmg-flag { color: var(--flag); font-size: 12px; font-weight: 500; }
+
   /* ---------- 曲庫 ---------- */
   .search {
     width: 100%; background: var(--bg); border: 1px solid var(--line);
@@ -232,6 +246,8 @@
   const DIFF_ORDER = ['easy', 'normal', 'hard', 'expert', 'master', 'append'];
   const DIFF_LABEL = { easy: 'EASY', normal: 'NORMAL', hard: 'HARD', expert: 'EXPERT', master: 'MASTER', append: 'APPEND' };
   const JUDGES = ['perfect', 'great', 'good', 'bad', 'miss'];
+  // perfect 恆為 0 扣血，曲目覆寫不需要它
+  const SONG_JUDGES = ['great', 'good', 'bad', 'miss'];
   const JUDGE_LABEL = { perfect: 'PERFECT', great: 'GREAT', good: 'GOOD', bad: 'BAD', miss: 'MISS' };
 
   // 舊資料沒有 defaults 時的退路。值取自 29 支頁面原本共用的設定。
@@ -607,8 +623,22 @@
       lv.title = s.level == null ? '曲庫查不到等級' : '';
       row.appendChild(lv);
 
+      // 專屬扣血：有設定時標記出來，避免要展開才知道這首是例外
+      const hasDmg = s.damage && SONG_JUDGES.some((j) => s.damage[j] != null);
+      if (hasDmg) {
+        const flag = document.createElement('span');
+        flag.className = 'dmg-flag';
+        flag.textContent = SONG_JUDGES.map((j) => s.damage[j] ?? '–').join('-');
+        flag.title = '這首有專屬扣血';
+        row.appendChild(flag);
+      }
+
       const acts = document.createElement('div');
       acts.className = 'row-actions';
+      const ovrBtn = iconBtn('扣血', '設定這首的專屬扣血', () => {
+        ovr.classList.toggle('open');
+      });
+      acts.appendChild(ovrBtn);
       acts.appendChild(iconBtn('↑', '往上移', () => move(i, -1), i === 0));
       acts.appendChild(iconBtn('↓', '往下移', () => move(i, 1), i === songs.length - 1));
       acts.appendChild(iconBtn('×', '移除', () => {
@@ -617,6 +647,67 @@
       row.appendChild(acts);
 
       wrap.appendChild(row);
+
+      // 覆寫面板：留空代表沿用段位規則，只有填了數字才成為這首的例外
+      const ovr = document.createElement('div');
+      ovr.className = 'song-ovr';
+      const hint = document.createElement('p');
+      hint.className = 'song-ovr-hint';
+      hint.textContent = '這首的專屬扣血。留空＝沿用段位設定。';
+      const orow = document.createElement('div');
+      orow.className = 'song-ovr-row';
+
+      const tierDmg = (j) => {
+        const t = state.doc.tiers[state.tierId];
+        return t.rules?.damage?.[j] ?? state.doc.defaults.damage[j];
+      };
+
+      for (const j of SONG_JUDGES) {
+        const w = document.createElement('div');
+        w.className = 'jd';
+        const lb = document.createElement('label');
+        lb.textContent = JUDGE_LABEL[j];
+        const inp = document.createElement('input');
+        inp.type = 'number'; inp.min = '0'; inp.step = '0.5';
+        inp.setAttribute('aria-label', `${s.name} 的 ${JUDGE_LABEL[j]} 扣血`);
+        const cur = s.damage?.[j];
+        inp.value = cur == null ? '' : String(cur);
+        inp.placeholder = String(tierDmg(j));
+        inp.classList.toggle('inherited', cur == null);
+        inp.addEventListener('change', () => {
+          const raw = inp.value.trim();
+          if (!s.damage) s.damage = {};
+          if (raw === '') {
+            delete s.damage[j];
+          } else {
+            const n = Number(raw);
+            if (!Number.isFinite(n) || n < 0 || n > 999) {
+              setStatus(`${JUDGE_LABEL[j]} 扣血須為 0-999`, 'err');
+              inp.value = cur == null ? '' : String(cur);
+              return;
+            }
+            s.damage[j] = n;
+          }
+          if (!Object.keys(s.damage).length) delete s.damage;
+          markDirty(); renderAssigned();
+        });
+        w.append(lb, inp);
+        orow.appendChild(w);
+      }
+
+      if (s.damage) {
+        const clr = document.createElement('button');
+        clr.className = 'btn btn-ghost btn-sm';
+        clr.textContent = '恢復段位設定';
+        clr.addEventListener('click', () => {
+          delete s.damage;
+          markDirty(); renderAssigned();
+        });
+        orow.appendChild(clr);
+      }
+
+      ovr.append(hint, orow);
+      wrap.appendChild(ovr);
     });
   }
 

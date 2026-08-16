@@ -60,6 +60,33 @@
   .fld input, .fld select { background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 8px 9px; width: 100%; }
   .form-actions { display: flex; gap: 10px; align-items: center; margin-top: 14px; }
 
+  /* 血量計算 */
+  .calc { border: 1px solid var(--line); background: var(--bg); padding: 16px 18px; margin-top: 16px; }
+  .calc-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .calc-head strong { font-family: var(--serif); font-size: 15px; font-weight: 600; }
+  .calc-head .hpinfo { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .song-row { border-top: 1px solid var(--line); padding: 10px 0; }
+  .song-row:first-of-type { border-top: none; }
+  .song-line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .song-name { flex: 1; min-width: 140px; font-size: 14px; }
+  .song-name small { color: var(--muted); }
+  .jd { display: flex; align-items: center; gap: 4px; }
+  .jd label { font-size: 11px; color: var(--muted); width: 26px; }
+  .jd input { width: 56px; background: var(--bg); border: 1px solid var(--line); border-radius: 2px;
+              padding: 5px 6px; font-variant-numeric: tabular-nums; text-align: right; }
+  .song-dmg { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; min-width: 84px; text-align: right; }
+  .ovr { margin-top: 8px; padding-left: 2px; display: none; }
+  .ovr.open { display: block; }
+  .ovr .jd input { width: 50px; }
+  .ovr-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .ovr-hint { color: var(--muted); font-size: 12px; margin: 0 0 6px; }
+  .result { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line);
+            display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .result .big { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .result .big.ok { color: var(--pass); }
+  .result .big.no { color: var(--danger); }
+  .result .verdict { font-weight: 600; }
+
   /* 篩選 */
   .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
   .filters input, .filters select { background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 7px 9px; }
@@ -137,6 +164,8 @@
           <input id="fNote" maxlength="300" placeholder="可留空">
         </div>
       </div>
+      <div id="calc" class="calc hidden"></div>
+
       <div class="form-actions">
         <button class="btn btn-primary" id="addBtn">新增</button>
         <span class="status" id="formMsg"></span>
@@ -170,7 +199,13 @@
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const state = { doc: null, sha: null, tiers: {}, dirty: false };
+  const JUDGES = ['great', 'good', 'bad', 'miss'];   // perfect 恆為 0，不列入輸入
+  const JUDGE_LABEL = { great: 'GREAT', good: 'GOOD', bad: 'BAD', miss: 'MISS' };
+
+  const state = {
+    doc: null, sha: null, tiers: {}, defaults: {}, dirty: false,
+    calc: null,   // { hp, songs: [{ name, difficulty, level, counts, dmg }] }
+  };
 
   function setStatus(msg, kind = '') {
     $('status').textContent = msg || '';
@@ -204,6 +239,22 @@
     $('addBtn').addEventListener('click', addRecord);
     $('saveBtn').addEventListener('click', save);
     for (const id of ['qName', 'qTier', 'qPassed']) $(id).addEventListener('input', render);
+
+    // bot 的 /下一位 會給出帶參數的連結，這裡直接把表單填好
+    prefillFromURL();
+    $('fTier').addEventListener('change', buildCalc);
+    buildCalc();
+  }
+
+  function prefillFromURL() {
+    const q = new URLSearchParams(location.search);
+    const uid = q.get('uid');
+    const name = q.get('name');
+    const tier = q.get('tier');
+    if (uid && /^\d{5,25}$/.test(uid)) $('fUserId').value = uid;
+    if (name) $('fName').value = name.slice(0, 60);
+    if (tier && state.tiers[tier]) $('fTier').value = tier;
+    if (uid || name || tier) formMsg('已從連結帶入資料，確認後按新增');
   }
 
   function gate(title, msg, logout = false) {
@@ -218,6 +269,7 @@
     try {
       const d = await (await fetch('/data/rank-songs.json')).json();
       state.tiers = d.tiers || {};
+      state.defaults = d.defaults || { hp: 100, damage: { perfect: 0, great: 1, good: 2, bad: 3, miss: 3 } };
     } catch { setStatus('段位清單載入失敗', 'err'); }
   }
 
@@ -245,6 +297,167 @@
 
   const tierLabel = (id) => state.tiers[id]?.label || id;
 
+  // ---------- 血量計算 ----------
+  // 依段位規則算剩餘血量。曲目專屬扣血（special 欄位的自由文字）程式無法可靠解析，
+  // 所以每首提供覆寫欄位，遇到特殊規則時由委員手動調整。
+  function effDamage(tier) {
+    const d = { ...(state.defaults.damage || {}), ...((tier.rules && tier.rules.damage) || {}) };
+    const out = {};
+    for (const j of JUDGES) out[j] = Number.isInteger(d[j]) ? d[j] : 0;
+    return out;
+  }
+
+  function buildCalc() {
+    const id = $('fTier').value;
+    const tier = state.tiers[id];
+    const box = $('calc');
+
+    if (!tier || !(tier.songs || []).length) {
+      state.calc = null;
+      box.classList.add('hidden');
+      box.innerHTML = '';
+      return;
+    }
+
+    const base = effDamage(tier);
+    state.calc = {
+      hp: tier.rules?.hp ?? state.defaults.hp ?? 100,
+      songs: tier.songs.map((sg) => ({
+        name: sg.name,
+        difficulty: sg.difficulty,
+        level: sg.level,
+        counts: { great: 0, good: 0, bad: 0, miss: 0 },
+        // 曲目專屬扣血優先於段位規則，在段位曲目管理端設定
+        dmg: { ...base, ...(sg.damage || {}) },
+        overridden: !!(sg.damage && JUDGES.some((j) => sg.damage[j] != null)),
+      })),
+    };
+
+    box.classList.remove('hidden');
+    renderCalc();
+  }
+
+  function renderCalc() {
+    const c = state.calc;
+    if (!c) return;
+    const box = $('calc');
+    box.innerHTML = '';
+
+    const head = document.createElement('div');
+    head.className = 'calc-head';
+    head.innerHTML = `<strong>血量計算</strong>` +
+      `<span class="hpinfo">起始血量 ${c.hp}　預設扣血 ` +
+      JUDGES.map((j) => `${JUDGE_LABEL[j][0]}${c.songs[0].dmg[j]}`).join(' / ') + `</span>`;
+    box.appendChild(head);
+
+    c.songs.forEach((sg, i) => {
+      const row = document.createElement('div');
+      row.className = 'song-row';
+
+      const line = document.createElement('div');
+      line.className = 'song-line';
+      line.innerHTML = `<div class="song-name">${esc(sg.name)}` +
+        `<small>　${esc(String(sg.difficulty || '').toUpperCase())}${sg.level != null ? ' ' + sg.level : ''}` +
+        `${sg.overridden ? `　專屬扣血 ${JUDGES.map((j) => sg.dmg[j]).join('-')}` : ''}</small></div>`;
+
+      for (const j of JUDGES) {
+        const w = document.createElement('div');
+        w.className = 'jd';
+        const lb = document.createElement('label');
+        lb.textContent = JUDGE_LABEL[j];
+        lb.htmlFor = `c${i}_${j}`;
+        const inp = document.createElement('input');
+        inp.type = 'number'; inp.min = '0'; inp.id = `c${i}_${j}`;
+        inp.value = String(sg.counts[j]);
+        inp.addEventListener('input', () => {
+          const n = parseInt(inp.value, 10);
+          sg.counts[j] = Number.isInteger(n) && n >= 0 ? n : 0;
+          updateTotals();
+        });
+        w.append(lb, inp);
+        line.appendChild(w);
+      }
+
+      const dmgEl = document.createElement('div');
+      dmgEl.className = 'song-dmg';
+      dmgEl.id = `d${i}`;
+      line.appendChild(dmgEl);
+
+      const tog = document.createElement('button');
+      tog.className = 'btn btn-ghost btn-sm';
+      tog.textContent = '扣血';
+      tog.title = '覆寫這首的扣血值';
+      line.appendChild(tog);
+
+      row.appendChild(line);
+
+      const ovr = document.createElement('div');
+      ovr.className = 'ovr';
+      const hint = document.createElement('p');
+      hint.className = 'ovr-hint';
+      hint.textContent = '這首有專屬扣血規則時在這裡改，只影響這首。';
+      const orow = document.createElement('div');
+      orow.className = 'ovr-row';
+      for (const j of JUDGES) {
+        const w = document.createElement('div');
+        w.className = 'jd';
+        const lb = document.createElement('label');
+        lb.textContent = JUDGE_LABEL[j];
+        const inp = document.createElement('input');
+        inp.type = 'number'; inp.min = '0'; inp.step = '0.5';
+        inp.value = String(sg.dmg[j]);
+        inp.addEventListener('input', () => {
+          const n = Number(inp.value);
+          sg.dmg[j] = Number.isFinite(n) && n >= 0 ? n : 0;
+          sg.overridden = true;
+          updateTotals();
+        });
+        w.append(lb, inp);
+        orow.appendChild(w);
+      }
+      ovr.append(hint, orow);
+      row.appendChild(ovr);
+
+      tog.addEventListener('click', () => ovr.classList.toggle('open'));
+      box.appendChild(row);
+    });
+
+    const res = document.createElement('div');
+    res.className = 'result';
+    res.innerHTML = `<span>剩餘血量</span><span class="big" id="hpLeft"></span><span class="verdict" id="verdict"></span>`;
+    box.appendChild(res);
+
+    updateTotals();
+  }
+
+  function songDamage(sg) {
+    return JUDGES.reduce((t, j) => t + sg.counts[j] * sg.dmg[j], 0);
+  }
+
+  function updateTotals() {
+    const c = state.calc;
+    if (!c) return;
+    let total = 0;
+    c.songs.forEach((sg, i) => {
+      const d = songDamage(sg);
+      total += d;
+      const el = $(`d${i}`);
+      if (el) el.textContent = d ? `−${round1(d)}` : '';
+    });
+
+    const left = round1(c.hp - total);
+    const ok = left > 0;
+    const hpEl = $('hpLeft');
+    const vEl = $('verdict');
+    if (hpEl) { hpEl.textContent = String(left); hpEl.className = 'big ' + (ok ? 'ok' : 'no'); }
+    if (vEl) { vEl.textContent = ok ? '血量未歸零，判定通過' : '血量歸零，判定失敗'; vEl.style.color = ok ? 'var(--pass)' : 'var(--danger)'; }
+
+    // 計算結果直接反映到「結果」下拉，避免兩邊不一致
+    $('fPassed').value = ok ? 'true' : 'false';
+  }
+
+  const round1 = (n) => Math.round(n * 10) / 10;
+
   function addRecord() {
     const userId = $('fUserId').value.trim();
     const name = $('fName').value.trim();
@@ -257,13 +470,27 @@
     if (!tier) return formMsg('請選段位', 'err');
     if (!date) return formMsg('請選日期', 'err');
 
-    state.doc.records.push({
+    const rec = {
       id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2)),
       userId, name: name || null, tier, passed, date, note: note || null,
-    });
+    };
+
+    // 有填成績才存明細；全 0 視為沒填，不留空資料
+    const c = state.calc;
+    if (c && c.songs.some((sg) => JUDGES.some((j) => sg.counts[j] > 0))) {
+      rec.scores = c.songs.map((sg) => ({
+        name: sg.name,
+        great: sg.counts.great, good: sg.counts.good,
+        bad: sg.counts.bad, miss: sg.counts.miss,
+      }));
+      rec.remainingHp = round1(c.hp - c.songs.reduce((t, sg) => t + songDamage(sg), 0));
+    }
+
+    state.doc.records.push(rec);
 
     // 名稱與 ID 留著，方便同一個人連續登記多個段位
     $('fNote').value = '';
+    buildCalc();
     formMsg(`已加入 ${name || userId} 的 ${tierLabel(tier)}`, '');
     markDirty(); render();
   }
@@ -294,7 +521,7 @@
         `<td class="id">${esc(r.userId)}</td>` +
         `<td>${esc(tierLabel(r.tier))}</td>` +
         `<td><span class="tag ${r.passed ? 'pass' : 'fail'}">${r.passed ? '通過' : '未通過'}</span></td>` +
-        `<td>${esc(r.note || '')}</td>`;
+        `<td>${esc(r.note || '')}${r.remainingHp != null ? `<span style="color:var(--muted);font-size:12px"> HP ${r.remainingHp}</span>` : ''}</td>`;
       const td = document.createElement('td');
       const del = document.createElement('button');
       del.className = 'btn btn-ghost btn-sm';

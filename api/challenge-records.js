@@ -57,6 +57,26 @@ function validate(doc) {
     if (typeof r.passed !== 'boolean') errs.push(`${at}: passed 必須是 true/false`);
     if (r.date != null && !DATE_RX.test(String(r.date))) errs.push(`${at}: date 格式須為 YYYY-MM-DD`);
     if (r.note != null && (typeof r.note !== 'string' || r.note.length > 300)) errs.push(`${at}: note 過長`);
+
+    // 成績明細為選填 —— 委員可以只登記通過與否，不填每首的判定數
+    if (r.scores != null) {
+      if (!Array.isArray(r.scores) || r.scores.length > 20) {
+        errs.push(`${at}: scores 無效`);
+      } else {
+        r.scores.forEach((sc, k) => {
+          if (!sc || typeof sc !== 'object') { errs.push(`${at}.scores[${k}]: 不是物件`); return; }
+          if (sc.name != null && (typeof sc.name !== 'string' || sc.name.length > 200)) errs.push(`${at}.scores[${k}]: name 無效`);
+          for (const j of ['great', 'good', 'bad', 'miss']) {
+            if (sc[j] == null) continue;
+            if (!Number.isInteger(sc[j]) || sc[j] < 0 || sc[j] > 99999) errs.push(`${at}.scores[${k}]: ${j} 超出範圍`);
+          }
+        });
+      }
+    }
+    // 血量可能因為專屬扣血出現小數，所以不限定整數
+    if (r.remainingHp != null && (typeof r.remainingHp !== 'number' || !Number.isFinite(r.remainingHp))) {
+      errs.push(`${at}: remainingHp 不是數字`);
+    }
   });
 
   return errs.slice(0, 20); // 錯誤太多時只回前 20 條，避免回應爆量
