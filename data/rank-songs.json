@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-09T06:49:11.813Z",
+  "updatedAt": "2026-09-09T06:51:01.917Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -998,7 +998,7 @@
       ],
       "rules": {
         "hp": 110,
-        "special": "Sage 扣血： 3-6-9-15\nANiMA 扣血：2-4-6-10"
+        "special": "Sage 扣血： 3-6-10-10\nANiMA 扣血：2-3-5-10"
       },
       "songs": [
         {
