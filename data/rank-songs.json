@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-09T03:33:10.122Z",
+  "updatedAt": "2026-09-09T03:49:36.973Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -618,7 +618,7 @@
       ],
       "rules": {
         "hp": 80,
-        "special": "メモリア扣血×2\nsage great不扣分"
+        "special": "メモリア扣血 2-4-6-10"
       },
       "songs": [
         {
@@ -640,6 +640,15 @@
           "musicId": 744
         },
         {
+          "name": "怪獣になりたい",
+          "composer": "Sakuzyo",
+          "arranger": "Sakuzyo",
+          "difficulty": "master",
+          "level": 35,
+          "jacket": "/api/jacket?n=jacket_s_671",
+          "musicId": 671
+        },
+        {
           "name": "IMAWANOKIWA",
           "composer": "いよわ",
           "arranger": "いよわ",
@@ -647,15 +656,6 @@
           "level": 35,
           "jacket": "/api/jacket?n=jacket_s_584",
           "musicId": 584
-        },
-        {
-          "name": "Sage",
-          "composer": "かめりあ",
-          "arranger": "かめりあ",
-          "difficulty": "append",
-          "level": 36,
-          "jacket": "/api/jacket?n=jacket_s_448",
-          "musicId": 448
         }
       ],
       "_placeholder": 4,
