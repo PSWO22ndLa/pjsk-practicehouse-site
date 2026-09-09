@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-09T06:35:06.831Z",
+  "updatedAt": "2026-09-09T06:35:16.233Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -618,7 +618,7 @@
       ],
       "rules": {
         "hp": 80,
-        "special": "メモリア扣血 2-4-6-10"
+        "special": "メモリア 扣血 2-4-6-10"
       },
       "songs": [
         {
