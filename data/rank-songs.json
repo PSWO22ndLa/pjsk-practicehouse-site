@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-09T06:33:52.016Z",
+  "updatedAt": "2026-09-09T06:35:06.831Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -671,7 +671,7 @@
       ],
       "rules": {
         "hp": 120,
-        "special": "0.0000034 扣分 2-3-5-5\nSan值直葬 great不扣分"
+        "special": "0.0000034 扣血 2-3-5-5\nSan值直葬 扣血 0-2-3-5"
       },
       "songs": [
         {
