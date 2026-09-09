@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-09T03:30:01.008Z",
+  "updatedAt": "2026-09-09T03:32:27.061Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -372,8 +372,8 @@
         "#ffc4ff"
       ],
       "rules": {
-        "hp": 70,
-        "special": "snooze 扣血：2-3-3-5"
+        "hp": 80,
+        "special": "snooze 扣血：2-3-3-5\nゴーストルール 扣血：1-2-3-3"
       },
       "songs": [
         {
@@ -395,13 +395,13 @@
           "musicId": 562
         },
         {
-          "name": "トレジャーガーデン",
-          "composer": "Ponchi♪",
-          "arranger": "Ponchi♪",
+          "name": "ゴーストルール",
+          "composer": "DECO*27",
+          "arranger": "Naoki Itai(MUSIC FOR MUSIC)",
           "difficulty": "master",
           "level": 33,
-          "jacket": "/api/jacket?n=jacket_s_686",
-          "musicId": 686
+          "jacket": "/api/jacket?n=jacket_s_199",
+          "musicId": 199
         }
       ],
       "_placeholder": 4,
