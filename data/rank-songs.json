@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-09T06:48:26.332Z",
+  "updatedAt": "2026-09-09T06:49:11.813Z",
   "updatedBy": "La.",
   "note": "musicId 尚未對照 bot 的 music.json，全部為 null",
   "tiers": {
@@ -841,7 +841,7 @@
         "#ffe000"
       ],
       "rules": {
-        "special": "Don't Fight the Music 扣血：2-3-5-5\nメモリア 扣血：2-3-3-3\nMarbleBlue 扣血：0.5-2-3-5\nSage 扣血： 2-4-6-10",
+        "special": "Don't Fight the Music 扣血：2-3-5-5\nメモリア 扣血：1-2-3-3\nMarbleBlue 扣血：1-2-3-3\nSage 扣血： 2-4-6-10",
         "hp": 140
       },
       "songs": [
