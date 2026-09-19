@@ -66,8 +66,41 @@
         }
       ],
       "remainingHp": 22
+    },
+    {
+      "id": "77f37788-87a5-466a-ad08-4837e8a08d61",
+      "userId": "1279784142174814332",
+      "name": "Idk",
+      "tier": "diamond2",
+      "passed": true,
+      "date": "2026-09-19",
+      "note": null,
+      "scores": [
+        {
+          "name": "ヒバナ -Reloaded-",
+          "great": 11,
+          "good": 0,
+          "bad": 0,
+          "miss": 0
+        },
+        {
+          "name": "フェレス",
+          "great": 14,
+          "good": 1,
+          "bad": 0,
+          "miss": 4
+        },
+        {
+          "name": "フィクサー",
+          "great": 13,
+          "good": 0,
+          "bad": 0,
+          "miss": 0
+        }
+      ],
+      "remainingHp": 28
     }
   ],
-  "updatedAt": "2026-09-19T03:20:47.365Z",
+  "updatedAt": "2026-09-19T03:35:40.546Z",
   "updatedBy": "萌忻"
 }
