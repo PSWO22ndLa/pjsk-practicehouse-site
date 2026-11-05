@@ -139,6 +139,7 @@ header.nav.scrolled{background:rgba(22,22,27,.94);backdrop-filter:blur(12px);pad
 /* ===== About ===== */
 .about-wrap{max-width:720px;margin:0 auto;text-align:center}
 .about-wrap p{font-family:var(--serif);color:var(--muted);font-size:17px;line-height:2.05}
+.about-wrap p+p{margin-top:14px}
 
 /* ===== Footer ===== */
 footer.site{background:var(--bg);padding:82px 0 0}

@@ -28,23 +28,23 @@ function loadUser(){
 
 /* ===== 資料（改文字 / 加 img 都在這裡） ===== */
   const ACTIVITIES=[
-    {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],href:'2026springchampionshippt.html',title:'2026 Spring Championship',text:'最激烈的賽事，挑戰你的實力，爭奪冠軍榮耀，展現你的音遊技術。'},
-    {cat:'挑戰',date:'New Release',img:'public/images/rank-preview.png',grad:['#15151c','#3a4a5c'],href:'rank-about.html',title:'段位挑戰系統',text:'全新的段位挑戰系統上線，一起練習，感受音樂的樂趣與成長的快樂。'},
-    {cat:'創作',date:'Workshop',grad:['#1a2230','#244a6b'],title:'譜面創作工坊',text:'學習譜面製作技巧，分享你的創意，與社群一同成長茁壯。'},
-    {cat:'每週',date:'Weekly',grad:['#1a2a33','#3a6675'],title:'每週挑戰賽',text:'每週更新的挑戰曲目，測試你的極限，攀登排行榜頂端。'},
-    {cat:'預告',date:'Coming Soon',img:'public/images/event-comingsoon.png',grad:['#20002c','#3a3897'],title:'特別活動',text:'即將推出全新合作活動，敬請期待，更多驚喜等你來發現。'},
-    {cat:'社群',date:'Discord',img:'public/images/group-icon.png',grad:['#1a2a6c','#2a5298'],href:'https://discord.gg/wN3wx48nTB',title:'社群交流',text:'加入我們的 Discord，與志同道合的玩家一起討論、練習、進步。'}
+    {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],href:'2026springchampionshippt.html',title:'2026 Spring Championship',text:'初賽、次賽到決賽全程線上。玩家等級 30 以上就能報名，不限人數，獎品是 Discord 稱號與點數。'},
+    {cat:'挑戰',date:'New Release',img:'public/images/rank-preview.png',grad:['#15151c','#3a4a5c'],href:'rank-about.html',title:'段位挑戰系統',text:'委員在語音頻道全程監督，指定曲目共用一條血量，歸零就算失敗。通過的段位會記上排行榜。'},
+    {cat:'創作',date:'Workshop',grad:['#1a2230','#244a6b'],title:'譜面創作工坊',text:'做譜相關的交流與分享。內容還在整理，確定後會先在 Discord 公告。'},
+    {cat:'每週',date:'Weekly',grad:['#1a2a33','#3a6675'],title:'每週挑戰賽',text:'每週指定曲目的挑戰。開跑時間與規則確定後，會先在 Discord 公告。'},
+    {cat:'預告',date:'Coming Soon',img:'public/images/event-comingsoon.png',grad:['#20002c','#3a3897'],title:'特別活動',text:'還在準備中。有消息會先在 Discord 公布，網站隨後更新。'},
+    {cat:'社群',date:'Discord',img:'public/images/group-icon.png',grad:['#1a2a6c','#2a5298'],href:'https://discord.gg/wN3wx48nTB',title:'社群交流',text:'卡在哪個段落、想找人一起打，或只是想聊新曲，都可以來 Discord。'}
   ];
   const EVENTS=[
-    {grad:['#3f5a6b','#8aa6b5'],cap:'2026 Spring Championship — 爭奪冠軍榮耀的季度賽事'},
-    {grad:['#2a2438','#3a4a5c'],cap:'段位挑戰 — 從初心者一路挑戰到頂峰'},
-    {grad:['#244a6b','#3a6675'],cap:'每週挑戰賽 — 每週更新的極限曲目'}
+    {grad:['#3f5a6b','#8aa6b5'],cap:'2026 Spring Championship — 2 月線上初賽，4 月 30 日決賽'},
+    {grad:['#2a2438','#3a4a5c'],cap:'段位挑戰 — 從青銅到 Infinity，委員全程監督'},
+    {grad:['#244a6b','#3a6675'],cap:'每週挑戰賽 — 規則確定後於 Discord 公告'}
   ];
   const EXPLORE=[
-    {grad:['#3a6675','#6b8190'],title:'加入 Discord',text:'與其他玩家即時交流，尋求支援與討論。',href:'https://discord.gg/wN3wx48nTB'},
-    {grad:['#2a4a55','#3f5a6b'],title:'段位挑戰',text:'測試你的實力，攀上練習屋的段位階梯。',href:'rank-about.html'},
-    {grad:['#2e2a55','#244a6b'],title:'譜面創作',text:'學習製作譜面，發表你自己的作品。',href:'#activities'},
-    {grad:['#1a2a33','#2a5298'],title:'社群交流',text:'認識同好，一起練習、一起進步。',href:'#about'}
+    {grad:['#3a6675','#6b8190'],title:'加入 Discord',text:'公告、段位預約通知和委員都在這裡。',href:'https://discord.gg/wN3wx48nTB'},
+    {grad:['#2a4a55','#3f5a6b'],title:'段位挑戰',text:'先看血量怎麼算，再決定從哪一階開始。',href:'rank-about.html'},
+    {grad:['#2e2a55','#244a6b'],title:'譜面創作',text:'做譜交流，詳情等 Discord 公告。',href:'#activities'},
+    {grad:['#1a2a33','#2a5298'],title:'關於練習屋',text:'練習屋是誰在經營、平常在做什麼。',href:'#about'}
   ];
   const STAFF2025=[
     {img:'public/images/la.webp',grad:['#2b3a4a','#6b8190'],name:'La.',role:'群主 / 創辦人',desc:'各位好，我是此群之創辦人，負責活動策劃、伺服器管理與網頁設計，確保各位於此群的豆腐能夠安心使用群內資源。'},
