@@ -54,6 +54,8 @@
   }
   .brand { font-family: var(--serif); font-weight: 600; font-size: 18px; letter-spacing: .01em; }
   .brand span { font-family: var(--sans); color: var(--muted); font-weight: 400; margin-left: 10px; font-size: 13px; }
+  .adm-nav a { color: var(--muted); font-size: 13px; margin-left: 12px; text-decoration: none; }
+  .adm-nav a:hover { color: var(--ink, #1c1c1e); text-decoration: underline; }
   .spacer { flex: 1; }
   .who { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
   .who img { width: 26px; height: 26px; border-radius: 50%; }
@@ -202,6 +204,7 @@
 <div id="app" class="hidden">
   <header class="topbar">
     <div class="brand">段位曲目管理<span id="tierHint">未選段位</span></div>
+    <nav class="adm-nav"><a href="/admin-records.html">挑戰紀錄</a><a href="/admin-content.html">每週挑戰賽／譜面工坊</a></nav>
     <div class="spacer"></div>
     <div id="status" class="status"></div>
     <button class="btn btn-primary" id="saveBtn" disabled>儲存變更</button>

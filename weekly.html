@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每週挑戰賽 - Project Sekai 練習屋</title>
+<meta name="description" content="Project Sekai 練習屋每週挑戰賽：每週指定曲目，依扣血或分數合計排名。投稿經委員確認後登錄。">
+<link rel="canonical" href="https://pjsk-practicehouse-site.vercel.app/weekly.html">
+<meta name="theme-color" content="#0f1420">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Project Sekai 練習屋">
+<meta property="og:title" content="每週挑戰賽 - Project Sekai 練習屋">
+<meta property="og:description" content="每週指定曲目，依扣血或分數合計排名。投稿經委員確認後登錄。">
+<meta property="og:url" content="https://pjsk-practicehouse-site.vercel.app/weekly.html">
+<link rel="stylesheet" href="content.css">
+<style>
+  .week-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .week-title { font-size: 20px; font-weight: 800; margin: 0; }
+  .week-period { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .status-pill { font-size: 12px; font-weight: 700; padding: 3px 11px; border-radius: 20px; border: 1px solid var(--line-2); color: var(--muted); white-space: nowrap; }
+  .status-pill.live { color: var(--pass); border-color: rgba(127,214,168,.45); background: rgba(127,214,168,.08); }
+  .status-pill.soon { color: var(--gold); border-color: rgba(255,215,106,.45); }
+  .countdown { margin-top: 4px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+
+  .songs { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; }
+  .song { display: flex; gap: 14px; align-items: center; }
+  .song-name { font-weight: 700; line-height: 1.4; }
+  .song-meta { color: var(--muted); font-size: 13px; }
+  .week-note { margin: 16px 0 0; padding-left: 14px; border-left: 2px solid #e0a244; color: var(--muted); font-size: 14px; white-space: pre-line; }
+  .metric { margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .metric strong { color: var(--text); }
+
+  .toolbar { display: flex; gap: 10px; align-items: center; justify-content: flex-end; margin: -6px 0 14px; flex-wrap: wrap; }
+  .toolbar select { max-width: 100%; }
+
+  .board { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .row { border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: none; }
+  .row.me { background: rgba(255,215,106,.07); }
+  .row summary {
+    display: flex; align-items: center; gap: 14px; padding: 13px 18px;
+    cursor: pointer; list-style: none;
+  }
+  .row summary::-webkit-details-marker { display: none; }
+  .rank-no { min-width: 36px; font-size: 18px; font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .rank-no.r1 { color: var(--gold); } .rank-no.r2 { color: #cfd6e0; } .rank-no.r3 { color: #d2a06a; }
+  .who { flex: 1; min-width: 0; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .val { font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; }
+  .val small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
+  .detail { padding: 0 18px 14px 68px; font-size: 13px; color: var(--muted); }
+  .detail table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  .detail th, .detail td { padding: 4px 8px 4px 0; text-align: right; border-bottom: 1px solid var(--line); }
+  .detail th:first-child, .detail td:first-child { text-align: left; }
+  .detail th { font-weight: 500; }
+  .detail .proof { margin-top: 8px; }
+
+  /* 投稿表單：每首一列 */
+  .sub-song { padding: 14px 0; border-top: 1px solid var(--line); }
+  .sub-song:first-of-type { border-top: none; padding-top: 0; }
+  .sub-song .song-name { margin-bottom: 8px; }
+  .jd-row { display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 8px; align-items: end; }
+  .jd-row.score { grid-template-columns: 1fr; }
+  .jd-row label { font-size: 11px; font-weight: 700; }
+  .jd-row input { text-align: right; font-variant-numeric: tabular-nums; }
+  .jd-sum { color: var(--muted); font-size: 13px; min-width: 64px; text-align: right; padding-bottom: 10px; font-variant-numeric: tabular-nums; }
+  .total { margin-top: 12px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+  ul.rules { margin: 0; padding-left: 1.2em; color: var(--muted); font-size: 14px; }
+  ul.rules li + li { margin-top: 6px; }
+  ul.rules strong { color: var(--text); }
+
+  @media (max-width: 560px) {
+    .row summary { gap: 10px; padding: 12px 14px; }
+    .detail { padding: 0 14px 12px; }
+    .jd-row { grid-template-columns: repeat(4, 1fr); }
+    .jd-sum { grid-column: 1 / -1; padding: 0; }
+    .countdown { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-button" title="返回首頁"></a>
+
+<div class="wrap">
+  <h1>每週挑戰賽</h1>
+  <p class="sub">每週指定曲目，於期間內遊玩並投稿成績。投稿經委員確認後登錄於排行。</p>
+
+  <div id="loading" class="empty">載入中…</div>
+  <div id="none" class="empty hidden">目前沒有已公布的週次。<br>新週次將於 Discord 公告。</div>
+
+  <div id="main" class="hidden">
+    <div class="card" id="weekCard"></div>
+
+    <h2>排行 <small id="boardSub"></small></h2>
+    <div class="toolbar">
+      <label class="muted" for="weekSel">週次</label>
+      <select id="weekSel" class="input" style="width:auto"></select>
+    </div>
+    <div class="board" id="board"></div>
+
+    <section id="submitSec" class="hidden">
+      <h2>投稿成績 <small>每人每週以最後一次確認的成績為準</small></h2>
+      <div class="card">
+        <div id="submitGate" class="hidden">
+          <p class="muted" style="margin:0 0 14px">投稿需以 Discord 登入，成績才能對應到你的帳號。</p>
+          <a class="btn" id="loginLink" href="/api/auth/login?next=/weekly.html">以 Discord 登入</a>
+        </div>
+        <form id="submitForm" class="hidden" novalidate>
+          <div id="mine" class="msg" style="margin-bottom:14px"></div>
+          <div id="subSongs"></div>
+          <div class="total" id="subTotal"></div>
+          <div class="form-grid" style="margin-top:16px">
+            <div class="fld">
+              <label for="fProof">成績證明連結（截圖或影片，https）</label>
+              <input id="fProof" type="url" inputmode="url" placeholder="https://" required maxlength="300">
+            </div>
+            <div class="fld">
+              <label for="fNote">備註（選填）</label>
+              <input id="fNote" type="text" maxlength="200">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn" id="submitBtn" type="submit">送出</button>
+            <span class="msg" id="submitMsg" role="status"></span>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <h2>規則</h2>
+    <div class="card">
+      <ul class="rules" id="rules"></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const JUDGES = ['great', 'good', 'bad', 'miss'];
+  const DIFF = { easy: 'EASY', normal: 'NORMAL', hard: 'HARD', expert: 'EXPERT', master: 'MASTER', append: 'APPEND' };
+  const fmt = (n) => Number(n).toLocaleString('en-US');
+  // 「今天」以台灣時間為準，與 API 端的判定一致
+  const todayTPE = () => new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10);
+  const endAt = (w) => Date.parse(`${w.end}T23:59:59+08:00`);
+  const startAt = (w) => Date.parse(`${w.start}T00:00:00+08:00`);
+
+  const state = { weeks: [], dmg: { great: 1, good: 2, bad: 3, miss: 5 }, me: null, sel: null };
+
+  function phase(w) {
+    const t = todayTPE();
+    if (t < w.start) return 'soon';
+    if (t > w.end) return 'done';
+    return 'live';
+  }
+
+  function total(w, e) {
+    if (w.metric === 'score') return e.results.reduce((a, r) => a + (r.score || 0), 0);
+    return e.results.reduce((a, r) => a + JUDGES.reduce((b, j) => b + (r[j] || 0) * state.dmg[j], 0), 0);
+  }
+
+  // 同分同名次（1, 1, 3）：不自行發明決勝規則，由委員視需要另行公告
+  function ranked(w) {
+    const asc = w.metric !== 'score';
+    const rows = (w.entries || []).map((e) => ({ ...e, total: total(w, e) }))
+      .sort((a, b) => (asc ? a.total - b.total : b.total - a.total));
+    let last = null, rank = 0;
+    rows.forEach((r, i) => { if (r.total !== last) { rank = i + 1; last = r.total; } r.rank = rank; });
+    return rows;
+  }
+
+  function pickDefault(weeks) {
+    const live = weeks.find((w) => phase(w) === 'live');
+    if (live) return live;
+    const soon = weeks.filter((w) => phase(w) === 'soon').sort((a, b) => a.start.localeCompare(b.start))[0];
+    return soon || weeks[0];
+  }
+
+  async function boot() {
+    try {
+      const [wk, rs] = await Promise.all([
+        fetch('data/weekly.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : { weeks: [] })),
+        fetch('data/rank-songs.json', { cache: 'no-cache' }).then((r) => r.json()).catch(() => ({})),
+      ]);
+      state.weeks = (wk.weeks || []).slice().sort((a, b) => b.start.localeCompare(a.start));
+      const d = rs.defaults?.damage;
+      if (d) for (const j of JUDGES) if (typeof d[j] === 'number') state.dmg[j] = d[j];
+    } catch {
+      $('loading').textContent = '資料載入失敗，請重新整理。';
+      return;
+    }
+    $('loading').classList.add('hidden');
+    if (!state.weeks.length) { $('none').classList.remove('hidden'); return; }
+
+    try {
+      const me = await (await fetch('/api/auth/me', { credentials: 'same-origin' })).json();
+      if (me.loggedIn) state.me = me.user;
+    } catch { /* 未登入不影響瀏覽 */ }
+
+    const q = new URLSearchParams(location.search).get('week');
+    state.sel = state.weeks.find((w) => w.id === q) || pickDefault(state.weeks);
+
+    $('weekSel').innerHTML = state.weeks.map((w) =>
+      `<option value="${esc(w.id)}">${esc(w.title || w.id)}（${esc(w.start)} – ${esc(w.end)}）</option>`).join('');
+    $('weekSel').value = state.sel.id;
+    $('weekSel').addEventListener('change', () => {
+      state.sel = state.weeks.find((w) => w.id === $('weekSel').value);
+      history.replaceState(null, '', `?week=${encodeURIComponent(state.sel.id)}`);
+      render();
+    });
+    $('submitForm').addEventListener('submit', submit);
+    $('main').classList.remove('hidden');
+    render();
+    setInterval(renderCountdown, 30000);
+  }
+
+  function render() {
+    renderWeek();
+    renderBoard();
+    renderRules();
+    renderSubmit();
+  }
+
+  function renderCountdown() {
+    const el = $('countdown');
+    if (!el) return;
+    const w = state.sel, p = phase(w);
+    const fmtLeft = (ms) => {
+      const m = Math.max(0, Math.floor(ms / 60000));
+      const d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60);
+      return d ? `${d} 天 ${h} 小時` : `${h} 小時 ${m % 60} 分`;
+    };
+    el.textContent = p === 'live' ? `截止前 ${fmtLeft(endAt(w) - Date.now())}`
+      : p === 'soon' ? `${fmtLeft(startAt(w) - Date.now())}後開始` : '';
+  }
+
+  function renderWeek() {
+    const w = state.sel, p = phase(w);
+    const pill = { live: ['live', '進行中'], soon: ['soon', '即將開始'], done: ['', '已結束'] }[p];
+    $('weekCard').innerHTML = `
+      <div class="week-head">
+        <div>
+          <p class="week-title">${esc(w.title || `每週挑戰賽 ${w.id}`)}</p>
+          <div class="week-period">${esc(w.start)} 00:00 – ${esc(w.end)} 23:59（台灣時間）</div>
+        </div>
+        <div>
+          <span class="status-pill ${pill[0]}">${pill[1]}</span>
+          <div class="countdown" id="countdown"></div>
+        </div>
+      </div>
+      <ol class="songs">${w.songs.map((s) => `
+        <li class="song">
+          ${s.jacket ? `<img class="jacket" src="${esc(s.jacket)}" alt="" loading="lazy" width="56" height="56" onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='">` : '<span class="jacket"></span>'}
+          <div>
+            <div class="song-name">${esc(s.title)}</div>
+            <div class="song-meta"><span class="diff diff-${esc(s.difficulty)}">${DIFF[s.difficulty] || ''}</span>${s.level != null ? ` Lv ${esc(s.level)}` : ''}</div>
+          </div>
+        </li>`).join('')}
+      </ol>
+      <div class="metric">計分方式：<strong>${w.metric === 'score' ? '分數合計（高者為上）' : '扣血合計（低者為上）'}</strong></div>
+      ${w.note ? `<div class="week-note">${esc(w.note)}</div>` : ''}`;
+    renderCountdown();
+  }
+
+  function renderBoard() {
+    const w = state.sel;
+    const rows = ranked(w);
+    $('boardSub').textContent = rows.length ? `共 ${rows.length} 人` : '';
+    if (!rows.length) {
+      $('board').innerHTML = `<div class="empty">${phase(w) === 'soon' ? '尚未開始。' : '尚無已確認的成績。'}</div>`;
+      return;
+    }
+    const unit = w.metric === 'score' ? '分' : '扣血';
+    $('board').innerHTML = rows.map((r) => {
+      const mine = state.me && r.userId === state.me.id;
+      const head = w.metric === 'score'
+        ? '<tr><th>曲目</th><th>分數</th></tr>'
+        : '<tr><th>曲目</th><th style="color:var(--great)">GREAT</th><th style="color:var(--good)">GOOD</th><th style="color:var(--bad)">BAD</th><th style="color:var(--miss)">MISS</th><th>扣血</th></tr>';
+      const body = w.songs.map((s, i) => {
+        const x = r.results[i] || {};
+        if (w.metric === 'score') return `<tr><td>${esc(s.title)}</td><td>${fmt(x.score || 0)}</td></tr>`;
+        const sub = JUDGES.reduce((a, j) => a + (x[j] || 0) * state.dmg[j], 0);
+        return `<tr><td>${esc(s.title)}</td>${JUDGES.map((j) => `<td>${x[j] ?? 0}</td>`).join('')}<td>${sub}</td></tr>`;
+      }).join('');
+      return `
+        <details class="row${mine ? ' me' : ''}">
+          <summary>
+            <span class="rank-no${r.rank <= 3 ? ' r' + r.rank : ''}">${r.rank}</span>
+            <span class="who">${esc(r.name)}${mine ? '（你）' : ''}</span>
+            <span class="val">${fmt(r.total)}<small>${unit}</small></span>
+          </summary>
+          <div class="detail">
+            <table>${head}${body}</table>
+            <div class="proof">${r.date ? `${esc(r.date)} 確認` : ''}${r.proof ? `　<a href="${esc(r.proof)}" target="_blank" rel="noopener nofollow ugc">成績證明</a>` : ''}</div>
+          </div>
+        </details>`;
+    }).join('');
+  }
+
+  function renderRules() {
+    const w = state.sel;
+    const d = state.dmg;
+    $('rules').innerHTML = `
+      <li>期間內可不限次數遊玩，<strong>投稿任一次的成績</strong>即可；每人每週只登錄一筆，重新投稿以委員最後確認的為準。</li>
+      <li>${w.metric === 'score'
+        ? '計分方式為<strong>各曲分數合計</strong>，高者名次在前。'
+        : `計分方式為<strong>各曲扣血合計</strong>，低者名次在前。扣血權重與段位挑戰預設值相同：GREAT ${d.great}、GOOD ${d.good}、BAD ${d.bad}、MISS ${d.miss}。`}</li>
+      <li>合計相同者並列同一名次。</li>
+      <li>投稿須附截圖或影片連結，畫面須能辨識曲目、難度與判定數。成績經委員確認後才會出現在排行。</li>
+      <li>投稿期間以台灣時間為準，截止後不受理。</li>`;
+  }
+
+  function renderSubmit() {
+    const w = state.sel;
+    const live = phase(w) === 'live';
+    $('submitSec').classList.toggle('hidden', !live);
+    if (!live) return;
+    $('submitGate').classList.toggle('hidden', !!state.me);
+    $('submitForm').classList.toggle('hidden', !state.me);
+    $('loginLink').href = `/api/auth/login?next=${encodeURIComponent(`/weekly.html?week=${w.id}`)}`;
+    if (!state.me) return;
+
+    const mine = ranked(w).find((r) => r.userId === state.me.id);
+    $('mine').textContent = mine ? `你目前登錄的成績：第 ${mine.rank} 名（${fmt(mine.total)}${w.metric === 'score' ? ' 分' : ' 扣血'}）。重新投稿後將由委員更新。` : '';
+
+    $('subSongs').innerHTML = w.songs.map((s, i) => `
+      <div class="sub-song">
+        <div class="song-name">${i + 1}. ${esc(s.title)} <span class="diff diff-${esc(s.difficulty)}">${DIFF[s.difficulty] || ''}</span></div>
+        ${w.metric === 'score'
+          ? `<div class="jd-row score"><div class="fld"><label for="s${i}">分數</label><input class="input" id="s${i}" data-i="${i}" data-j="score" type="number" inputmode="numeric" min="0" max="99999999" required></div></div>`
+          : `<div class="jd-row">${JUDGES.map((j) => `
+              <div class="fld"><label for="j${i}${j}" style="color:var(--${j})">${j.toUpperCase()}</label>
+              <input class="input" id="j${i}${j}" data-i="${i}" data-j="${j}" type="number" inputmode="numeric" min="0" max="99999" value="0" required></div>`).join('')}
+              <div class="jd-sum" id="sum${i}">扣 0</div></div>`}
+      </div>`).join('');
+    $('subSongs').oninput = updateTotal;
+    updateTotal();
+  }
+
+  function readResults() {
+    const w = state.sel;
+    return w.songs.map((_, i) => {
+      if (w.metric === 'score') return { score: Number($(`s${i}`).value) };
+      return Object.fromEntries(JUDGES.map((j) => [j, Number($(`j${i}${j}`).value)]));
+    });
+  }
+
+  function updateTotal() {
+    const w = state.sel;
+    const res = readResults();
+    if (w.metric === 'score') {
+      const t = res.reduce((a, r) => a + (Number.isFinite(r.score) ? r.score : 0), 0);
+      $('subTotal').textContent = `合計 ${fmt(t)} 分`;
+      return;
+    }
+    let t = 0;
+    res.forEach((r, i) => {
+      const s = JUDGES.reduce((a, j) => a + (Number.isFinite(r[j]) ? r[j] : 0) * state.dmg[j], 0);
+      $(`sum${i}`).textContent = `扣 ${s}`;
+      t += s;
+    });
+    $('subTotal').textContent = `扣血合計 ${t}`;
+  }
+
+  async function submit(ev) {
+    ev.preventDefault();
+    const msg = (t, k = '') => { $('submitMsg').textContent = t; $('submitMsg').className = `msg ${k}`; };
+    const w = state.sel;
+    const results = readResults();
+    const okNum = (v, max) => Number.isInteger(v) && v >= 0 && v <= max;
+    const bad = results.some((r) => (w.metric === 'score' ? !okNum(r.score, 99999999) : JUDGES.some((j) => !okNum(r[j], 99999))));
+    if (bad) return msg('成績欄位須為 0 以上的整數。', 'err');
+    const proof = $('fProof').value.trim();
+    if (!/^https:\/\//i.test(proof)) return msg('請填寫 https 開頭的證明連結。', 'err');
+
+    $('submitBtn').disabled = true;
+    msg('送出中…');
+    try {
+      const r = await fetch('/api/content?doc=weekly', {
+        method: 'POST', credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ weekId: w.id, results, proof, note: $('fNote').value.trim() }),
+      });
+      const out = await r.json().catch(() => ({}));
+      if (r.ok) { msg('已送出。委員確認後會出現在排行。', 'ok'); $('fNote').value = ''; return; }
+      if (r.status === 401) return msg('登入已過期，請重新登入。', 'err');
+      msg(out.message || (out.errs || []).join('、') || '送出失敗，請稍後再試。', 'err');
+    } catch {
+      msg('連線失敗，請稍後再試。', 'err');
+    } finally {
+      $('submitBtn').disabled = false;
+    }
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>

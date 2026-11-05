@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>譜面創作工坊 - Project Sekai 練習屋</title>
+<meta name="description" content="Project Sekai 練習屋譜面創作工坊：收錄社群成員製作的譜面。投稿經委員確認後刊登。">
+<link rel="canonical" href="https://pjsk-practicehouse-site.vercel.app/workshop.html">
+<meta name="theme-color" content="#0f1420">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Project Sekai 練習屋">
+<meta property="og:title" content="譜面創作工坊 - Project Sekai 練習屋">
+<meta property="og:description" content="收錄社群成員製作的譜面。投稿經委員確認後刊登。">
+<meta property="og:url" content="https://pjsk-practicehouse-site.vercel.app/workshop.html">
+<link rel="stylesheet" href="content.css">
+<style>
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .filters .input { flex: 1 1 220px; }
+  .filters select { flex: 0 0 auto; width: auto; }
+  #tagChips { margin-bottom: 20px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .work { display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .work-top { display: flex; gap: 12px; align-items: center; }
+  .work-title { font-weight: 800; line-height: 1.4; word-break: break-word; }
+  .work-song { color: var(--muted); font-size: 13px; line-height: 1.4; word-break: break-word; }
+  .work-meta { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .lv { font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
+  .work-desc { margin: 10px 0 0; font-size: 14px; color: #c9c9d4; white-space: pre-line; word-break: break-word; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .tag { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 20px; padding: 1px 9px; }
+  .work-foot { margin-top: auto; padding-top: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .host { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .count { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+
+  .songpick { position: relative; }
+  .songpick ul {
+    position: absolute; left: 0; right: 0; top: 100%; z-index: 5; margin: 4px 0 0; padding: 4px 0; list-style: none;
+    max-height: 260px; overflow: auto; background: #1b2030; border: 1px solid var(--line-2); border-radius: 6px;
+  }
+  .songpick li { padding: 6px 12px; cursor: pointer; font-size: 14px; }
+  .songpick li:hover, .songpick li[aria-selected="true"] { background: rgba(255,255,255,.08); }
+  .songpick li small { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-button" title="返回首頁"></a>
+
+<div class="wrap">
+  <h1>譜面創作工坊</h1>
+  <p class="sub">收錄社群成員製作的譜面。投稿經委員確認後刊登；連結指向外部網站，內容由作者提供。</p>
+
+  <div id="loading" class="empty">載入中…</div>
+
+  <div id="main" class="hidden">
+    <div class="filters">
+      <input id="q" class="input" type="search" placeholder="搜尋作品、曲名或作者" aria-label="搜尋">
+      <select id="sort" class="input" aria-label="排序">
+        <option value="new">最新刊登</option>
+        <option value="lvDesc">等級高 → 低</option>
+        <option value="lvAsc">等級低 → 高</option>
+      </select>
+    </div>
+    <div class="chips" id="tagChips"></div>
+    <p class="count" id="count"></p>
+    <div class="grid" id="grid"></div>
+    <div class="empty hidden" id="empty"></div>
+
+    <h2>投稿</h2>
+    <div class="card">
+      <ul class="muted" style="margin:0 0 16px;padding-left:1.2em">
+        <li>請提供可公開瀏覽的連結（影片、譜面檔案頁面等），須為 https 開頭。</li>
+        <li>投稿會通知委員，確認後刊登。作者名稱使用你的 Discord 名稱。</li>
+        <li>非本人製作的譜面請勿投稿。</li>
+      </ul>
+      <div id="gate" class="hidden">
+        <a class="btn" href="/api/auth/login?next=/workshop.html">以 Discord 登入後投稿</a>
+      </div>
+      <form id="form" class="hidden" novalidate>
+        <div class="form-grid">
+          <div class="fld">
+            <label for="fTitle">作品名稱</label>
+            <input id="fTitle" maxlength="80" required>
+          </div>
+          <div class="fld songpick">
+            <label for="fSong">對應曲目（選填，輸入後從清單選擇）</label>
+            <input id="fSong" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="songList">
+            <ul id="songList" role="listbox" class="hidden"></ul>
+          </div>
+          <div class="fld">
+            <label for="fLevel">自評等級（選填，1–45）</label>
+            <input id="fLevel" type="number" inputmode="numeric" min="1" max="45">
+          </div>
+          <div class="fld">
+            <label for="fUrl">連結（https）</label>
+            <input id="fUrl" type="url" inputmode="url" placeholder="https://" maxlength="300" required>
+          </div>
+        </div>
+        <div class="fld" style="margin-top:14px">
+          <label for="fDesc">說明（選填，500 字內）</label>
+          <textarea id="fDesc" maxlength="500"></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn" id="sendBtn" type="submit">送出</button>
+          <span class="msg" id="msg" role="status"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const jacketOf = (id) => `/api/jacket?n=jacket_s_${String(id).padStart(3, '0')}`;
+  const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } };
+  const safeUrl = (u) => (/^https:\/\//i.test(String(u)) ? u : '#');
+
+  const state = { entries: [], tag: null, songs: null, songId: null };
+
+  async function boot() {
+    try {
+      const r = await fetch('data/workshop.json', { cache: 'no-cache' });
+      state.entries = r.ok ? ((await r.json()).entries || []) : [];
+    } catch {
+      $('loading').textContent = '資料載入失敗，請重新整理。';
+      return;
+    }
+    $('loading').classList.add('hidden');
+    $('main').classList.remove('hidden');
+
+    const q = new URLSearchParams(location.search);
+    if (q.get('tag')) state.tag = q.get('tag');
+    if (q.get('q')) $('q').value = q.get('q');
+
+    renderTags();
+    render();
+    $('q').addEventListener('input', render);
+    $('sort').addEventListener('change', render);
+
+    try {
+      const me = await (await fetch('/api/auth/me', { credentials: 'same-origin' })).json();
+      $(me.loggedIn ? 'form' : 'gate').classList.remove('hidden');
+    } catch {
+      $('gate').classList.remove('hidden');
+    }
+    $('form').addEventListener('submit', submit);
+    setupSongPicker();
+  }
+
+  function renderTags() {
+    const counts = new Map();
+    for (const e of state.entries) for (const t of e.tags || []) counts.set(t, (counts.get(t) || 0) + 1);
+    const tags = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([t]) => t);
+    if (!tags.length) { $('tagChips').classList.add('hidden'); return; }
+    $('tagChips').innerHTML = [`<button class="chip" data-tag="" aria-pressed="${!state.tag}">全部</button>`]
+      .concat(tags.map((t) => `<button class="chip" data-tag="${esc(t)}" aria-pressed="${state.tag === t}">${esc(t)}</button>`)).join('');
+    $('tagChips').onclick = (ev) => {
+      const b = ev.target.closest('.chip');
+      if (!b) return;
+      state.tag = b.dataset.tag || null;
+      for (const c of $('tagChips').children) c.setAttribute('aria-pressed', String((c.dataset.tag || null) === state.tag));
+      render();
+    };
+  }
+
+  function render() {
+    const kw = $('q').value.trim().toLowerCase();
+    const sort = $('sort').value;
+    let rows = state.entries.filter((e) => {
+      if (state.tag && !(e.tags || []).includes(state.tag)) return false;
+      if (!kw) return true;
+      return [e.title, e.songTitle, e.authorName, ...(e.tags || [])].some((v) => String(v || '').toLowerCase().includes(kw));
+    });
+    const lv = (e) => (e.level == null ? -1 : e.level);
+    rows = rows.slice().sort((a, b) => {
+      if (sort === 'lvDesc') return lv(b) - lv(a);
+      if (sort === 'lvAsc') return (a.level ?? 99) - (b.level ?? 99);
+      return String(b.date || '').localeCompare(String(a.date || ''));
+    });
+
+    $('count').textContent = state.entries.length ? `${rows.length} / ${state.entries.length} 件作品` : '';
+    $('empty').classList.toggle('hidden', rows.length > 0);
+    $('empty').innerHTML = state.entries.length ? '沒有符合條件的作品。' : '目前尚無刊登作品。<br>歡迎由下方投稿。';
+
+    $('grid').innerHTML = rows.map((e) => {
+      const url = safeUrl(e.url);
+      return `
+      <article class="work">
+        <div class="work-top">
+          ${e.songId != null ? `<img class="jacket" src="${jacketOf(e.songId)}" alt="" loading="lazy" width="56" height="56" onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='">` : '<span class="jacket"></span>'}
+          <div style="min-width:0">
+            <div class="work-title">${esc(e.title)}</div>
+            ${e.songTitle ? `<div class="work-song">${esc(e.songTitle)}</div>` : ''}
+          </div>
+        </div>
+        <div class="work-meta">
+          ${e.level != null ? `<span>Lv <span class="lv">${esc(e.level)}</span></span>` : ''}
+          <span>作者　${esc(e.authorName)}</span>
+          ${e.date ? `<span>${esc(e.date)}</span>` : ''}
+        </div>
+        ${e.description ? `<p class="work-desc">${esc(e.description)}</p>` : ''}
+        ${(e.tags || []).length ? `<div class="tags">${e.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
+        <div class="work-foot">
+          <span class="host">${esc(hostOf(url))}</span>
+          <a class="btn btn-ghost btn-sm" href="${esc(url)}" target="_blank" rel="noopener nofollow ugc">開啟連結</a>
+        </div>
+      </article>`;
+    }).join('');
+  }
+
+  // 曲庫 225 KB，只在使用者開始輸入曲名時才載入
+  async function loadSongs() {
+    if (state.songs) return state.songs;
+    try {
+      const d = await (await fetch('data/songs.json')).json();
+      state.songs = d.songs.map((s) => ({ id: s.id, title: s.title, zh: s.titleZh || '', key: `${s.title} ${s.titleZh || ''} ${s.composer || ''}`.toLowerCase() }));
+    } catch { state.songs = []; }
+    return state.songs;
+  }
+
+  function setupSongPicker() {
+    const input = $('fSong'), list = $('songList');
+    const close = () => { list.classList.add('hidden'); input.setAttribute('aria-expanded', 'false'); };
+    input.addEventListener('input', async () => {
+      state.songId = null;
+      const kw = input.value.trim().toLowerCase();
+      if (!kw) return close();
+      const songs = await loadSongs();
+      const hits = songs.filter((s) => s.key.includes(kw)).slice(0, 12);
+      if (!hits.length) return close();
+      list.innerHTML = hits.map((s) => `<li role="option" data-id="${s.id}">${esc(s.title)}${s.zh ? ` <small>${esc(s.zh)}</small>` : ''}</li>`).join('');
+      list.classList.remove('hidden');
+      input.setAttribute('aria-expanded', 'true');
+    });
+    list.addEventListener('mousedown', (ev) => {
+      const li = ev.target.closest('li');
+      if (!li) return;
+      ev.preventDefault();
+      const s = state.songs.find((x) => x.id === Number(li.dataset.id));
+      state.songId = s.id;
+      input.value = s.title;
+      close();
+    });
+    input.addEventListener('blur', close);
+    input.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') close(); });
+  }
+
+  async function submit(ev) {
+    ev.preventDefault();
+    const msg = (t, k = '') => { $('msg').textContent = t; $('msg').className = `msg ${k}`; };
+    const title = $('fTitle').value.trim();
+    const url = $('fUrl').value.trim();
+    const level = $('fLevel').value.trim();
+    if (!title) return msg('請填寫作品名稱。', 'err');
+    if (!/^https:\/\//i.test(url)) return msg('連結須為 https 開頭。', 'err');
+    if (level && !(Number.isInteger(Number(level)) && level >= 1 && level <= 45)) return msg('自評等級須為 1–45 的整數。', 'err');
+    if ($('fSong').value.trim() && state.songId == null) return msg('對應曲目請從清單中選擇，或留空。', 'err');
+
+    $('sendBtn').disabled = true;
+    msg('送出中…');
+    try {
+      const r = await fetch('/api/content?doc=workshop', {
+        method: 'POST', credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, url, level: level || null, songId: state.songId, description: $('fDesc').value.trim() }),
+      });
+      const out = await r.json().catch(() => ({}));
+      if (r.ok) {
+        msg('已送出。委員確認後會刊登於本頁。', 'ok');
+        $('form').reset(); state.songId = null;
+        return;
+      }
+      if (r.status === 401) return msg('登入已過期，請重新登入。', 'err');
+      msg(out.message || (out.errs || []).join('、') || '送出失敗，請稍後再試。', 'err');
+    } catch {
+      msg('連線失敗，請稍後再試。', 'err');
+    } finally {
+      $('sendBtn').disabled = false;
+    }
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>

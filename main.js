@@ -30,20 +30,20 @@ function loadUser(){
   const ACTIVITIES=[
     {cat:'賽事',date:'Spring 2026',img:'public/images/themepicture.png',grad:['#2b3a4a','#6b8190'],href:'2026springchampionshippt.html',title:'2026 Spring Championship',text:'全賽程線上舉辦。參加資格為玩家等級 30 以上，不限名額。獎品為 Discord 稱號及點數。'},
     {cat:'挑戰',date:'New Release',img:'public/images/rank-preview.png',grad:['#15151c','#3a4a5c'],href:'rank-about.html',title:'段位挑戰系統',text:'由委員於 Discord 語音頻道監督進行。指定曲目共用血量，歸零即挑戰失敗。通過的段位將登錄於排行榜。'},
-    {cat:'創作',date:'Workshop',grad:['#1a2230','#244a6b'],title:'譜面創作工坊',text:'譜面製作相關的交流活動。詳細內容將於 Discord 公告。'},
-    {cat:'每週',date:'Weekly',grad:['#1a2a33','#3a6675'],title:'每週挑戰賽',text:'每週指定曲目的挑戰活動。舉辦時間及規則將於 Discord 公告。'},
+    {cat:'創作',date:'Workshop',grad:['#1a2230','#244a6b'],href:'workshop.html',title:'譜面創作工坊',text:'收錄社群成員製作的譜面。登入後即可投稿，經委員確認後刊登。'},
+    {cat:'每週',date:'Weekly',grad:['#1a2a33','#3a6675'],href:'weekly.html',title:'每週挑戰賽',text:'每週指定曲目，依扣血或分數合計排名。投稿經委員確認後登錄於排行。'},
     {cat:'預告',date:'Coming Soon',img:'public/images/event-comingsoon.png',grad:['#20002c','#3a3897'],title:'特別活動',text:'詳細內容將於 Discord 公告。'},
     {cat:'社群',date:'Discord',img:'public/images/group-icon.png',grad:['#1a2a6c','#2a5298'],href:'https://discord.gg/wN3wx48nTB',title:'社群交流',text:'練習屋 Discord 伺服器。活動公告及段位預約通知皆於此發布。'}
   ];
   const EVENTS=[
     {grad:['#3f5a6b','#8aa6b5'],cap:'2026 Spring Championship — 線上初賽 2/25 起，決賽 4/30'},
     {grad:['#2a2438','#3a4a5c'],cap:'段位挑戰 — 青銅至 Infinity，受理預約中'},
-    {grad:['#244a6b','#3a6675'],cap:'每週挑戰賽 — 詳細內容將於 Discord 公告'}
+    {grad:['#244a6b','#3a6675'],cap:'每週挑戰賽 — 每週指定曲目，投稿成績登錄排行'}
   ];
   const EXPLORE=[
     {grad:['#3a6675','#6b8190'],title:'加入 Discord',text:'活動公告及段位預約通知。',href:'https://discord.gg/wN3wx48nTB'},
     {grad:['#2a4a55','#3f5a6b'],title:'段位挑戰',text:'血量規則、段位順序及預約方式。',href:'rank-about.html'},
-    {grad:['#2e2a55','#244a6b'],title:'譜面創作',text:'詳細內容將於 Discord 公告。',href:'#activities'},
+    {grad:['#2e2a55','#244a6b'],title:'譜面創作',text:'社群成員的譜面作品及投稿。',href:'workshop.html'},
     {grad:['#1a2a33','#2a5298'],title:'關於練習屋',text:'社群簡介及營運團隊。',href:'#about'}
   ];
   const STAFF2025=[
